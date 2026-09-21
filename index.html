@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#184e77">
+<title>SAMS Phase 2</title>
+<style>
+:root{--p:#184e77;--p2:#1e6091;--bg:#f4f7fb;--card:#fff;--txt:#1f2937;--mut:#667085;--bd:#dce4ed;--ok:#027a48;--warn:#b54708;--bad:#b42318;--side:250px}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--txt)}button,input,select{font:inherit}.hidden{display:none!important}.loading{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;align-content:center;color:var(--mut)}.spinner{width:36px;height:36px;border:4px solid #d7e0e8;border-top-color:var(--p2);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#edf5fb,#fbfdff)}.auth-card{width:min(430px,100%);background:#fff;border:1px solid var(--bd);border-radius:18px;padding:28px;box-shadow:0 16px 45px rgba(20,60,90,.12)}.brand-login{display:flex;gap:13px;align-items:center;margin-bottom:22px}.logo,.brand-mark{width:44px;height:44px;border-radius:12px;background:var(--p);color:#fff;display:grid;place-items:center;font-weight:800;font-size:22px}.brand-login h1{margin:0}.brand-login p{margin:3px 0 0;color:var(--mut);font-size:12px}.alert{background:#fee4e2;color:var(--bad);padding:10px;border-radius:8px;font-size:12px;margin-bottom:12px}.auth-card label,#settingsForm label{display:block;font-size:11px;font-weight:700;margin:10px 0 5px}.auth-card input,#settingsForm input,.f input,.f select,.toolbar input{width:100%;border:1px solid var(--bd);border-radius:8px;padding:9px 10px;background:#fff}.btn{border:0;border-radius:8px;padding:9px 12px;font-weight:700;font-size:12px;cursor:pointer}.primary{background:var(--p2);color:#fff}.light{background:#edf2f7;color:#344054}.success{background:var(--ok);color:#fff}.warning{background:#d97706;color:#fff}.danger{background:var(--bad);color:#fff}.block{width:100%;margin-top:14px}.link-btn{border:0;background:transparent;color:var(--p2);padding:12px 0 0;cursor:pointer}.small-note,.muted{font-size:12px;color:var(--mut);line-height:1.55}.msg{min-height:16px;font-size:12px;margin-top:10px;color:var(--bad)}.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:var(--side);background:linear-gradient(180deg,#123b59,#0d2f48);color:#fff;padding:14px 12px;display:flex;flex-direction:column}.brand{display:flex;gap:10px;align-items:center;padding:4px 8px 15px}.brand-mark{width:36px;height:36px;background:#fff;color:var(--p)}.brand-text{display:flex;flex-direction:column}.brand-text small{font-size:10px;opacity:.7}.sidebar nav{display:grid;gap:5px}.nav{border:0;background:transparent;color:#fff;padding:10px 11px;border-radius:8px;text-align:left;cursor:pointer}.nav:hover,.nav.active{background:rgba(255,255,255,.14)}.nav span{margin-left:8px;font-size:12px}.user-mini{margin-top:auto;border-top:1px solid rgba(255,255,255,.15);padding:13px 8px;display:flex;flex-direction:column}.user-mini b{font-size:12px}.user-mini small{font-size:10px;opacity:.7;margin-top:3px}.app main{margin-left:var(--side)}.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--bd);padding:10px 19px;display:flex;justify-content:space-between;align-items:center}.topbar h2{margin:0;font-size:18px}.topbar small{color:var(--mut)}.top-actions{display:flex;gap:10px;align-items:center}.top-actions span{font-size:11px;color:var(--ok)}.content{padding:20px}.section{display:none}.section.active{display:block}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{background:#fff;border:1px solid var(--bd);border-radius:13px;padding:15px;box-shadow:0 2px 8px rgba(20,60,90,.035)}.card h3{margin:0 0 12px;font-size:15px}.metric{display:flex;gap:12px;align-items:center}.metric>div{width:42px;height:42px;border-radius:11px;background:#eef6fb;display:grid;place-items:center;font-size:19px}.metric span{font-size:10px;color:var(--mut);text-transform:uppercase}.metric b{display:block;font-size:25px;color:var(--txt);margin-top:4px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:13px}.mt{margin-top:13px}.mt10{margin-top:10px}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.info-grid div{background:#f8fafc;border-radius:8px;padding:9px}.info-grid small{display:block;color:var(--mut);text-transform:uppercase;font-size:9px}.info-grid b{font-size:12px}.callout{border-left:4px solid var(--p2);background:#f3f8fb;padding:10px;font-size:12px}.form-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:9px}.span2{grid-column:span 2}.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}.span12{grid-column:span 12}.f label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:#475467;margin-bottom:4px}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.toolbar h3{margin:0}.toolbar input{width:250px}.table-wrap{overflow:auto;border:1px solid var(--bd);border-radius:9px}table{border-collapse:collapse;width:100%;min-width:900px}th,td{padding:9px 10px;border-bottom:1px solid #edf1f5;text-align:left;font-size:11px;vertical-align:top}th{background:#f8fafc;color:#475467;font-size:9px;text-transform:uppercase;letter-spacing:.035em}.badge{display:inline-block;border-radius:999px;padding:4px 7px;font-size:10px;font-weight:700}.ok{background:#d1fadf;color:var(--ok)}.warn{background:#fef0c7;color:var(--warn)}.bad{background:#fee4e2;color:var(--bad)}.info{background:#dbeafe;color:#175cd3}.actions{display:flex;gap:5px;flex-wrap:wrap}.xs{padding:6px 7px;font-size:10px}.role-input{padding:6px;border:1px solid var(--bd);border-radius:6px;min-width:135px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:80;display:grid;place-items:center;padding:18px}.modal-card{width:min(900px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:14px;padding:18px}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0}.modal-head button{border:0;background:#eef2f6;border-radius:50%;width:32px;height:32px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--bd);padding-top:12px;margin-top:14px}.print-doc{color:#000;font-family:Arial,sans-serif}.print-doc h2,.print-doc h3{text-align:center;margin:4px}.print-meta{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:14px 0}.print-table{width:100%;min-width:0}.print-table th,.print-table td{border:1px solid #000;color:#000}.signatures{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:35px}.sig{text-align:center;border-top:1px solid #000;font-size:10px;padding-top:5px}.toast{position:fixed;right:18px;bottom:18px;background:#101828;color:#fff;padding:10px 13px;border-radius:9px;font-size:12px;z-index:120}
+@media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.span2,.span3,.span4,.span6{grid-column:span 6}}@media(max-width:700px){:root{--side:66px}.brand-text,.nav span,.user-mini{display:none}.sidebar{padding:10px 7px}.nav{text-align:center}.app main{margin-left:var(--side)}.content{padding:12px}.cards,.info-grid{grid-template-columns:1fr}.span2,.span3,.span4,.span6,.span12{grid-column:span 12}.toolbar{flex-direction:column;align-items:stretch}.toolbar input{width:100%}}@media print{body>*:not(#modal){display:none!important}#modal{position:static;background:#fff;padding:0;display:block!important}.modal-card{max-height:none;width:100%;padding:0}.modal-head,.modal-actions{display:none!important}.print-doc{padding:10mm}}
+
+</style>
+</head>
+<body>
+<div id="loading" class="loading"><div class="spinner"></div><p>Loading SAMS…</p></div>
+
+<section id="loginScreen" class="auth hidden">
+  <div class="auth-card">
+    <div class="brand-login"><div class="logo">S</div><div><h1>SAMS</h1><p>School Administrative Monitoring System</p></div></div>
+    <div id="configWarning" class="alert hidden">Firebase is not configured. Search <b>index.html</b> for <b>PASTE_YOUR_API_KEY_HERE</b> and paste your Firebase Web App configuration there.</div>
+    <form id="loginForm">
+      <label>Email address</label><input id="loginEmail" type="email" autocomplete="username" required>
+      <label>Password</label><input id="loginPassword" type="password" autocomplete="current-password" required>
+      <button class="btn primary block">Sign in</button>
+    </form>
+    <button id="forgotBtn" class="link-btn" type="button">Forgot password?</button>
+    <p class="small-note">School-controlled accounts only. A newly created Firebase Authentication user starts as <b>Employee</b> on first sign-in. An Administrator assigns higher roles.</p>
+    <div id="loginMsg" class="msg"></div>
+  </div>
+</section>
+
+<div id="app" class="app hidden">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">S</div><div class="brand-text"><b>SAMS</b><small>School Administration</small></div></div>
+    <nav>
+      <button class="nav active" data-section="dashboard" data-roles="ALL">🏠 <span>Dashboard</span></button>
+      <button class="nav" data-section="supplies" data-roles="ALL">📦 <span>Supplies / RIS</span></button>
+      <button class="nav" data-section="equipment" data-roles="Employee,Property Custodian,School Head,Administrator">💻 <span>Equipment</span></button>
+      <button class="nav" data-section="dtr" data-roles="Employee,HR/Admin,School Head,Administrator">🕐 <span>DTR</span></button>
+      <button class="nav" data-section="leave" data-roles="Employee,HR/Admin,School Head,Administrator">🗓️ <span>Leave</span></button>
+      <button class="nav" data-section="users" data-roles="Administrator">👥 <span>Users & Roles</span></button>
+      <button class="nav" data-section="audit" data-roles="School Head,Administrator">🧾 <span>Audit Log</span></button>
+      <button class="nav" data-section="settings" data-roles="Administrator">⚙️ <span>Settings</span></button>
+    </nav>
+    <div class="user-mini"><b id="sideName">User</b><small id="sideRole">Role</small></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div><h2 id="pageTitle">Dashboard</h2><small id="schoolHeader">School Administrative Monitoring System</small></div>
+      <div class="top-actions"><span id="syncStatus">● Connected</span><button id="logoutBtn" class="btn light">Sign out</button></div>
+    </header>
+
+    <div class="content">
+      <section id="dashboard" class="section active">
+        <div class="cards">
+          <article class="card metric"><div>📦</div><span>Pending Supply Requests<b id="kpiSupply">0</b></span></article>
+          <article class="card metric"><div>💻</div><span>Open Equipment<b id="kpiBorrow">0</b></span></article>
+          <article class="card metric"><div>🕐</div><span>Pending DTR<b id="kpiDtr">0</b></span></article>
+          <article class="card metric"><div>🗓️</div><span>Pending Leave<b id="kpiLeave">0</b></span></article>
+        </div>
+        <div class="two-col mt">
+          <article class="card"><h3>My Access</h3><div class="info-grid"><div><small>Name</small><b id="dashName">—</b></div><div><small>Role</small><b id="dashRole">—</b></div><div><small>Office</small><b id="dashOffice">—</b></div><div><small>Email</small><b id="dashEmail">—</b></div></div></article>
+          <article class="card"><h3>Architecture</h3><p class="muted"><b>PCMS</b> remains the master property/equipment database. <b>SAMS</b> manages requests, approvals, issuance, borrowing/return, HR monitoring, users, and audit history.</p><div class="callout">PCMS → Asset Master &nbsp; | &nbsp; SAMS → Transactions & Workflow</div></article>
+        </div>
+        <article class="card mt"><h3>Recent Activity</h3><div id="recentActivity" class="muted">Detailed audit viewing is restricted to management roles.</div></article>
+      </section>
+
+      <section id="supplies" class="section">
+        <div class="two-col">
+          <article class="card"><h3>New Supply Request</h3>
+            <form id="supplyForm" class="form-grid">
+              <div class="f span6"><label>Requestor</label><input id="srRequestor" readonly></div>
+              <div class="f span6"><label>Office / Unit</label><input id="srOffice" required></div>
+              <div class="f span4"><label>Item</label><input id="srItem" placeholder="Bond Paper A4" required></div>
+              <div class="f span2"><label>Unit</label><input id="srUnit" placeholder="ream" required></div>
+              <div class="f span2"><label>Quantity</label><input id="srQty" type="number" min="1" value="1" required></div>
+              <div class="f span4"><label>Purpose</label><input id="srPurpose" required></div>
+              <div class="span12"><button class="btn primary">Submit Request</button></div>
+            </form>
+          </article>
+          <article class="card"><h3>Workflow</h3><ol class="muted"><li>Employee submits.</li><li>Authorized staff reviews.</li><li>Supply Officer records issuance.</li><li>SAMS generates RIS data.</li><li>RIS is printed/saved when required.</li></ol></article>
+        </div>
+        <article class="card mt"><div class="toolbar"><h3>Supply Requests</h3><input id="supplySearch" placeholder="Search…"></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Date</th><th>Requestor</th><th>Office</th><th>Item</th><th>Qty</th><th>Purpose</th><th>Status</th><th>Actions</th></tr></thead><tbody id="supplyBody"></tbody></table></div></article>
+      </section>
+
+      <section id="equipment" class="section">
+        <div class="two-col">
+          <article class="card"><h3 id="borrowTitle">Equipment Borrowing Request</h3>
+            <form id="borrowForm" class="form-grid">
+              <div id="borrowerField" class="f span6 hidden"><label>Borrower</label><select id="brBorrower"></select></div>
+              <div class="f span6"><label>Equipment Requested</label><input id="brItem" required></div>
+              <div class="f span4 staff-only"><label>PCMS Asset ID</label><input id="brAsset"></div>
+              <div class="f span4 staff-only"><label>Serial / Property No.</label><input id="brSerial"></div>
+              <div class="f span4"><label>Date Needed / Borrowed</label><input id="brDate" type="date" required></div>
+              <div class="f span4"><label>Expected Return</label><input id="brDue" type="date" required></div>
+              <div class="f span4 staff-only"><label>Condition</label><select id="brCondition"><option>Serviceable / Good</option><option>With minor issue</option><option>For inspection</option></select></div>
+              <div class="f span6 staff-only"><label>Accessories</label><input id="brAccessories"></div>
+              <div class="f span6"><label>Purpose</label><input id="brPurpose" required></div>
+              <div class="span12"><button id="borrowBtn" class="btn primary">Submit Borrowing Request</button></div>
+            </form>
+          </article>
+          <article class="card"><h3>PCMS Linkage</h3><p class="muted">A released equipment transaction stores the PCMS Asset ID instead of creating another independent property inventory.</p><div class="callout">Request → PCMS Asset → Release → Return → Condition</div></article>
+        </div>
+        <article class="card mt"><div class="toolbar"><h3>Borrowing / Return Transactions</h3><input id="borrowSearch" placeholder="Search…"></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Borrower</th><th>Equipment</th><th>PCMS Asset</th><th>Date</th><th>Due</th><th>Status</th><th>Condition</th><th>Actions</th></tr></thead><tbody id="borrowBody"></tbody></table></div></article>
+      </section>
+
+      <section id="dtr" class="section">
+        <div class="two-col">
+          <article id="dtrAdminCard" class="card"><h3>Add / Update DTR Monitoring</h3><form id="dtrForm" class="form-grid"><div class="f span6"><label>Employee</label><select id="dtEmployee"></select></div><div class="f span3"><label>Month</label><input id="dtMonth" type="month" required></div><div class="f span3"><label>Status</label><select id="dtStatus"><option>Pending</option><option>Submitted</option><option>Verified</option><option>Forwarded to SDO</option></select></div><div class="f span12"><label>Remarks</label><input id="dtRemarks"></div><div class="span12"><button class="btn primary">Save DTR Record</button></div></form></article>
+          <article class="card"><h3>Control</h3><p class="muted">This module monitors submission and verification. It does not replace the official DTR/CS Form No. 48.</p></article>
+        </div>
+        <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Month</th><th>Status</th><th>Remarks</th><th>Updated</th></tr></thead><tbody id="dtrBody"></tbody></table></div></article>
+      </section>
+
+      <section id="leave" class="section">
+        <div class="two-col">
+          <article class="card"><h3>Leave Monitoring</h3><form id="leaveForm" class="form-grid"><div class="f span6"><label>Employee</label><input id="lvEmployee" readonly></div><div class="f span6"><label>Leave Type</label><select id="lvType"><option>Vacation Leave</option><option>Sick Leave</option><option>Mandatory / Forced Leave</option><option>Special Privilege Leave</option><option>Maternity Leave</option><option>Paternity Leave</option><option>Other</option></select></div><div class="f span4"><label>From</label><input id="lvFrom" type="date" required></div><div class="f span4"><label>To</label><input id="lvTo" type="date" required></div><div class="f span4"><label>Remarks</label><input id="lvRemarks"></div><div class="span12"><button class="btn primary">Submit Leave for Monitoring</button></div></form></article>
+          <article class="card"><h3>Official Form</h3><p class="muted">SAMS is the monitoring layer. The official CS Form No. 6 should be generated/attached in the later document-management phase.</p></article>
+        </div>
+        <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Type</th><th>Period</th><th>Status</th><th>Remarks</th><th>Actions</th></tr></thead><tbody id="leaveBody"></tbody></table></div></article>
+      </section>
+
+      <section id="users" class="section"><article class="card"><div class="toolbar"><div><h3>Users & Roles</h3><p class="muted">Create Authentication accounts in Firebase Console. After first login, promote roles here.</p></div><button id="refreshUsers" class="btn light">Refresh</button></div><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Office</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="usersBody"></tbody></table></div></article></section>
+
+      <section id="audit" class="section"><article class="card"><h3>Audit Trail</h3><p class="muted">Phase 2 records authenticated client activity. Phase 3 should move critical audit events to Cloud Functions for stronger tamper resistance.</p><div class="table-wrap"><table><thead><tr><th>Date/Time</th><th>User</th><th>Role</th><th>Module</th><th>Action</th><th>Reference</th></tr></thead><tbody id="auditBody"></tbody></table></div></article></section>
+
+      <section id="settings" class="section"><div class="two-col"><article class="card"><h3>School Settings</h3><form id="settingsForm"><label>School Name</label><input id="setSchool" required><label>School ID</label><input id="setSchoolId"><label>School Head</label><input id="setHead"><label>Supply Officer</label><input id="setSupply"><label>Property Custodian</label><input id="setProperty"><button class="btn primary mt10">Save Settings</button></form></article><article class="card"><h3>Phase 2 Security</h3><ul class="muted"><li>Email/password authentication</li><li>Role-based Firestore rules</li><li>Employee-scoped records</li><li>Admin-controlled roles/status</li><li>Cloud timestamps</li></ul></article></div></section>
+    </div>
+  </main>
+</div>
+
+<div id="modal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h3 id="modalTitle"></h3><button id="modalX">✕</button></div><div id="modalBody"></div><div class="modal-actions"><button id="printBtn" class="btn primary">Print / Save PDF</button><button id="modalClose" class="btn light">Close</button></div></div></div>
+<div id="toast" class="toast hidden"></div>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+import { getFirestore, doc, getDoc, setDoc, updateDoc, addDoc, collection, getDocs, query, where, onSnapshot, serverTimestamp, orderBy, limit } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+
+
+/* =============================================================
+   FIREBASE SETUP
+   Replace the PASTE_YOUR_* values below using:
+   Firebase Console > Project Settings > Your Apps > Web App
+   NEVER paste a service-account private key into this file.
+   ============================================================= */
+const firebaseConfig = {
+  apiKey: "PASTE_YOUR_API_KEY_HERE",
+  authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
+  projectId: "PASTE_YOUR_PROJECT_ID",
+  storageBucket: "PASTE_YOUR_PROJECT.firebasestorage.app",
+  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
+  appId: "PASTE_YOUR_APP_ID"
+};
+
+const $=id=>document.getElementById(id);
+const state={user:null,profile:null,settings:{},users:[],supplies:[],borrows:[],dtr:[],leaves:[],audit:[],unsubs:[]};
+let auth,db;
+const today=()=>new Date().toISOString().slice(0,10);
+const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+const refNo=p=>`${p}-${new Date().getFullYear()}-${String(Date.now()).slice(-7)}`;
+const placeholder=()=>Object.values(firebaseConfig).some(v=>String(v).includes('PASTE_YOUR'));
+const hasRole=(...roles)=>roles.includes(state.profile?.role);
+const isStaff=()=>hasRole('Administrator','School Head','Supply Officer','Property Custodian','HR/Admin');
+const fmtTs=ts=>{try{return ts?.toDate?ts.toDate().toLocaleString():'—'}catch{return '—'}};
+
+function toast(m){$('toast').textContent=m;$('toast').classList.remove('hidden');clearTimeout(window.__t);window.__t=setTimeout(()=>$('toast').classList.add('hidden'),3000)}
+function showLoading(on){$('loading').classList.toggle('hidden',!on)}
+function loginMsg(m){$('loginMsg').textContent=m}
+function clearSubs(){state.unsubs.forEach(fn=>{try{fn()}catch{}});state.unsubs=[]}
+function badge(s){const x=String(s||'').toLowerCase();let c='info';if(['approved','issued','returned','verified','forwarded','active'].some(k=>x.includes(k)))c='ok';if(['pending','requested','borrowed','verification','approval'].some(k=>x.includes(k)))c='warn';if(['rejected','disapproved','overdue','inactive'].some(k=>x.includes(k)))c='bad';return `<span class="badge ${c}">${safe(s)}</span>`}
+function byCreated(a,b){return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)}
+
+function setSection(id){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));$(id)?.classList.add('active');const b=document.querySelector(`.nav[data-section="${id}"]`);if(b&&!b.classList.contains('hidden')){b.classList.add('active');$('pageTitle').textContent=b.querySelector('span')?.textContent||'SAMS'}}
+document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>!b.classList.contains('hidden')&&setSection(b.dataset.section));
+
+function applyRoleUI(){
+  document.querySelectorAll('[data-roles]').forEach(el=>{const r=el.dataset.roles;el.classList.toggle('hidden',r!=='ALL'&&!r.split(',').includes(state.profile.role))});
+  const property=hasRole('Property Custodian','Administrator');
+  document.querySelectorAll('.staff-only').forEach(el=>el.classList.toggle('hidden',!property));
+  $('borrowerField').classList.toggle('hidden',!property);
+  $('borrowTitle').textContent=property?'Record / Release Equipment':'Equipment Borrowing Request';
+  $('borrowBtn').textContent=property?'Record Borrowing / Release':'Submit Borrowing Request';
+  $('dtrAdminCard').classList.toggle('hidden',!hasRole('HR/Admin','Administrator'));
+}
+
+async function ensureProfile(user){
+  const r=doc(db,'users',user.uid);let s=await getDoc(r);
+  if(!s.exists()){
+    await setDoc(r,{uid:user.uid,email:user.email||'',displayName:user.displayName||(user.email?.split('@')[0]||'Employee'),office:'',role:'Employee',active:true,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});
+    s=await getDoc(r);
+  }
+  return {id:s.id,...s.data()};
+}
+
+async function audit(module,action,reference=''){
+  if(!state.user||!state.profile)return;
+  try{await addDoc(collection(db,'auditLogs'),{actorUid:state.user.uid,actorEmail:state.user.email||'',actorName:state.profile.displayName||'',actorRole:state.profile.role,module,action,reference,createdAt:serverTimestamp()})}catch(e){console.warn('Audit log:',e)}
+}
+
+async function loadSettings(){
+  try{const s=await getDoc(doc(db,'settings','school'));state.settings=s.exists()?s.data():{}}catch{state.settings={}}
+  $('schoolHeader').textContent=state.settings.schoolName||'School Administrative Monitoring System';
+  if(hasRole('Administrator')){
+    $('setSchool').value=state.settings.schoolName||'';$('setSchoolId').value=state.settings.schoolId||'';$('setHead').value=state.settings.schoolHead||'';$('setSupply').value=state.settings.supplyOfficer||'';$('setProperty').value=state.settings.propertyCustodian||'';
+  }
+}
+
+async function loadUsers(){
+  try{
+    if(isStaff()){const s=await getDocs(collection(db,'users'));state.users=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.displayName||'').localeCompare(String(b.displayName||'')))}
+    else state.users=[state.profile];
+  }catch(e){console.warn(e);state.users=[state.profile]}
+  const active=state.users.filter(x=>x.active!==false);const opts=active.map(u=>`<option value="${safe(u.id)}">${safe(u.displayName||u.email)}${u.office?' — '+safe(u.office):''}</option>`).join('');
+  $('brBorrower').innerHTML=opts;$('dtEmployee').innerHTML=opts;renderUsers();
+}
+
+async function startSession(user){
+  clearSubs();state.user=user;state.profile=await ensureProfile(user);
+  if(state.profile.active===false){loginMsg('Your SAMS access is disabled. Contact the Administrator.');await signOut(auth);return}
+  $('sideName').textContent=state.profile.displayName||user.email;$('sideRole').textContent=state.profile.role;
+  $('dashName').textContent=state.profile.displayName||'—';$('dashRole').textContent=state.profile.role;$('dashOffice').textContent=state.profile.office||'—';$('dashEmail').textContent=user.email||'—';
+  $('srRequestor').value=state.profile.displayName||user.email;$('srOffice').value=state.profile.office||'';$('lvEmployee').value=state.profile.displayName||user.email;
+  applyRoleUI();await loadSettings();await loadUsers();listenData();setSection('dashboard');
+  $('loginScreen').classList.add('hidden');$('app').classList.remove('hidden');showLoading(false);
+}
+
+function listenData(){
+  clearSubs();const uid=state.user.uid;
+  const sq=hasRole('Supply Officer','School Head','Administrator')?collection(db,'supplyRequests'):query(collection(db,'supplyRequests'),where('requesterUid','==',uid));
+  state.unsubs.push(onSnapshot(sq,s=>{state.supplies=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderSupplies();renderDashboard()},syncError));
+
+  if(hasRole('Employee','Property Custodian','School Head','Administrator')){
+    const bq=hasRole('Property Custodian','School Head','Administrator')?collection(db,'borrowTransactions'):query(collection(db,'borrowTransactions'),where('borrowerUid','==',uid));
+    state.unsubs.push(onSnapshot(bq,s=>{state.borrows=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderBorrows();renderDashboard()},syncError));
+  }
+  if(hasRole('Employee','HR/Admin','School Head','Administrator')){
+    const dq=hasRole('HR/Admin','School Head','Administrator')?collection(db,'dtrRecords'):query(collection(db,'dtrRecords'),where('employeeUid','==',uid));
+    const lq=hasRole('HR/Admin','School Head','Administrator')?collection(db,'leaveApplications'):query(collection(db,'leaveApplications'),where('employeeUid','==',uid));
+    state.unsubs.push(onSnapshot(dq,s=>{state.dtr=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderDtr();renderDashboard()},syncError));
+    state.unsubs.push(onSnapshot(lq,s=>{state.leaves=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderLeave();renderDashboard()},syncError));
+  }
+  if(hasRole('School Head','Administrator')){
+    const aq=query(collection(db,'auditLogs'),orderBy('createdAt','desc'),limit(100));
+    state.unsubs.push(onSnapshot(aq,s=>{state.audit=s.docs.map(d=>({id:d.id,...d.data()}));renderAudit();renderRecent()},syncError));
+  }else renderRecent();
+}
+function syncError(e){console.error(e);$('syncStatus').textContent='● Sync / access issue';$('syncStatus').style.color='#b42318'}
+
+$('loginForm').onsubmit=async e=>{e.preventDefault();loginMsg('');if(placeholder())return loginMsg('Configure Firebase first in index.html.');try{await signInWithEmailAndPassword(auth,$('loginEmail').value.trim(),$('loginPassword').value)}catch(e){console.error(e);loginMsg('Unable to sign in. Check the account, password, and Firebase Authentication settings.')}};
+$('forgotBtn').onclick=async()=>{const email=$('loginEmail').value.trim();if(!email)return loginMsg('Enter your email first.');try{await sendPasswordResetEmail(auth,email);loginMsg('Password reset email sent if the account exists.')}catch{loginMsg('Unable to send password reset email.')}};
+$('logoutBtn').onclick=async()=>{clearSubs();await signOut(auth)};
+
+$('supplyForm').onsubmit=async e=>{e.preventDefault();try{const no=refNo('SR');await addDoc(collection(db,'supplyRequests'),{requestNo:no,requesterUid:state.user.uid,requestor:state.profile.displayName||state.user.email,requesterEmail:state.user.email||'',office:$('srOffice').value.trim(),item:$('srItem').value.trim(),unit:$('srUnit').value.trim(),qty:Number($('srQty').value),purpose:$('srPurpose').value.trim(),status:'Pending',requestDate:today(),createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Submitted supply request',no);e.target.reset();$('srQty').value=1;$('srRequestor').value=state.profile.displayName||state.user.email;$('srOffice').value=state.profile.office||'';toast('Supply request submitted.')}catch(e){console.error(e);toast('Could not submit supply request.')}};
+$('supplySearch').oninput=renderSupplies;
+window.supplyAction=async(id,action)=>{const r=state.supplies.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'supplyRequests',id);if(action==='approve'){await updateDoc(ref,{status:'Approved',approvedByUid:state.user.uid,approvedByName:state.profile.displayName,approvedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Approved supply request',r.requestNo)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,rejectedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Rejected supply request',r.requestNo)}if(action==='issue'){const ris=refNo('RIS');await updateDoc(ref,{status:'Issued',risNo:ris,issueDate:today(),issuedByUid:state.user.uid,issuedByName:state.profile.displayName,issuedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Issued supplies / generated RIS',ris)}toast('Supply record updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
+function renderSupplies(){const q=$('supplySearch').value.toLowerCase();$('supplyBody').innerHTML=state.supplies.filter(r=>JSON.stringify(r).toLowerCase().includes(q)).map(r=>{const approve=hasRole('School Head','Supply Officer','Administrator')&&r.status==='Pending';const issue=hasRole('Supply Officer','Administrator')&&r.status==='Approved';return `<tr><td>${safe(r.requestNo)}</td><td>${safe(r.requestDate)}</td><td>${safe(r.requestor)}</td><td>${safe(r.office)}</td><td>${safe(r.item)}<br><span class="muted">${safe(r.unit)}</span></td><td>${safe(r.qty)}</td><td>${safe(r.purpose)}</td><td>${badge(r.status)}</td><td><div class="actions">${approve?`<button class="btn success xs" onclick="supplyAction('${r.id}','approve')">Approve</button><button class="btn danger xs" onclick="supplyAction('${r.id}','reject')">Reject</button>`:''}${issue?`<button class="btn warning xs" onclick="supplyAction('${r.id}','issue')">Issue</button>`:''}${r.status==='Issued'?`<button class="btn light xs" onclick="showRIS('${r.id}')">RIS</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="9" class="muted">No supply requests found.</td></tr>'}
+window.showRIS=id=>{const r=state.supplies.find(x=>x.id===id);if(!r)return;openModal('Requisition and Issue Slip',`<div class="print-doc"><h3>${safe(state.settings.schoolName||'SCHOOL NAME')}</h3><h2>REQUISITION AND ISSUE SLIP</h2><div class="print-meta"><div><b>RIS No.:</b> ${safe(r.risNo||'')}</div><div><b>Date:</b> ${safe(r.issueDate||r.requestDate)}</div><div><b>Requestor:</b> ${safe(r.requestor)}</div><div><b>Office:</b> ${safe(r.office)}</div></div><table class="print-table"><tr><th>Stock No.</th><th>Unit</th><th>Description</th><th>Qty Requested</th><th>Qty Issued</th></tr><tr><td></td><td>${safe(r.unit)}</td><td>${safe(r.item)}</td><td>${safe(r.qty)}</td><td>${safe(r.qty)}</td></tr></table><p><b>Purpose:</b> ${safe(r.purpose)}</p><div class="signatures"><div class="sig">Requested by<br>${safe(r.requestor)}</div><div class="sig">Approved by<br>${safe(state.settings.schoolHead||r.approvedByName||'Authorized Official')}</div><div class="sig">Issued by<br>${safe(r.issuedByName||state.settings.supplyOfficer||'Supply Officer')}</div><div class="sig">Received by<br>${safe(r.requestor)}</div></div></div>`)};
+
+$('borrowForm').onsubmit=async e=>{e.preventDefault();try{const cust=hasRole('Property Custodian','Administrator');let buid=state.user.uid,b=state.profile;if(cust){buid=$('brBorrower').value;b=state.users.find(u=>u.id===buid)||state.profile}const no=refNo('BRW');await addDoc(collection(db,'borrowTransactions'),{transactionNo:no,borrowerUid:buid,borrowerName:b.displayName||b.email,borrowerOffice:b.office||'',requestedItem:$('brItem').value.trim(),assetId:cust?$('brAsset').value.trim():'',serial:cust?$('brSerial').value.trim():'',date:$('brDate').value,due:$('brDue').value,conditionBefore:cust?$('brCondition').value:'',accessories:cust?$('brAccessories').value.trim():'',purpose:$('brPurpose').value.trim(),status:cust?'Borrowed':'Requested',createdByUid:state.user.uid,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment',cust?'Recorded equipment release':'Submitted equipment borrowing request',no);e.target.reset();$('brDate').value=today();toast('Equipment transaction saved.')}catch(e){console.error(e);toast('Could not save equipment transaction.')}};
+$('borrowSearch').oninput=renderBorrows;
+window.borrowAction=async(id,action)=>{const r=state.borrows.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'borrowTransactions',id);if(action==='release'){const asset=prompt('PCMS Asset ID:',r.assetId||'');if(!asset)return;const serial=prompt('Serial / Property No. (optional):',r.serial||'');if(serial===null)return;const cond=prompt('Condition before release:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{assetId:asset,serial,conditionBefore:cond,status:'Borrowed',releasedByUid:state.user.uid,releasedByName:state.profile.displayName,releasedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Released equipment',r.transactionNo)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,updatedAt:serverTimestamp()});await audit('Equipment','Rejected borrowing request',r.transactionNo)}if(action==='return'){const cond=prompt('Condition upon return:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{status:'Returned',returnCondition:cond,returnDate:today(),receivedByUid:state.user.uid,receivedByName:state.profile.displayName,returnedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Recorded equipment return',r.transactionNo)}toast('Equipment transaction updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
+function renderBorrows(){const q=$('borrowSearch').value.toLowerCase();$('borrowBody').innerHTML=state.borrows.filter(r=>JSON.stringify(r).toLowerCase().includes(q)).map(r=>{let st=r.status;if(r.status==='Borrowed'&&r.due&&r.due<today())st='Overdue';const c=hasRole('Property Custodian','Administrator');return `<tr><td>${safe(r.transactionNo)}</td><td>${safe(r.borrowerName)}<br><span class="muted">${safe(r.borrowerOffice)}</span></td><td>${safe(r.requestedItem)}</td><td>${safe(r.assetId||'—')}</td><td>${safe(r.date)}</td><td>${safe(r.due)}</td><td>${badge(st)}</td><td>${safe(r.returnCondition||r.conditionBefore||'—')}</td><td><div class="actions">${c&&r.status==='Requested'?`<button class="btn success xs" onclick="borrowAction('${r.id}','release')">Release</button><button class="btn danger xs" onclick="borrowAction('${r.id}','reject')">Reject</button>`:''}${c&&r.status==='Borrowed'?`<button class="btn success xs" onclick="borrowAction('${r.id}','return')">Return</button>`:''}<button class="btn light xs" onclick="showBorrow('${r.id}')">Slip</button></div></td></tr>`}).join('')||'<tr><td colspan="9" class="muted">No equipment transactions found.</td></tr>'}
+window.showBorrow=id=>{const r=state.borrows.find(x=>x.id===id);if(!r)return;openModal('Equipment Borrowing / Return Slip',`<div class="print-doc"><h3>${safe(state.settings.schoolName||'SCHOOL NAME')}</h3><h2>EQUIPMENT BORROWING / RETURN SLIP</h2><table class="print-table"><tr><th>Transaction No.</th><td>${safe(r.transactionNo)}</td><th>PCMS Asset ID</th><td>${safe(r.assetId||'')}</td></tr><tr><th>Borrower</th><td>${safe(r.borrowerName)}</td><th>Office</th><td>${safe(r.borrowerOffice)}</td></tr><tr><th>Equipment</th><td>${safe(r.requestedItem)}</td><th>Serial/Property No.</th><td>${safe(r.serial||'')}</td></tr><tr><th>Date</th><td>${safe(r.date)}</td><th>Expected Return</th><td>${safe(r.due)}</td></tr><tr><th>Condition Before</th><td>${safe(r.conditionBefore||'')}</td><th>Accessories</th><td>${safe(r.accessories||'')}</td></tr><tr><th>Purpose</th><td colspan="3">${safe(r.purpose)}</td></tr><tr><th>Return Date</th><td>${safe(r.returnDate||'')}</td><th>Condition Upon Return</th><td>${safe(r.returnCondition||'')}</td></tr></table><div class="signatures"><div class="sig">Borrower<br>${safe(r.borrowerName)}</div><div class="sig">Approved by<br>${safe(state.settings.schoolHead||'School Head')}</div><div class="sig">Released by<br>${safe(r.releasedByName||state.settings.propertyCustodian||'Property Custodian')}</div><div class="sig">Received upon return<br>${safe(r.receivedByName||state.settings.propertyCustodian||'Property Custodian')}</div></div></div>`)};
+
+$('dtrForm').onsubmit=async e=>{e.preventDefault();if(!hasRole('HR/Admin','Administrator'))return;const uid=$('dtEmployee').value;const emp=state.users.find(u=>u.id===uid);if(!emp)return toast('Select an employee.');const month=$('dtMonth').value;try{const id=`${uid}_${month}`;await setDoc(doc(db,'dtrRecords',id),{employeeUid:uid,employeeName:emp.displayName||emp.email,month,status:$('dtStatus').value,remarks:$('dtRemarks').value.trim(),updatedByUid:state.user.uid,updatedAt:serverTimestamp(),createdAt:serverTimestamp()},{merge:true});await audit('DTR','Saved DTR monitoring status',`${emp.displayName||emp.email} ${month}`);e.target.reset();$('dtMonth').value=today().slice(0,7);toast('DTR status saved.')}catch(e){console.error(e);toast('Could not save DTR record.')}};
+function renderDtr(){$('dtrBody').innerHTML=state.dtr.map(r=>`<tr><td>${safe(r.employeeName)}</td><td>${safe(r.month)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td>${fmtTs(r.updatedAt)}</td></tr>`).join('')||'<tr><td colspan="5" class="muted">No DTR records found.</td></tr>'}
+
+$('leaveForm').onsubmit=async e=>{e.preventDefault();try{const no=refNo('LV');await addDoc(collection(db,'leaveApplications'),{leaveNo:no,employeeUid:state.user.uid,employeeName:state.profile.displayName||state.user.email,employeeOffice:state.profile.office||'',type:$('lvType').value,from:$('lvFrom').value,to:$('lvTo').value,remarks:$('lvRemarks').value.trim(),status:'Pending',createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Leave','Submitted leave monitoring record',no);e.target.reset();$('lvEmployee').value=state.profile.displayName||state.user.email;toast('Leave record submitted.')}catch(e){console.error(e);toast('Could not submit leave record.')}};
+window.leaveAction=async(id,status)=>{const r=state.leaves.find(x=>x.id===id);if(!r)return;try{await updateDoc(doc(db,'leaveApplications',id),{status,actionByUid:state.user.uid,actionByName:state.profile.displayName,updatedAt:serverTimestamp()});await audit('Leave',`${status} leave record`,r.leaveNo);toast('Leave status updated.')}catch(e){console.error(e);toast('You are not allowed to update that leave record.')}};
+function renderLeave(){const act=hasRole('HR/Admin','School Head','Administrator');$('leaveBody').innerHTML=state.leaves.map(r=>`<tr><td>${safe(r.employeeName)}</td><td>${safe(r.type)}</td><td>${safe(r.from)} to ${safe(r.to)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td><div class="actions">${act&&r.status!=='Approved'?`<button class="btn success xs" onclick="leaveAction('${r.id}','Approved')">Approve</button>`:''}${act&&r.status!=='Disapproved'?`<button class="btn danger xs" onclick="leaveAction('${r.id}','Disapproved')">Disapprove</button>`:''}</div></td></tr>`).join('')||'<tr><td colspan="6" class="muted">No leave records found.</td></tr>'}
+
+function renderUsers(){if(!hasRole('Administrator'))return;const roles=['Employee','Supply Officer','Property Custodian','HR/Admin','School Head','Administrator'];$('usersBody').innerHTML=state.users.map(u=>`<tr><td>${safe(u.displayName||'')}</td><td>${safe(u.email||'')}</td><td><input id="office_${u.id}" class="role-input" value="${safe(u.office||'')}"></td><td><select id="role_${u.id}" class="role-input">${roles.map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}</select></td><td>${badge(u.active===false?'Inactive':'Active')}</td><td><div class="actions"><button class="btn primary xs" onclick="saveUser('${u.id}')">Save</button><button class="btn ${u.active===false?'success':'danger'} xs" onclick="toggleUser('${u.id}',${u.active!==false})">${u.active===false?'Activate':'Disable'}</button></div></td></tr>`).join('')}
+window.saveUser=async id=>{const u=state.users.find(x=>x.id===id);if(!u)return;const role=$(`role_${id}`).value,office=$(`office_${id}`).value.trim();if(id===state.user.uid&&role!=='Administrator'&&!confirm('Changing your own Administrator role can remove access to User Management. Continue?'))return;try{await updateDoc(doc(db,'users',id),{role,office,updatedAt:serverTimestamp()});await audit('Users',`Changed user role to ${role}`,u.email||id);await loadUsers();toast('User updated.')}catch(e){console.error(e);toast('Could not update user.')}};
+window.toggleUser=async(id,on)=>{if(id===state.user.uid)return toast('You cannot disable your own account here.');const u=state.users.find(x=>x.id===id);try{await updateDoc(doc(db,'users',id),{active:!on,updatedAt:serverTimestamp()});await audit('Users',on?'Disabled user':'Activated user',u?.email||id);await loadUsers();toast('User status updated.')}catch(e){console.error(e);toast('Could not update user.')}};
+$('refreshUsers').onclick=loadUsers;
+
+function renderAudit(){$('auditBody').innerHTML=state.audit.map(r=>`<tr><td>${fmtTs(r.createdAt)}</td><td>${safe(r.actorName||r.actorEmail)}</td><td>${safe(r.actorRole)}</td><td>${safe(r.module)}</td><td>${safe(r.action)}</td><td>${safe(r.reference||'')}</td></tr>`).join('')||'<tr><td colspan="6" class="muted">No audit records.</td></tr>'}
+function renderRecent(){if(!hasRole('School Head','Administrator'))return $('recentActivity').textContent='Your records are synchronized with Firestore. Detailed audit viewing is restricted to management roles.';$('recentActivity').innerHTML=state.audit.slice(0,6).map(r=>`<div style="padding:7px 0;border-bottom:1px solid #edf1f5"><b>${safe(r.module)}</b> — ${safe(r.action)} <span class="muted">(${safe(r.actorName||r.actorEmail)} · ${fmtTs(r.createdAt)})</span></div>`).join('')||'No recent activity.'}
+function renderDashboard(){$('kpiSupply').textContent=state.supplies.filter(x=>x.status==='Pending').length;$('kpiBorrow').textContent=state.borrows.filter(x=>['Requested','Borrowed'].includes(x.status)).length;$('kpiDtr').textContent=state.dtr.filter(x=>x.status==='Pending').length;$('kpiLeave').textContent=state.leaves.filter(x=>['Pending','For Verification','For Approval'].includes(x.status)).length}
+
+$('settingsForm').onsubmit=async e=>{e.preventDefault();if(!hasRole('Administrator'))return;const d={schoolName:$('setSchool').value.trim(),schoolId:$('setSchoolId').value.trim(),schoolHead:$('setHead').value.trim(),supplyOfficer:$('setSupply').value.trim(),propertyCustodian:$('setProperty').value.trim(),updatedByUid:state.user.uid,updatedAt:serverTimestamp()};try{await setDoc(doc(db,'settings','school'),d,{merge:true});await audit('Settings','Updated school settings',d.schoolName);await loadSettings();toast('Settings saved.')}catch(e){console.error(e);toast('Could not save settings.')}};
+
+function openModal(title,html){$('modalTitle').textContent=title;$('modalBody').innerHTML=html;$('modal').classList.remove('hidden')}
+function closeModal(){$('modal').classList.add('hidden')}
+$('modalX').onclick=closeModal;$('modalClose').onclick=closeModal;$('printBtn').onclick=()=>window.print();$('modal').onclick=e=>{if(e.target===$('modal'))closeModal()};
+
+function init(){
+  $('brDate').value=today();$('dtMonth').value=today().slice(0,7);
+  if(placeholder()){showLoading(false);$('loginScreen').classList.remove('hidden');$('configWarning').classList.remove('hidden');return}
+  try{const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);onAuthStateChanged(auth,async user=>{showLoading(true);if(!user){clearSubs();state.user=null;state.profile=null;$('app').classList.add('hidden');$('loginScreen').classList.remove('hidden');showLoading(false);return}try{await startSession(user)}catch(e){console.error(e);loginMsg(e.message||'Unable to start SAMS.');$('app').classList.add('hidden');$('loginScreen').classList.remove('hidden');showLoading(false)}})}catch(e){console.error(e);showLoading(false);$('loginScreen').classList.remove('hidden');loginMsg('Firebase initialization failed. Check the Firebase configuration in index.html.')}
+}
+init();
+
+</script>
+</body>
+</html>
