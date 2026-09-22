@@ -34,6 +34,114 @@
 .slip-signature-role{margin-top:.5mm;font-size:5.3pt}
 .slip-print-note{font-size:10px;color:var(--mut);margin-top:8px}
 
+
+/* ============================================================
+   APPENDIX 63 - REQUISITION AND ISSUE SLIP
+   Layout reconstructed from the uploaded Excel template.
+   The printed page contains TWO identical RIS copies on A4 portrait.
+   ============================================================ */
+.ris-editor{
+  border:1px solid var(--bd);border-radius:10px;background:#f8fafc;
+  padding:12px;margin-bottom:14px;color:var(--txt)
+}
+.ris-editor h4{margin:0 0 10px;font-size:13px}
+.ris-editor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.ris-editor-signatories{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}
+.ris-editor-card{border:1px solid var(--bd);border-radius:8px;background:#fff;padding:9px}
+.ris-editor-card b{display:block;font-size:11px;margin-bottom:7px}
+.ris-editor .f{margin-bottom:6px}
+.ris-editor .f label{font-size:9px}
+.ris-editor .f input{padding:7px 8px;font-size:11px}
+.ris-editor-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:10px}
+.ris-editor-note{font-size:10px;color:var(--mut);margin-top:7px}
+
+.ris-preview-wrap{overflow:auto;background:#eceff2;padding:12px;border-radius:8px}
+.ris-print-page{
+  width:210mm;min-height:297mm;background:#fff;color:#000;margin:0 auto;
+  padding:5mm 7mm 4mm;font-family:Arial,Helvetica,sans-serif;
+  box-shadow:0 2px 12px rgba(0,0,0,.08)
+}
+.ris-copy{
+  width:100%;height:137mm;position:relative;color:#000;background:#fff;
+  overflow:hidden
+}
+.ris-copy + .ris-copy{margin-top:8mm}
+.ris-appendix{
+  text-align:right;font-family:Calibri,Arial,sans-serif;font-style:italic;
+  font-size:8.5pt;height:5mm;line-height:5mm
+}
+.ris-title{
+  text-align:center;font-family:Calibri,Arial,sans-serif;font-size:10.5pt;
+  font-weight:700;height:8mm;line-height:8mm
+}
+.ris-form{
+  width:100%;min-width:0!important;border-collapse:collapse;table-layout:fixed;
+  color:#000;font-size:8.2pt
+}
+/* Excel source column proportions:
+   A 11.855, B 6.570, C 29.855, D 13.000,
+   E 17.141, F 13.711, G 14.711, H 27.141 */
+.ris-form col:nth-child(1){width:8.92%}
+.ris-form col:nth-child(2){width:4.94%}
+.ris-form col:nth-child(3){width:22.45%}
+.ris-form col:nth-child(4){width:9.77%}
+.ris-form col:nth-child(5){width:12.89%}
+.ris-form col:nth-child(6){width:10.31%}
+.ris-form col:nth-child(7){width:11.06%}
+.ris-form col:nth-child(8){width:20.40%}
+.ris-form td,.ris-form th{
+  padding:.65mm .8mm;vertical-align:middle;color:#000;background:#fff;
+  line-height:1.05;font-weight:400
+}
+.ris-meta td{border:0}
+.ris-meta .label{font-weight:700;white-space:nowrap}
+.ris-under{border-bottom:.7pt solid #000!important}
+.ris-separator td{height:1.3mm;padding:0;border-bottom:1.2pt solid #000}
+.ris-section th{
+  border:1pt solid #000;text-align:center;font-weight:700;font-style:italic;
+  font-family:Calibri,Arial,sans-serif;font-size:8.5pt;height:7mm
+}
+.ris-columns th{
+  border:.7pt solid #000;text-align:center;font-family:Calibri,Arial,sans-serif;
+  font-size:8pt;font-weight:400;height:7.6mm
+}
+.ris-items td{
+  border:.7pt solid #000;height:5.6mm;padding:.45mm .8mm;
+  font-family:"Bookman Old Style",Georgia,serif;font-size:7.5pt
+}
+.ris-items td:nth-child(1),
+.ris-items td:nth-child(2),
+.ris-items td:nth-child(4),
+.ris-items td:nth-child(5),
+.ris-items td:nth-child(6),
+.ris-items td:nth-child(7){text-align:center}
+.ris-purpose td{
+  border:.7pt solid #000;height:6mm;font-size:8pt
+}
+.ris-purpose-label{font-weight:400}
+.ris-sign-head td{
+  border:.7pt solid #000;height:6.5mm;font-weight:700;font-size:8pt
+}
+.ris-sign-row td{
+  border:.7pt solid #000;height:5.8mm;font-size:7.8pt;
+  text-align:center
+}
+.ris-sign-row .row-label{text-align:left;font-weight:400}
+.ris-printed-name{
+  font-family:Calibri,Arial,sans-serif;font-weight:700!important;font-size:8pt!important
+}
+.ris-date-row td{height:6mm}
+.ris-copy-gap{height:8mm}
+
+/* On smaller screens, preserve the form and allow horizontal scrolling. */
+@media(max-width:900px){
+  .ris-editor-grid,.ris-editor-signatories{grid-template-columns:1fr 1fr}
+  .ris-print-page{width:210mm}
+}
+@media(max-width:600px){
+  .ris-editor-grid,.ris-editor-signatories{grid-template-columns:1fr}
+}
+
 .toast{position:fixed;right:18px;bottom:18px;background:#101828;color:#fff;padding:10px 13px;border-radius:9px;font-size:12px;z-index:120}
 @media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.span2,.span3,.span4,.span6{grid-column:span 6}}@media(max-width:700px){.profile-form,.profile-summary{grid-template-columns:1fr}.sidebar{--side:66px}.brand-text,.nav span,.user-mini{display:none}.sidebar{padding:10px 7px}.nav{text-align:center}.app main{margin-left:var(--side)}.content{padding:12px}.cards,.info-grid{grid-template-columns:1fr}.span2,.span3,.span4,.span6,.span12{grid-column:span 12}.toolbar{flex-direction:column;align-items:stretch}.toolbar input{width:100%}}@media print{body>*:not(#modal){display:none!important}#modal{position:static;background:#fff;padding:0;display:block!important}.modal-card{max-height:none;width:100%;padding:0}.modal-head,.modal-actions{display:none!important}.print-doc{padding:10mm}}
 
@@ -170,7 +278,7 @@
 
       <section id="audit" class="section"><article class="card"><h3>Audit Trail</h3><p class="muted">Phase 2 records authenticated client activity. Phase 3 should move critical audit events to Cloud Functions for stronger tamper resistance.</p><div class="table-wrap"><table><thead><tr><th>Date/Time</th><th>User</th><th>Role</th><th>Module</th><th>Action</th><th>Reference</th></tr></thead><tbody id="auditBody"></tbody></table></div></article></section>
 
-      <section id="settings" class="section"><div class="two-col"><article class="card"><h3>School Settings</h3><form id="settingsForm"><label>School Name</label><input id="setSchool" required><label>School ID</label><input id="setSchoolId"><label>Region</label><input id="setRegion" placeholder="REGION I"><label>Schools Division</label><input id="setDivision" placeholder="DIVISION OF LA UNION"><label>School Address</label><input id="setAddress" placeholder="San Manuel Norte, Agoo, La Union"><label>School Logo URL / GitHub File Path</label><input id="setLogoUrl" placeholder="school-logo.png"><div class="small-note">Optional: upload a logo to GitHub and enter its filename, e.g. <b>school-logo.png</b>. If the path is blank or cannot be loaded, SAMS will use the embedded school logo automatically.</div><label>School Head</label><input id="setHead"><label>School Head Position</label><input id="setHeadPosition" placeholder="School Principal"><label>Supply Officer</label><input id="setSupply"><label>Property Custodian</label><input id="setProperty"><label>Property Custodian Position</label><input id="setPropertyPosition" placeholder="Property Custodian"><button id="saveSettingsBtn" class="btn primary mt10" type="submit">Save Settings</button><div id="settingsStatus" class="msg" style="margin-top:8px"></div></form></article><article class="card"><h3>Phase 2 Security</h3><ul class="muted"><li>Email/password authentication</li><li>Role-based Firestore rules</li><li>Employee-scoped records</li><li>Admin-controlled roles/status</li><li>Cloud timestamps</li></ul></article></div></section>
+      <section id="settings" class="section"><div class="two-col"><article class="card"><h3>School Settings</h3><form id="settingsForm"><label>School Name</label><input id="setSchool" required><label>School ID</label><input id="setSchoolId"><label>Region</label><input id="setRegion" placeholder="REGION I"><label>Schools Division</label><input id="setDivision" placeholder="DIVISION OF LA UNION"><label>School Address</label><input id="setAddress" placeholder="San Manuel Norte, Agoo, La Union"><label>School Logo URL / GitHub File Path</label><input id="setLogoUrl" placeholder="school-logo.png"><div class="small-note">Optional: upload a logo to GitHub and enter its filename, e.g. <b>school-logo.png</b>. If the path is blank or cannot be loaded, SAMS will use the embedded school logo automatically.</div><label>School Head</label><input id="setHead"><label>School Head Position</label><input id="setHeadPosition" placeholder="School Principal"><label>Supply Officer</label><input id="setSupply"><label>Property Custodian</label><input id="setProperty"><label>Property Custodian Position</label><input id="setPropertyPosition" placeholder="Property Custodian"><hr style="border:0;border-top:1px solid var(--bd);margin:14px 0"><h4 style="margin:0 0 6px">RIS Defaults (Appendix 63)</h4><label>Entity Name</label><input id="setRisEntity" placeholder="e.g. DepED RO I / School Name"><label>Fund Cluster</label><input id="setRisFundCluster" placeholder="01"><label>Responsibility Center Code</label><input id="setRisResponsibility" placeholder=""><label>Supply Officer Position</label><input id="setSupplyPosition" placeholder="Supply Officer"><button id="saveSettingsBtn" class="btn primary mt10" type="submit">Save Settings</button><div id="settingsStatus" class="msg" style="margin-top:8px"></div></form></article><article class="card"><h3>Phase 2 Security</h3><ul class="muted"><li>Email/password authentication</li><li>Role-based Firestore rules</li><li>Employee-scoped records</li><li>Admin-controlled roles/status</li><li>Cloud timestamps</li></ul></article></div></section>
     </div>
   </main>
 </div>
@@ -327,7 +435,7 @@ async function loadSettings(){
   try{const s=await getDoc(doc(db,'settings','school'));state.settings=s.exists()?s.data():{}}catch{state.settings={}}
   $('schoolHeader').textContent=state.settings.schoolName||'School Administrative Monitoring System';
   if(hasRole('Administrator')){
-    $('setSchool').value=state.settings.schoolName||'';$('setSchoolId').value=state.settings.schoolId||'';$('setRegion').value=state.settings.region||'REGION I';$('setDivision').value=state.settings.division||'DIVISION OF LA UNION';$('setAddress').value=state.settings.schoolAddress||'';$('setLogoUrl').value=state.settings.schoolLogoUrl||'';$('setHead').value=state.settings.schoolHead||'';$('setHeadPosition').value=state.settings.schoolHeadPosition||'';$('setSupply').value=state.settings.supplyOfficer||'';$('setProperty').value=state.settings.propertyCustodian||'';$('setPropertyPosition').value=state.settings.propertyCustodianPosition||'';
+    $('setSchool').value=state.settings.schoolName||'';$('setSchoolId').value=state.settings.schoolId||'';$('setRegion').value=state.settings.region||'REGION I';$('setDivision').value=state.settings.division||'DIVISION OF LA UNION';$('setAddress').value=state.settings.schoolAddress||'';$('setLogoUrl').value=state.settings.schoolLogoUrl||'';$('setHead').value=state.settings.schoolHead||'';$('setHeadPosition').value=state.settings.schoolHeadPosition||'';$('setSupply').value=state.settings.supplyOfficer||'';$('setProperty').value=state.settings.propertyCustodian||'';$('setPropertyPosition').value=state.settings.propertyCustodianPosition||'';$('setRisEntity').value=state.settings.risEntityName||state.settings.schoolName||'';$('setRisFundCluster').value=state.settings.risFundCluster||'01';$('setRisResponsibility').value=state.settings.risResponsibilityCenterCode||'';$('setSupplyPosition').value=state.settings.supplyOfficerPosition||'';
   }
 }
 
@@ -424,7 +532,340 @@ $('supplyForm').onsubmit=async e=>{e.preventDefault();try{const no=refNo('SR');a
 $('supplySearch').oninput=renderSupplies;
 window.supplyAction=async(id,action)=>{const r=state.supplies.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'supplyRequests',id);if(action==='approve'){await updateDoc(ref,{status:'Approved',approvedByUid:state.user.uid,approvedByName:state.profile.displayName,approvedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Approved supply request',r.requestNo)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,rejectedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Rejected supply request',r.requestNo)}if(action==='issue'){const ris=refNo('RIS');await updateDoc(ref,{status:'Issued',risNo:ris,issueDate:today(),issuedByUid:state.user.uid,issuedByName:state.profile.displayName,issuedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Issued supplies / generated RIS',ris)}toast('Supply record updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
 function renderSupplies(){const q=$('supplySearch').value.toLowerCase();$('supplyBody').innerHTML=state.supplies.filter(r=>JSON.stringify(r).toLowerCase().includes(q)).map(r=>{const approve=hasRole('School Head','Supply Officer','Administrator')&&r.status==='Pending';const issue=hasRole('Supply Officer','Administrator')&&r.status==='Approved';return `<tr><td>${safe(r.requestNo)}</td><td>${safe(r.requestDate)}</td><td>${safe(r.requestor)}</td><td>${safe(r.office)}</td><td>${safe(r.item)}<br><span class="muted">${safe(r.unit)}</span></td><td>${safe(r.qty)}</td><td>${safe(r.purpose)}</td><td>${badge(r.status)}</td><td><div class="actions">${approve?`<button class="btn success xs" onclick="supplyAction('${r.id}','approve')">Approve</button><button class="btn danger xs" onclick="supplyAction('${r.id}','reject')">Reject</button>`:''}${issue?`<button class="btn warning xs" onclick="supplyAction('${r.id}','issue')">Issue</button>`:''}${r.status==='Issued'?`<button class="btn light xs" onclick="showRIS('${r.id}')">RIS</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="9" class="muted">No supply requests found.</td></tr>'}
-window.showRIS=id=>{const r=state.supplies.find(x=>x.id===id);if(!r)return;openModal('Requisition and Issue Slip',`<div class="print-doc"><h3>${safe(state.settings.schoolName||'SCHOOL NAME')}</h3><h2>REQUISITION AND ISSUE SLIP</h2><div class="print-meta"><div><b>RIS No.:</b> ${safe(r.risNo||'')}</div><div><b>Date:</b> ${safe(r.issueDate||r.requestDate)}</div><div><b>Requestor:</b> ${safe(r.requestor)}</div><div><b>Office:</b> ${safe(r.office)}</div></div><table class="print-table"><tr><th>Stock No.</th><th>Unit</th><th>Description</th><th>Qty Requested</th><th>Qty Issued</th></tr><tr><td></td><td>${safe(r.unit)}</td><td>${safe(r.item)}</td><td>${safe(r.qty)}</td><td>${safe(r.qty)}</td></tr></table><p><b>Purpose:</b> ${safe(r.purpose)}</p><div class="signatures"><div class="sig">Requested by<br>${safe(r.requestor)}</div><div class="sig">Approved by<br>${safe(state.settings.schoolHead||r.approvedByName||'Authorized Official')}</div><div class="sig">Issued by<br>${safe(r.issuedByName||state.settings.supplyOfficer||'Supply Officer')}</div><div class="sig">Received by<br>${safe(r.requestor)}</div></div></div>`)};
+
+let activeRisRecordId=null;
+
+function risInputValue(id){
+  const el=$(id);
+  return el?el.value.trim():'';
+}
+
+function getRisEditorData(){
+  return {
+    entityName:risInputValue('risEntity'),
+    fundCluster:risInputValue('risFund'),
+    division:risInputValue('risDivision'),
+    responsibilityCenterCode:risInputValue('risResp'),
+    office:risInputValue('risOffice'),
+    risNo:risInputValue('risNumber'),
+    purpose:risInputValue('risPurpose'),
+
+    requestedName:risInputValue('risReqName'),
+    requestedDesignation:risInputValue('risReqDesignation'),
+    requestedOffice:risInputValue('risReqOffice'),
+    requestedDate:risInputValue('risReqDate'),
+
+    approvedName:risInputValue('risAppName'),
+    approvedDesignation:risInputValue('risAppDesignation'),
+    approvedOffice:risInputValue('risAppOffice'),
+    approvedDate:risInputValue('risAppDate'),
+
+    issuedName:risInputValue('risIssName'),
+    issuedDesignation:risInputValue('risIssDesignation'),
+    issuedOffice:risInputValue('risIssOffice'),
+    issuedDate:risInputValue('risIssDate'),
+
+    receivedName:risInputValue('risRecName'),
+    receivedDesignation:risInputValue('risRecDesignation'),
+    receivedOffice:risInputValue('risRecOffice'),
+    receivedDate:risInputValue('risRecDate')
+  };
+}
+
+function risCopyHtml(r,d){
+  const itemRows=[];
+  for(let i=0;i<15;i++){
+    if(i===0){
+      itemRows.push(`<tr class="ris-items">
+        <td>${safe(r.stockNo||'')}</td>
+        <td>${safe(r.unit||'')}</td>
+        <td>${safe(r.item||'')}</td>
+        <td>${safe(r.qty||'')}</td>
+        <td></td>
+        <td></td>
+        <td>${r.status==='Issued'?safe(r.qty||''):''}</td>
+        <td>${safe(r.issueRemarks||'')}</td>
+      </tr>`);
+    }else{
+      itemRows.push(`<tr class="ris-items"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`);
+    }
+  }
+
+  return `
+  <div class="ris-copy">
+    <div class="ris-appendix">Appendix 63</div>
+    <div class="ris-title">REQUISITION AND ISSUE SLIP</div>
+
+    <table class="ris-form ris-meta">
+      <colgroup><col><col><col><col><col><col><col><col></colgroup>
+      <tr>
+        <td class="label">Entity Name :</td>
+        <td></td>
+        <td colspan="3" class="ris-under"><b>${safe(d.entityName)}</b></td>
+        <td></td>
+        <td class="label">Fund Cluster :</td>
+        <td class="ris-under" style="text-align:center">${safe(d.fundCluster)}</td>
+      </tr>
+      <tr class="ris-separator"><td colspan="8"></td></tr>
+      <tr>
+        <td>Division :</td>
+        <td colspan="4"><b>${safe(d.division)}</b></td>
+        <td colspan="2">Responsibility Center Code :</td>
+        <td>${safe(d.responsibilityCenterCode)}</td>
+      </tr>
+      <tr>
+        <td>Office :</td>
+        <td colspan="4">${safe(d.office)}</td>
+        <td colspan="2">RIS No. :</td>
+        <td>${safe(d.risNo)}</td>
+      </tr>
+      <tr class="ris-separator"><td colspan="8"></td></tr>
+
+      <tr class="ris-section">
+        <th colspan="4">Requisition</th>
+        <th colspan="2">Stock Available?</th>
+        <th colspan="2">Issue</th>
+      </tr>
+      <tr class="ris-columns">
+        <th>Stock No.</th>
+        <th>Unit</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Yes</th>
+        <th>No</th>
+        <th>Quantity</th>
+        <th>Remarks</th>
+      </tr>
+
+      ${itemRows.join('')}
+
+      <tr class="ris-purpose">
+        <td class="ris-purpose-label">Purpose:</td>
+        <td colspan="7">${safe(d.purpose)}</td>
+      </tr>
+
+      <tr class="ris-sign-head">
+        <td colspan="2"></td>
+        <td>Requested by:</td>
+        <td colspan="2">Approved by:</td>
+        <td colspan="2">Issued by:</td>
+        <td>Received by:</td>
+      </tr>
+      <tr class="ris-sign-row">
+        <td colspan="2" class="row-label">Signature :</td>
+        <td></td><td colspan="2"></td><td colspan="2"></td><td></td>
+      </tr>
+      <tr class="ris-sign-row">
+        <td colspan="2" class="row-label">Printed Name :</td>
+        <td class="ris-printed-name">${safe(d.requestedName).toUpperCase()}</td>
+        <td colspan="2" class="ris-printed-name">${safe(d.approvedName).toUpperCase()}</td>
+        <td colspan="2" class="ris-printed-name">${safe(d.issuedName).toUpperCase()}</td>
+        <td class="ris-printed-name">${safe(d.receivedName).toUpperCase()}</td>
+      </tr>
+      <tr class="ris-sign-row">
+        <td colspan="2" class="row-label">Designation :</td>
+        <td>${safe(d.requestedDesignation)}</td>
+        <td colspan="2">${safe(d.approvedDesignation)}</td>
+        <td colspan="2">${safe(d.issuedDesignation)}</td>
+        <td>${safe(d.receivedDesignation)}</td>
+      </tr>
+      <tr class="ris-sign-row">
+        <td colspan="2"></td>
+        <td>${safe(d.requestedOffice)}</td>
+        <td colspan="2">${safe(d.approvedOffice)}</td>
+        <td colspan="2">${safe(d.issuedOffice)}</td>
+        <td>${safe(d.receivedOffice)}</td>
+      </tr>
+      <tr class="ris-sign-row ris-date-row">
+        <td colspan="2" class="row-label">Date :</td>
+        <td>${safe(d.requestedDate)}</td>
+        <td colspan="2">${safe(d.approvedDate)}</td>
+        <td colspan="2">${safe(d.issuedDate)}</td>
+        <td>${safe(d.receivedDate)}</td>
+      </tr>
+    </table>
+  </div>`;
+}
+
+function renderRisPreview(){
+  if(!activeRisRecordId)return;
+  const r=state.supplies.find(x=>x.id===activeRisRecordId);
+  if(!r)return;
+  const d=getRisEditorData();
+  const target=$('risPrintPage');
+  if(!target)return;
+  target.innerHTML=risCopyHtml(r,d)+risCopyHtml(r,d);
+}
+
+async function saveRisDetails(){
+  if(!activeRisRecordId)return;
+  if(!hasRole('Supply Officer','School Head','Administrator')){
+    toast('Only authorized supply/management staff can save RIS details.');
+    return;
+  }
+  const d=getRisEditorData();
+  const btn=$('saveRisDetailsBtn');
+  const msg=$('risSaveStatus');
+  if(btn)btn.disabled=true;
+  if(msg){msg.textContent='Saving...';msg.style.color='#667085'}
+
+  try{
+    await updateDoc(doc(db,'supplyRequests',activeRisRecordId),{
+      risNo:d.risNo,
+      purpose:d.purpose,
+      risDetails:d,
+      updatedAt:serverTimestamp()
+    });
+    await audit('Supplies','Updated RIS details/signatories',d.risNo||activeRisRecordId);
+    if(msg){msg.textContent='RIS details saved successfully.';msg.style.color='#027a48'}
+    toast('RIS details saved.');
+    renderRisPreview();
+  }catch(err){
+    console.error('RIS SAVE ERROR:',err);
+    if(msg){msg.textContent=err?.code==='permission-denied'
+      ?'Firestore denied the update. Only authorized supply/management roles may save RIS details.'
+      :(err?.message||'Could not save RIS details.');
+      msg.style.color='#b42318';
+    }
+  }finally{
+    if(btn)btn.disabled=false;
+  }
+}
+window.saveRisDetails=saveRisDetails;
+
+window.showRIS=id=>{
+  const r=state.supplies.find(x=>x.id===id);
+  if(!r)return;
+  activeRisRecordId=id;
+
+  const requestorProfile=userByUid(r.requesterUid)||{};
+  const existing=r.risDetails||{};
+
+  const defaults={
+    entityName:existing.entityName||state.settings.risEntityName||state.settings.schoolName||'',
+    fundCluster:existing.fundCluster||state.settings.risFundCluster||'01',
+    division:existing.division||state.settings.division||'',
+    responsibilityCenterCode:existing.responsibilityCenterCode||state.settings.risResponsibilityCenterCode||'',
+    office:existing.office||r.office||'',
+    risNo:existing.risNo||r.risNo||'',
+    purpose:existing.purpose||r.purpose||'',
+
+    requestedName:existing.requestedName||r.requestor||'',
+    requestedDesignation:existing.requestedDesignation||requestorProfile.position||'',
+    requestedOffice:existing.requestedOffice||r.office||requestorProfile.office||'',
+    requestedDate:existing.requestedDate||r.requestDate||'',
+
+    approvedName:existing.approvedName||r.approvedByName||state.settings.schoolHead||'',
+    approvedDesignation:existing.approvedDesignation||state.settings.schoolHeadPosition||'',
+    approvedOffice:existing.approvedOffice||state.settings.schoolName||'',
+    approvedDate:existing.approvedDate||'',
+
+    issuedName:existing.issuedName||r.issuedByName||state.settings.supplyOfficer||'',
+    issuedDesignation:existing.issuedDesignation||state.settings.supplyOfficerPosition||'',
+    issuedOffice:existing.issuedOffice||state.settings.schoolName||'',
+    issuedDate:existing.issuedDate||r.issueDate||'',
+
+    receivedName:existing.receivedName||r.requestor||'',
+    receivedDesignation:existing.receivedDesignation||requestorProfile.position||'',
+    receivedOffice:existing.receivedOffice||r.office||requestorProfile.office||'',
+    receivedDate:existing.receivedDate||''
+  };
+
+  const canEdit=hasRole('Supply Officer','School Head','Administrator');
+
+  const editor=canEdit?`
+    <div class="ris-editor no-print">
+      <h4>RIS Details & Signatories</h4>
+      <div class="ris-editor-grid">
+        <div class="f"><label>Entity Name</label><input class="ris-edit-input" id="risEntity" value="${safe(defaults.entityName)}"></div>
+        <div class="f"><label>Fund Cluster</label><input class="ris-edit-input" id="risFund" value="${safe(defaults.fundCluster)}"></div>
+        <div class="f"><label>Division</label><input class="ris-edit-input" id="risDivision" value="${safe(defaults.division)}"></div>
+        <div class="f"><label>Responsibility Center Code</label><input class="ris-edit-input" id="risResp" value="${safe(defaults.responsibilityCenterCode)}"></div>
+        <div class="f"><label>Office</label><input class="ris-edit-input" id="risOffice" value="${safe(defaults.office)}"></div>
+        <div class="f"><label>RIS No.</label><input class="ris-edit-input" id="risNumber" value="${safe(defaults.risNo)}"></div>
+        <div class="f" style="grid-column:span 2"><label>Purpose</label><input class="ris-edit-input" id="risPurpose" value="${safe(defaults.purpose)}"></div>
+      </div>
+
+      <div class="ris-editor-signatories">
+        <div class="ris-editor-card">
+          <b>Requested by</b>
+          <div class="f"><label>Printed Name</label><input class="ris-edit-input" id="risReqName" value="${safe(defaults.requestedName)}"></div>
+          <div class="f"><label>Designation</label><input class="ris-edit-input" id="risReqDesignation" value="${safe(defaults.requestedDesignation)}"></div>
+          <div class="f"><label>Office / Unit</label><input class="ris-edit-input" id="risReqOffice" value="${safe(defaults.requestedOffice)}"></div>
+          <div class="f"><label>Date</label><input class="ris-edit-input" id="risReqDate" value="${safe(defaults.requestedDate)}"></div>
+        </div>
+
+        <div class="ris-editor-card">
+          <b>Approved by</b>
+          <div class="f"><label>Printed Name</label><input class="ris-edit-input" id="risAppName" value="${safe(defaults.approvedName)}"></div>
+          <div class="f"><label>Designation</label><input class="ris-edit-input" id="risAppDesignation" value="${safe(defaults.approvedDesignation)}"></div>
+          <div class="f"><label>Office / Unit</label><input class="ris-edit-input" id="risAppOffice" value="${safe(defaults.approvedOffice)}"></div>
+          <div class="f"><label>Date</label><input class="ris-edit-input" id="risAppDate" value="${safe(defaults.approvedDate)}"></div>
+        </div>
+
+        <div class="ris-editor-card">
+          <b>Issued by</b>
+          <div class="f"><label>Printed Name</label><input class="ris-edit-input" id="risIssName" value="${safe(defaults.issuedName)}"></div>
+          <div class="f"><label>Designation</label><input class="ris-edit-input" id="risIssDesignation" value="${safe(defaults.issuedDesignation)}"></div>
+          <div class="f"><label>Office / Unit</label><input class="ris-edit-input" id="risIssOffice" value="${safe(defaults.issuedOffice)}"></div>
+          <div class="f"><label>Date</label><input class="ris-edit-input" id="risIssDate" value="${safe(defaults.issuedDate)}"></div>
+        </div>
+
+        <div class="ris-editor-card">
+          <b>Received by</b>
+          <div class="f"><label>Printed Name</label><input class="ris-edit-input" id="risRecName" value="${safe(defaults.receivedName)}"></div>
+          <div class="f"><label>Designation</label><input class="ris-edit-input" id="risRecDesignation" value="${safe(defaults.receivedDesignation)}"></div>
+          <div class="f"><label>Office / Unit</label><input class="ris-edit-input" id="risRecOffice" value="${safe(defaults.receivedOffice)}"></div>
+          <div class="f"><label>Date</label><input class="ris-edit-input" id="risRecDate" value="${safe(defaults.receivedDate)}"></div>
+        </div>
+      </div>
+
+      <div class="ris-editor-actions">
+        <span id="risSaveStatus" style="font-size:11px;margin-right:auto"></span>
+        <button id="saveRisDetailsBtn" class="btn primary" type="button" onclick="saveRisDetails()">Save RIS Details</button>
+      </div>
+      <div class="ris-editor-note">The editor is not printed. Changes update both RIS copies in the preview.</div>
+    </div>`:
+    `<div style="display:none">
+      <input id="risEntity" value="${safe(defaults.entityName)}">
+      <input id="risFund" value="${safe(defaults.fundCluster)}">
+      <input id="risDivision" value="${safe(defaults.division)}">
+      <input id="risResp" value="${safe(defaults.responsibilityCenterCode)}">
+      <input id="risOffice" value="${safe(defaults.office)}">
+      <input id="risNumber" value="${safe(defaults.risNo)}">
+      <input id="risPurpose" value="${safe(defaults.purpose)}">
+      <input id="risReqName" value="${safe(defaults.requestedName)}">
+      <input id="risReqDesignation" value="${safe(defaults.requestedDesignation)}">
+      <input id="risReqOffice" value="${safe(defaults.requestedOffice)}">
+      <input id="risReqDate" value="${safe(defaults.requestedDate)}">
+      <input id="risAppName" value="${safe(defaults.approvedName)}">
+      <input id="risAppDesignation" value="${safe(defaults.approvedDesignation)}">
+      <input id="risAppOffice" value="${safe(defaults.approvedOffice)}">
+      <input id="risAppDate" value="${safe(defaults.approvedDate)}">
+      <input id="risIssName" value="${safe(defaults.issuedName)}">
+      <input id="risIssDesignation" value="${safe(defaults.issuedDesignation)}">
+      <input id="risIssOffice" value="${safe(defaults.issuedOffice)}">
+      <input id="risIssDate" value="${safe(defaults.issuedDate)}">
+      <input id="risRecName" value="${safe(defaults.receivedName)}">
+      <input id="risRecDesignation" value="${safe(defaults.receivedDesignation)}">
+      <input id="risRecOffice" value="${safe(defaults.receivedOffice)}">
+      <input id="risRecDate" value="${safe(defaults.receivedDate)}">
+    </div>`;
+
+  openModal('Requisition and Issue Slip',`
+    ${editor}
+    <div class="ris-preview-wrap">
+      <div class="ris-print-page" id="risPrintPage"></div>
+    </div>
+  `);
+
+  renderRisPreview();
+
+  document.querySelectorAll('.ris-edit-input').forEach(el=>{
+    el.addEventListener('input',renderRisPreview);
+  });
+};
+
 
 $('borrowForm').onsubmit=async e=>{e.preventDefault();try{const cust=hasRole('Property Custodian','Administrator');let buid=state.user.uid,b=state.profile;if(cust){buid=$('brBorrower').value;b=state.users.find(u=>u.id===buid)||state.profile}const no=refNo('BRW');await addDoc(collection(db,'borrowTransactions'),{transactionNo:no,borrowerUid:buid,borrowerName:b.displayName||b.email,borrowerOffice:b.office||'',requestedItem:$('brItem').value.trim(),assetId:cust?$('brAsset').value.trim():'',serial:cust?$('brSerial').value.trim():'',date:$('brDate').value,due:$('brDue').value,conditionBefore:cust?$('brCondition').value:'',accessories:cust?$('brAccessories').value.trim():'',purpose:$('brPurpose').value.trim(),status:cust?'Borrowed':'Requested',createdByUid:state.user.uid,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment',cust?'Recorded equipment release':'Submitted equipment borrowing request',no);e.target.reset();$('brDate').value=today();toast('Equipment transaction saved.')}catch(e){console.error(e);toast('Could not save equipment transaction.')}};
 $('borrowSearch').oninput=renderBorrows;
@@ -605,6 +1046,10 @@ $('settingsForm').onsubmit=async e=>{
       supplyOfficer:$('setSupply').value.trim(),
       propertyCustodian:$('setProperty').value.trim(),
       propertyCustodianPosition:$('setPropertyPosition').value.trim(),
+      risEntityName:$('setRisEntity').value.trim(),
+      risFundCluster:$('setRisFundCluster').value.trim()||'01',
+      risResponsibilityCenterCode:$('setRisResponsibility').value.trim(),
+      supplyOfficerPosition:$('setSupplyPosition').value.trim(),
       updatedByUid:state.user.uid,
       updatedByEmail:state.user.email||'',
       updatedAt:serverTimestamp()
@@ -638,6 +1083,46 @@ $('settingsForm').onsubmit=async e=>{
 function openModal(title,html){$('modalTitle').textContent=title;$('modalBody').innerHTML=html;$('modal').classList.remove('hidden')}
 function closeModal(){$('modal').classList.add('hidden')}
 $('modalX').onclick=closeModal;$('modalClose').onclick=closeModal;function printCurrentDocument(){
+  const risPage=$('modalBody').querySelector('.ris-print-page');
+  if(risPage){
+    const popup=window.open('','_blank','width=1000,height=900');
+    if(!popup){
+      toast('Pop-up blocked. Allow pop-ups for this site, then try Print again.');
+      return;
+    }
+    const css=`
+      @page{size:A4 portrait;margin:0}
+      *{box-sizing:border-box}
+      html,body{margin:0;padding:0;background:#fff;color:#000}
+      body{font-family:Arial,Helvetica,sans-serif}
+      .ris-print-page{width:210mm;height:297mm;background:#fff;color:#000;padding:5mm 7mm 4mm;font-family:Arial,Helvetica,sans-serif}
+      .ris-copy{width:100%;height:137mm;position:relative;color:#000;background:#fff;overflow:hidden}
+      .ris-copy + .ris-copy{margin-top:8mm}
+      .ris-appendix{text-align:right;font-family:Calibri,Arial,sans-serif;font-style:italic;font-size:8.5pt;height:5mm;line-height:5mm}
+      .ris-title{text-align:center;font-family:Calibri,Arial,sans-serif;font-size:10.5pt;font-weight:700;height:8mm;line-height:8mm}
+      .ris-form{width:100%;border-collapse:collapse;table-layout:fixed;color:#000;font-size:8.2pt}
+      .ris-form col:nth-child(1){width:8.92%}.ris-form col:nth-child(2){width:4.94%}.ris-form col:nth-child(3){width:22.45%}.ris-form col:nth-child(4){width:9.77%}.ris-form col:nth-child(5){width:12.89%}.ris-form col:nth-child(6){width:10.31%}.ris-form col:nth-child(7){width:11.06%}.ris-form col:nth-child(8){width:20.40%}
+      .ris-form td,.ris-form th{padding:.65mm .8mm;vertical-align:middle;color:#000;background:#fff;line-height:1.05;font-weight:400}
+      .ris-meta td{border:0}.ris-meta .label{font-weight:700;white-space:nowrap}.ris-under{border-bottom:.7pt solid #000!important}
+      .ris-separator td{height:1.3mm;padding:0;border-bottom:1.2pt solid #000}
+      .ris-section th{border:1pt solid #000;text-align:center;font-weight:700;font-style:italic;font-family:Calibri,Arial,sans-serif;font-size:8.5pt;height:7mm}
+      .ris-columns th{border:.7pt solid #000;text-align:center;font-family:Calibri,Arial,sans-serif;font-size:8pt;font-weight:400;height:7.6mm}
+      .ris-items td{border:.7pt solid #000;height:5.6mm;padding:.45mm .8mm;font-family:"Bookman Old Style",Georgia,serif;font-size:7.5pt}
+      .ris-items td:nth-child(1),.ris-items td:nth-child(2),.ris-items td:nth-child(4),.ris-items td:nth-child(5),.ris-items td:nth-child(6),.ris-items td:nth-child(7){text-align:center}
+      .ris-purpose td{border:.7pt solid #000;height:6mm;font-size:8pt}
+      .ris-sign-head td{border:.7pt solid #000;height:6.5mm;font-weight:700;font-size:8pt}
+      .ris-sign-row td{border:.7pt solid #000;height:5.8mm;font-size:7.8pt;text-align:center}
+      .ris-sign-row .row-label{text-align:left;font-weight:400}
+      .ris-printed-name{font-family:Calibri,Arial,sans-serif;font-weight:700!important;font-size:8pt!important}
+      .ris-date-row td{height:6mm}
+    `;
+    popup.document.open();
+    popup.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Requisition and Issue Slip</title><style>'+css+'</style></head><body>'+risPage.outerHTML+'</body></html>');
+    popup.document.close();
+    popup.onload=()=>setTimeout(()=>{popup.focus();popup.print();},300);
+    return;
+  }
+
   const slip=$('modalBody').querySelector('.equipment-slip');
   if(!slip){
     window.print();
