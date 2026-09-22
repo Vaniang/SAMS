@@ -184,6 +184,7 @@
       <button class="nav" data-section="equipment" data-roles="Employee,Property Custodian,School Head,Administrator">💻 <span>Equipment</span></button>
       <button class="nav" data-section="dtr" data-roles="Employee,HR/Admin,School Head,Administrator">🕐 <span>DTR</span></button>
       <button class="nav" data-section="leave" data-roles="Employee,HR/Admin,School Head,Administrator">🗓️ <span>Leave</span></button>
+      <button class="nav" data-section="masterlist" data-roles="Administrator,HR/Admin,Supply Officer">📋 <span>Employee Masterlist</span></button>
       <button class="nav" data-section="users" data-roles="Administrator">👥 <span>Users & Roles</span></button>
       <button class="nav" data-section="audit" data-roles="School Head,Administrator">🧾 <span>Audit Log</span></button>
       <button class="nav" data-section="settings" data-roles="Administrator">⚙️ <span>Settings</span></button>
@@ -226,6 +227,21 @@
           </article>
           <article class="card"><h3>Architecture</h3><p class="muted"><b>PCMS</b> remains the master property/equipment database. <b>SAMS</b> manages requests, approvals, issuance, borrowing/return, HR monitoring, users, and audit history.</p><div class="callout">PCMS → Asset Master &nbsp; | &nbsp; SAMS → Transactions & Workflow</div></article>
         </div>
+        <article class="card mt" data-roles="Administrator,Supply Officer">
+          <div class="card-head"><div><h3>Walk-In Supply Backup</h3><p class="muted" style="margin:4px 0 0">Use this when an employee requests supplies personally instead of submitting online.</p></div><span class="badge info">Manual / Walk-In</span></div>
+          <form id="walkInSupplyForm" class="form-grid">
+            <div class="f span6"><label>Employee</label><select id="walkEmployee" required><option value="">Select employee…</option></select></div>
+            <div class="f span3"><label>Office / Unit</label><input id="walkOffice" readonly></div>
+            <div class="f span3"><label>Position</label><input id="walkPosition" readonly></div>
+            <div class="f span4"><label>Item</label><input id="walkItem" placeholder="Bond Paper A4" required></div>
+            <div class="f span2"><label>Unit</label><input id="walkUnit" placeholder="ream" required></div>
+            <div class="f span2"><label>Quantity</label><input id="walkQty" type="number" min="1" value="1" required></div>
+            <div class="f span4"><label>Date</label><input id="walkDate" type="date" required></div>
+            <div class="f span8"><label>Purpose</label><input id="walkPurpose" required></div>
+            <div class="f span4"><label>Record As</label><select id="walkStatus"><option value="Issued" selected>Issued — already received</option><option value="Pending">Pending — for approval/issuance</option></select></div>
+            <div class="span12"><button class="btn primary" type="submit">Record Walk-In Request</button> <span id="walkInStatus" class="msg" style="margin-left:8px"></span></div>
+          </form>
+        </article>
         <article class="card mt"><h3>Recent Activity</h3><div id="recentActivity" class="muted">Detailed audit viewing is restricted to management roles.</div></article>
       </section>
 
@@ -244,7 +260,7 @@
           </article>
           <article class="card"><h3>Workflow</h3><ol class="muted"><li>Employee submits.</li><li>Authorized staff reviews.</li><li>Supply Officer records issuance.</li><li>SAMS generates RIS data.</li><li>RIS is printed/saved when required.</li></ol></article>
         </div>
-        <article class="card mt"><div class="toolbar"><h3>Supply Requests</h3><input id="supplySearch" placeholder="Search…"></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Date</th><th>Requestor</th><th>Office</th><th>Item</th><th>Qty</th><th>Purpose</th><th>Status</th><th>Actions</th></tr></thead><tbody id="supplyBody"></tbody></table></div></article>
+        <article class="card mt"><div class="toolbar"><h3>Supply Requests</h3><input id="supplySearch" placeholder="Search…"></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Date</th><th>Source</th><th>Requestor</th><th>Office</th><th>Item</th><th>Qty</th><th>Purpose</th><th>Status</th><th>Actions</th></tr></thead><tbody id="supplyBody"></tbody></table></div></article>
       </section>
 
       <section id="equipment" class="section">
@@ -282,6 +298,27 @@
           <article class="card"><h3>Official Form</h3><p class="muted">SAMS is the monitoring layer. The official CS Form No. 6 should be generated/attached in the later document-management phase.</p></article>
         </div>
         <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Type</th><th>Period</th><th>Status</th><th>Remarks</th><th>Actions</th></tr></thead><tbody id="leaveBody"></tbody></table></div></article>
+      </section>
+
+      <section id="masterlist" class="section">
+        <div class="two-col">
+          <article class="card" data-roles="Administrator,HR/Admin">
+            <div class="card-head"><div><h3>Employee Masterlist</h3><p class="muted" style="margin:4px 0 0">Personnel may be listed here even without a SAMS login account.</p></div></div>
+            <form id="masterForm" class="form-grid">
+              <input id="masterEditId" type="hidden">
+              <div class="f span4"><label>Employee No. / ID (optional)</label><input id="masterEmployeeNo"></div>
+              <div class="f span8"><label>Full Name</label><input id="masterName" required></div>
+              <div class="f span4"><label>Office / Unit</label><input id="masterOffice" required></div>
+              <div class="f span4"><label>Position / Designation</label><input id="masterPosition"></div>
+              <div class="f span4"><label>Email (optional)</label><input id="masterEmail" type="email"></div>
+              <div class="span12"><button id="masterSaveBtn" class="btn primary" type="submit">Add Employee</button> <button id="masterCancelBtn" class="btn light hidden" type="button">Cancel Edit</button></div>
+            </form>
+            <div class="callout mt"><b>Tip:</b> Use <b>Sync SAMS Users</b> to add existing registered user profiles to the masterlist automatically without duplicating matching emails.</div>
+            <button id="syncMasterUsersBtn" class="btn light mt10" type="button">↻ Sync SAMS Users</button>
+          </article>
+          <article class="card"><h3>How the Masterlist is Used</h3><ol class="muted"><li>Administrator/HR maintains employee names.</li><li>Supply Officer selects a walk-in employee from the list.</li><li>Office and position are filled automatically.</li><li>The request is recorded as Walk-In in the same Supplies/RIS monitoring table.</li><li>If the email matches a SAMS account, the transaction is linked to that user automatically.</li></ol></article>
+        </div>
+        <article class="card mt"><div class="toolbar"><div><h3>Employee Records</h3><p class="muted" style="margin:3px 0 0"><span id="masterCount">0</span> active personnel</p></div><input id="masterSearch" placeholder="Search employee…"></div><div class="table-wrap"><table><thead><tr><th>Employee No.</th><th>Name</th><th>Office / Unit</th><th>Position</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead><tbody id="masterBody"></tbody></table></div></article>
       </section>
 
       <section id="users" class="section"><article class="card"><div class="toolbar"><div><h3>Users & Roles</h3><p class="muted">Create Authentication accounts in Firebase Console. After first login, promote roles here.</p></div><button id="refreshUsers" class="btn light">Refresh</button></div><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Office</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="usersBody"></tbody></table></div></article></section>
@@ -356,7 +393,7 @@ const firebaseConfig = {
 };
 
 const $=id=>document.getElementById(id);
-const state={user:null,profile:null,settings:{},users:[],supplies:[],borrows:[],dtr:[],leaves:[],audit:[],unsubs:[]};
+const state={user:null,profile:null,settings:{},users:[],masterlist:[],supplies:[],borrows:[],dtr:[],leaves:[],audit:[],unsubs:[]};
 let auth,db;
 const today=()=>new Date().toISOString().slice(0,10);
 const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
@@ -469,7 +506,7 @@ async function loadUsers(){
     else state.users=[state.profile];
   }catch(e){console.warn(e);state.users=[state.profile]}
   const active=state.users.filter(x=>x.active!==false);const opts=active.map(u=>`<option value="${safe(u.id)}">${safe(u.displayName||u.email)}${u.office?' — '+safe(u.office):''}</option>`).join('');
-  $('brBorrower').innerHTML=opts;$('dtEmployee').innerHTML=opts;renderUsers();
+  $('brBorrower').innerHTML=opts;$('dtEmployee').innerHTML=opts;renderUsers();fillWalkInEmployeeSelect();
 }
 
 
@@ -522,6 +559,14 @@ function listenData(clearExisting=true){
     state.unsubs.push(onSnapshot(dq,s=>{state.dtr=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderDtr();renderDashboard()},syncError));
     state.unsubs.push(onSnapshot(lq,s=>{state.leaves=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderLeave();renderDashboard()},syncError));
   }
+  if(hasRole('Administrator','HR/Admin','Supply Officer','School Head')){
+    const mq=collection(db,'employeeMasterlist');
+    state.unsubs.push(onSnapshot(mq,s=>{
+      state.masterlist=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.displayName||'').localeCompare(String(b.displayName||'')));
+      renderMasterlist();fillWalkInEmployeeSelect();
+    },syncError));
+  }else{state.masterlist=[];renderMasterlist();fillWalkInEmployeeSelect()}
+
   if(hasRole('School Head','Administrator')){
     const aq=query(collection(db,'auditLogs'),orderBy('createdAt','desc'),limit(100));
     state.unsubs.push(onSnapshot(aq,s=>{state.audit=s.docs.map(d=>({id:d.id,...d.data()}));renderAudit();renderRecent()},syncError));
@@ -552,6 +597,169 @@ $('loginForm').onsubmit=async e=>{e.preventDefault();loginMsg('');if(placeholder
 $('forgotBtn').onclick=async()=>{const email=$('loginEmail').value.trim();if(!email)return loginMsg('Enter your email first.');try{await sendPasswordResetEmail(auth,email);loginMsg('Password reset email sent if the account exists.')}catch{loginMsg('Unable to send password reset email.')}};
 $('logoutBtn').onclick=async()=>{clearSubs();await signOut(auth)};
 
+
+/* EMPLOYEE MASTERLIST + WALK-IN SUPPLY BACKUP */
+let masterEditId=null;
+
+function activeMasterEmployees(){
+  return state.masterlist.filter(e=>e.active!==false&&e.archived!==true);
+}
+
+function matchingUserUid(email){
+  const target=String(email||'').trim().toLowerCase();
+  if(!target)return '';
+  const u=state.users.find(x=>String(x.email||'').trim().toLowerCase()===target);
+  return u?.id||u?.uid||'';
+}
+
+function fillWalkInEmployeeSelect(){
+  const el=$('walkEmployee');
+  if(!el)return;
+  const current=el.value;
+  const rows=activeMasterEmployees();
+  el.innerHTML='<option value="">Select employee…</option>'+rows.map(e=>`<option value="${safe(e.id)}">${safe(e.displayName||'')}${e.office?' — '+safe(e.office):''}</option>`).join('');
+  if(rows.some(e=>e.id===current))el.value=current;
+  updateWalkInEmployeeDetails();
+}
+
+function updateWalkInEmployeeDetails(){
+  const id=$('walkEmployee')?.value||'';
+  const e=state.masterlist.find(x=>x.id===id);
+  if($('walkOffice'))$('walkOffice').value=e?.office||'';
+  if($('walkPosition'))$('walkPosition').value=e?.position||'';
+}
+$('walkEmployee').onchange=updateWalkInEmployeeDetails;
+
+function renderMasterlist(){
+  const body=$('masterBody');
+  if(!body)return;
+  const q=String($('masterSearch')?.value||'').toLowerCase();
+  const rows=activeMasterEmployees().filter(e=>JSON.stringify(e).toLowerCase().includes(q));
+  $('masterCount').textContent=activeMasterEmployees().length;
+  const canManage=hasRole('Administrator','HR/Admin');
+  body.innerHTML=rows.map(e=>`<tr>
+    <td>${safe(e.employeeNo||'—')}</td>
+    <td><b>${safe(e.displayName||'')}</b></td>
+    <td>${safe(e.office||'')}</td>
+    <td>${safe(e.position||'')}</td>
+    <td>${safe(e.email||'—')}</td>
+    <td>${badge(e.active===false?'Inactive':'Active')}</td>
+    <td><div class="actions">
+      ${canManage?`<button class="btn light xs" onclick="editMasterEmployee('${e.id}')">✏️ Edit</button><button class="btn danger xs" onclick="archiveMasterEmployee('${e.id}')">🗑 Archive</button>`:''}
+    </div></td>
+  </tr>`).join('')||'<tr><td colspan="7" class="muted">No employee records found.</td></tr>';
+}
+$('masterSearch').oninput=renderMasterlist;
+
+function resetMasterForm(){
+  masterEditId=null;$('masterEditId').value='';$('masterForm').reset();
+  $('masterSaveBtn').textContent='Add Employee';$('masterCancelBtn').classList.add('hidden');
+}
+$('masterCancelBtn').onclick=resetMasterForm;
+
+$('masterForm').onsubmit=async e=>{
+  e.preventDefault();
+  if(!hasRole('Administrator','HR/Admin'))return toast('Only Administrator or HR/Admin can manage the employee masterlist.');
+  const data={
+    employeeNo:$('masterEmployeeNo').value.trim(),
+    displayName:$('masterName').value.trim(),
+    office:$('masterOffice').value.trim(),
+    position:$('masterPosition').value.trim(),
+    email:$('masterEmail').value.trim().toLowerCase(),
+    active:true,
+    archived:false,
+    updatedAt:serverTimestamp(),
+    updatedByUid:state.user.uid
+  };
+  if(!data.displayName||!data.office)return toast('Employee name and office/unit are required.');
+  try{
+    if(masterEditId){
+      await updateDoc(doc(db,'employeeMasterlist',masterEditId),data);
+      await audit('Employee Masterlist','Edited employee',data.displayName);
+      toast('Employee record updated.');
+    }else{
+      data.createdAt=serverTimestamp();data.createdByUid=state.user.uid;
+      await addDoc(collection(db,'employeeMasterlist'),data);
+      await audit('Employee Masterlist','Added employee',data.displayName);
+      toast('Employee added to masterlist.');
+    }
+    resetMasterForm();
+  }catch(err){console.error(err);toast(err?.code==='permission-denied'?'Publish the updated Firestore rules for the masterlist.':'Could not save employee record.')}
+};
+
+window.editMasterEmployee=id=>{
+  if(!hasRole('Administrator','HR/Admin'))return;
+  const e=state.masterlist.find(x=>x.id===id);if(!e)return;
+  masterEditId=id;$('masterEditId').value=id;
+  $('masterEmployeeNo').value=e.employeeNo||'';$('masterName').value=e.displayName||'';$('masterOffice').value=e.office||'';$('masterPosition').value=e.position||'';$('masterEmail').value=e.email||'';
+  $('masterSaveBtn').textContent='Save Employee Changes';$('masterCancelBtn').classList.remove('hidden');
+  setSection('masterlist');
+};
+
+window.archiveMasterEmployee=async id=>{
+  if(!hasRole('Administrator','HR/Admin'))return;
+  const e=state.masterlist.find(x=>x.id===id);if(!e)return;
+  if(!confirm(`Archive ${e.displayName}? The employee will no longer appear in the Walk-In selector.`))return;
+  try{
+    await updateDoc(doc(db,'employeeMasterlist',id),{active:false,archived:true,archivedAt:serverTimestamp(),archivedByUid:state.user.uid,updatedAt:serverTimestamp()});
+    await audit('Employee Masterlist','Archived employee',e.displayName||id);toast('Employee archived.');
+  }catch(err){console.error(err);toast('Could not archive employee.')}
+};
+
+$('syncMasterUsersBtn').onclick=async()=>{
+  if(!hasRole('Administrator','HR/Admin'))return;
+  const existingEmails=new Set(state.masterlist.map(e=>String(e.email||'').toLowerCase()).filter(Boolean));
+  const candidates=state.users.filter(u=>u.active!==false&&u.email&&!existingEmails.has(String(u.email).toLowerCase()));
+  if(!candidates.length)return toast('All registered SAMS users with emails are already represented in the masterlist.');
+  if(!confirm(`Add ${candidates.length} registered SAMS user(s) to the employee masterlist?`))return;
+  let added=0;
+  try{
+    for(const u of candidates){
+      await addDoc(collection(db,'employeeMasterlist'),{
+        employeeNo:'',displayName:u.displayName||u.email,office:u.office||'',position:u.position||'',email:String(u.email||'').toLowerCase(),active:true,archived:false,linkedUserUid:u.id||u.uid||'',createdAt:serverTimestamp(),createdByUid:state.user.uid,updatedAt:serverTimestamp(),updatedByUid:state.user.uid
+      });
+      added++;
+    }
+    await audit('Employee Masterlist','Synced registered SAMS users',String(added));toast(`${added} employee(s) added to masterlist.`);
+  }catch(err){console.error(err);toast('Could not complete masterlist sync.')}
+};
+
+$('walkInSupplyForm').onsubmit=async e=>{
+  e.preventDefault();
+  if(!hasRole('Administrator','Supply Officer'))return toast('Only Administrator or Supply Officer can record a walk-in supply request.');
+  const employee=state.masterlist.find(x=>x.id===$('walkEmployee').value);
+  if(!employee)return toast('Select an employee from the masterlist.');
+  const status=$('walkStatus').value;
+  const requestNo=refNo('SR');
+  const linkedUid=employee.linkedUserUid||matchingUserUid(employee.email)||'';
+  const payload={
+    requestNo,
+    requesterUid:linkedUid,
+    masterEmployeeId:employee.id,
+    requestor:employee.displayName||'',
+    requesterEmail:employee.email||'',
+    office:employee.office||'',
+    position:employee.position||'',
+    item:$('walkItem').value.trim(),unit:$('walkUnit').value.trim(),qty:Number($('walkQty').value),purpose:$('walkPurpose').value.trim(),
+    status,
+    source:'Walk-In',manualEntry:true,
+    requestDate:$('walkDate').value||today(),
+    createdByUid:state.user.uid,createdByName:state.profile.displayName||state.user.email||'',createdAt:serverTimestamp(),updatedAt:serverTimestamp()
+  };
+  if(!payload.item||!payload.unit||!payload.qty||payload.qty<1||!payload.purpose)return toast('Complete the walk-in request fields.');
+  if(status==='Issued'){
+    payload.risNo=refNo('RIS');payload.issueDate=payload.requestDate;payload.issuedByUid=state.user.uid;payload.issuedByName=state.profile.displayName||state.user.email||'';payload.issuedAt=serverTimestamp();
+  }
+  try{
+    await addDoc(collection(db,'supplyRequests'),payload);
+    await audit('Supplies',status==='Issued'?'Recorded walk-in supply issuance':'Recorded walk-in supply request',requestNo);
+    $('walkInStatus').textContent=`Recorded ${requestNo}`;$('walkInStatus').style.color='#027a48';
+    e.target.reset();$('walkQty').value=1;$('walkDate').value=today();$('walkStatus').value='Issued';fillWalkInEmployeeSelect();
+    toast(status==='Issued'?'Walk-in issuance recorded. RIS is available in Supplies / RIS.':'Walk-in request recorded as Pending.');
+  }catch(err){
+    console.error(err);$('walkInStatus').textContent=err?.code==='permission-denied'?'Publish the updated Firestore rules.':'Could not record walk-in request.';$('walkInStatus').style.color='#b42318';
+  }
+};
 
 /* TABLE EDIT / DELETE
    Delete is implemented as an archive (soft delete) to preserve audit history. */
@@ -782,7 +990,7 @@ window.softDeleteRecord=softDeleteRecord;
 $('supplyForm').onsubmit=async e=>{e.preventDefault();try{const no=refNo('SR');await addDoc(collection(db,'supplyRequests'),{requestNo:no,requesterUid:state.user.uid,requestor:state.profile.displayName||state.user.email,requesterEmail:state.user.email||'',office:$('srOffice').value.trim(),item:$('srItem').value.trim(),unit:$('srUnit').value.trim(),qty:Number($('srQty').value),purpose:$('srPurpose').value.trim(),status:'Pending',requestDate:today(),createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Submitted supply request',no);e.target.reset();$('srQty').value=1;$('srRequestor').value=state.profile.displayName||state.user.email;$('srOffice').value=state.profile.office||'';toast('Supply request submitted.')}catch(e){console.error(e);toast('Could not submit supply request.')}};
 $('supplySearch').oninput=renderSupplies;
 window.supplyAction=async(id,action)=>{const r=state.supplies.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'supplyRequests',id);if(action==='approve'){await updateDoc(ref,{status:'Approved',approvedByUid:state.user.uid,approvedByName:state.profile.displayName,approvedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Approved supply request',r.requestNo)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,rejectedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Rejected supply request',r.requestNo)}if(action==='issue'){const ris=refNo('RIS');await updateDoc(ref,{status:'Issued',risNo:ris,issueDate:today(),issuedByUid:state.user.uid,issuedByName:state.profile.displayName,issuedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Issued supplies / generated RIS',ris)}toast('Supply record updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
-function renderSupplies(){const q=$('supplySearch').value.toLowerCase();const rows=state.supplies.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q));$('supplyBody').innerHTML=rows.map(r=>{const approve=hasRole('School Head','Supply Officer','Administrator')&&r.status==='Pending';const issue=hasRole('Supply Officer','Administrator')&&r.status==='Approved';const edit=canEditSupply(r),del=canDeleteSupply(r);return `<tr><td>${safe(r.requestNo)}</td><td>${safe(r.requestDate)}</td><td>${safe(r.requestor)}</td><td>${safe(r.office)}</td><td>${safe(r.item)}<br><span class="muted">${safe(r.unit)}</span></td><td>${safe(r.qty)}</td><td>${safe(r.purpose)}</td><td>${badge(r.status)}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('supply','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('supply','${r.id}')">🗑 Delete</button>`:''}${approve?`<button class="btn success xs" onclick="supplyAction('${r.id}','approve')">Approve</button><button class="btn danger xs" onclick="supplyAction('${r.id}','reject')">Reject</button>`:''}${issue?`<button class="btn warning xs" onclick="supplyAction('${r.id}','issue')">Issue</button>`:''}${r.status==='Issued'?`<button class="btn light xs" onclick="showRIS('${r.id}')">RIS</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="9" class="muted">No supply requests found.</td></tr>'}
+function renderSupplies(){const q=$('supplySearch').value.toLowerCase();const rows=state.supplies.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q));$('supplyBody').innerHTML=rows.map(r=>{const approve=hasRole('School Head','Supply Officer','Administrator')&&r.status==='Pending';const issue=hasRole('Supply Officer','Administrator')&&r.status==='Approved';const edit=canEditSupply(r),del=canDeleteSupply(r);return `<tr><td>${safe(r.requestNo)}</td><td>${safe(r.requestDate)}</td><td>${r.source==='Walk-In'?'<span class="badge info">Walk-In</span>':'<span class="badge ok">Online</span>'}</td><td>${safe(r.requestor)}</td><td>${safe(r.office)}</td><td>${safe(r.item)}<br><span class="muted">${safe(r.unit)}</span></td><td>${safe(r.qty)}</td><td>${safe(r.purpose)}</td><td>${badge(r.status)}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('supply','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('supply','${r.id}')">🗑 Delete</button>`:''}${approve?`<button class="btn success xs" onclick="supplyAction('${r.id}','approve')">Approve</button><button class="btn danger xs" onclick="supplyAction('${r.id}','reject')">Reject</button>`:''}${issue?`<button class="btn warning xs" onclick="supplyAction('${r.id}','issue')">Issue</button>`:''}${r.status==='Issued'?`<button class="btn light xs" onclick="showRIS('${r.id}')">RIS</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="10" class="muted">No supply requests found.</td></tr>'}
 
 let activeRisRecordId=null;
 
@@ -1427,7 +1635,7 @@ $('modalX').onclick=closeModal;$('modalClose').onclick=closeModal;function print
 $('printBtn').onclick=printCurrentDocument;$('modal').onclick=e=>{if(e.target===$('modal'))closeModal()};
 
 function init(){
-  $('brDate').value=today();$('dtMonth').value=today().slice(0,7);
+  $('brDate').value=today();$('dtMonth').value=today().slice(0,7);$('walkDate').value=today();
   if(placeholder()){showLoading(false);$('loginScreen').classList.remove('hidden');$('configWarning').classList.remove('hidden');return}
   try{const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);onAuthStateChanged(auth,async user=>{showLoading(true);if(!user){clearSubs();state.user=null;state.profile=null;$('app').classList.add('hidden');$('loginScreen').classList.remove('hidden');showLoading(false);return}try{await startSession(user)}catch(e){console.error(e);loginMsg(e.message||'Unable to start SAMS.');$('app').classList.add('hidden');$('loginScreen').classList.remove('hidden');showLoading(false)}})}catch(e){console.error(e);showLoading(false);$('loginScreen').classList.remove('hidden');loginMsg('Firebase initialization failed. Check the Firebase configuration in index.html.')}
 }
