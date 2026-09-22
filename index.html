@@ -58,14 +58,25 @@
 .ris-preview-wrap{overflow:auto;background:#eceff2;padding:12px;border-radius:8px}
 .ris-print-page{
   width:210mm;min-height:297mm;background:#fff;color:#000;margin:0 auto;
-  padding:5mm 7mm 4mm;font-family:Arial,Helvetica,sans-serif;
+  padding:4mm 6mm 3mm;font-family:Arial,Helvetica,sans-serif;
   box-shadow:0 2px 12px rgba(0,0,0,.08)
 }
-.ris-copy{
-  width:100%;height:137mm;position:relative;color:#000;background:#fff;
-  overflow:hidden
+.ris-copy-slot{
+  width:100%;
+  height:132mm;
+  position:relative;
+  overflow:visible;
 }
-.ris-copy + .ris-copy{margin-top:8mm}
+.ris-copy-slot + .ris-copy-slot{margin-top:7mm}
+.ris-copy{
+  width:131.578947%;
+  height:auto;
+  position:relative;
+  color:#000;
+  background:#fff;
+  transform:scale(.76);
+  transform-origin:top left;
+}
 .ris-appendix{
   text-align:right;font-family:Calibri,Arial,sans-serif;font-style:italic;
   font-size:8.5pt;height:5mm;line-height:5mm
@@ -123,15 +134,14 @@
   border:.7pt solid #000;height:6.5mm;font-weight:700;font-size:8pt
 }
 .ris-sign-row td{
-  border:.7pt solid #000;height:5.8mm;font-size:7.8pt;
+  border:.7pt solid #000;height:5.4mm;font-size:7.8pt;
   text-align:center
 }
 .ris-sign-row .row-label{text-align:left;font-weight:400}
 .ris-printed-name{
   font-family:Calibri,Arial,sans-serif;font-weight:700!important;font-size:8pt!important
 }
-.ris-date-row td{height:6mm}
-.ris-copy-gap{height:8mm}
+.ris-date-row td{height:5.5mm}
 
 /* On smaller screens, preserve the form and allow horizontal scrolling. */
 @media(max-width:900px){
@@ -263,7 +273,7 @@
           <article id="dtrAdminCard" class="card"><h3>Add / Update DTR Monitoring</h3><form id="dtrForm" class="form-grid"><div class="f span6"><label>Employee</label><select id="dtEmployee"></select></div><div class="f span3"><label>Month</label><input id="dtMonth" type="month" required></div><div class="f span3"><label>Status</label><select id="dtStatus"><option>Pending</option><option>Submitted</option><option>Verified</option><option>Forwarded to SDO</option></select></div><div class="f span12"><label>Remarks</label><input id="dtRemarks"></div><div class="span12"><button class="btn primary">Save DTR Record</button></div></form></article>
           <article class="card"><h3>Control</h3><p class="muted">This module monitors submission and verification. It does not replace the official DTR/CS Form No. 48.</p></article>
         </div>
-        <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Month</th><th>Status</th><th>Remarks</th><th>Updated</th></tr></thead><tbody id="dtrBody"></tbody></table></div></article>
+        <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Month</th><th>Status</th><th>Remarks</th><th>Updated</th><th>Actions</th></tr></thead><tbody id="dtrBody"></tbody></table></div></article>
       </section>
 
       <section id="leave" class="section">
@@ -301,6 +311,20 @@
       <div class="modal-actions">
         <button id="saveProfileBtn" class="btn primary" type="submit">Save My Profile</button>
         <button id="profileCancelBtn" class="btn light" type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="recordModal" class="modal hidden">
+  <div class="modal-card" style="max-width:760px">
+    <div class="modal-head"><h3 id="recordModalTitle">Edit Record</h3><button id="recordModalX" type="button">✕</button></div>
+    <form id="recordEditForm">
+      <div id="recordEditFields" class="form-grid mt"></div>
+      <div id="recordEditStatus" class="msg"></div>
+      <div class="modal-actions">
+        <button id="recordSaveBtn" class="btn primary" type="submit">Save Changes</button>
+        <button id="recordCancelBtn" class="btn light" type="button">Cancel</button>
       </div>
     </form>
   </div>
@@ -528,10 +552,237 @@ $('loginForm').onsubmit=async e=>{e.preventDefault();loginMsg('');if(placeholder
 $('forgotBtn').onclick=async()=>{const email=$('loginEmail').value.trim();if(!email)return loginMsg('Enter your email first.');try{await sendPasswordResetEmail(auth,email);loginMsg('Password reset email sent if the account exists.')}catch{loginMsg('Unable to send password reset email.')}};
 $('logoutBtn').onclick=async()=>{clearSubs();await signOut(auth)};
 
+
+/* TABLE EDIT / DELETE
+   Delete is implemented as an archive (soft delete) to preserve audit history. */
+let editContext=null;
+
+function isVisibleRecord(r){return r&&r.deleted!==true}
+
+function canEditSupply(r){
+  return hasRole('Supply Officer','School Head','Administrator')
+    || (r.requesterUid===state.user.uid&&r.status==='Pending');
+}
+function canDeleteSupply(r){return canEditSupply(r)}
+function canEditBorrow(r){
+  return hasRole('Property Custodian','Administrator')
+    || (r.borrowerUid===state.user.uid&&r.status==='Requested');
+}
+function canDeleteBorrow(r){return canEditBorrow(r)}
+function canEditDtr(){return hasRole('HR/Admin','Administrator')}
+function canDeleteDtr(){return canEditDtr()}
+function canEditLeave(r){
+  return hasRole('HR/Admin','School Head','Administrator')
+    || (r.employeeUid===state.user.uid&&r.status==='Pending');
+}
+function canDeleteLeave(r){return canEditLeave(r)}
+
+function fieldHtml(id,label,value='',type='text',span='span6',options=null){
+  if(options){
+    return `<div class="f ${span}"><label>${safe(label)}</label><select id="${id}">${options.map(o=>`<option value="${safe(o)}" ${String(o)===String(value)?'selected':''}>${safe(o)}</option>`).join('')}</select></div>`;
+  }
+  return `<div class="f ${span}"><label>${safe(label)}</label><input id="${id}" type="${type}" value="${safe(value)}"></div>`;
+}
+
+function closeRecordEditor(){
+  editContext=null;
+  $('recordModal').classList.add('hidden');
+  $('recordEditFields').innerHTML='';
+  $('recordEditStatus').textContent='';
+}
+
+function openRecordEditor(module,id){
+  let r=null,fields='',title='Edit Record';
+
+  if(module==='supply'){
+    r=state.supplies.find(x=>x.id===id);
+    if(!r||!canEditSupply(r))return toast('You are not allowed to edit this supply request.');
+    title=`Edit Supply Request ${r.requestNo||''}`;
+    fields=
+      fieldHtml('edSupplyOffice','Office / Unit',r.office||'')+
+      fieldHtml('edSupplyItem','Item',r.item||'')+
+      fieldHtml('edSupplyUnit','Unit',r.unit||'','text','span3')+
+      fieldHtml('edSupplyQty','Quantity',r.qty||1,'number','span3')+
+      fieldHtml('edSupplyPurpose','Purpose',r.purpose||'','text','span12');
+  }
+
+  if(module==='borrow'){
+    r=state.borrows.find(x=>x.id===id);
+    if(!r||!canEditBorrow(r))return toast('You are not allowed to edit this equipment transaction.');
+    title=`Edit Equipment Transaction ${r.transactionNo||''}`;
+    const property=hasRole('Property Custodian','Administrator');
+    fields=
+      fieldHtml('edBorrowItem','Equipment',r.requestedItem||'')+
+      fieldHtml('edBorrowDate','Date Needed / Borrowed',r.date||'','date','span3')+
+      fieldHtml('edBorrowDue','Expected Return',r.due||'','date','span3')+
+      (property?fieldHtml('edBorrowAsset','PCMS Asset ID',r.assetId||''):'')+
+      (property?fieldHtml('edBorrowSerial','Serial / Property No.',r.serial||''):'')+
+      (property?fieldHtml('edBorrowCondition','Condition Before',r.conditionBefore||'Serviceable / Good'):'')+
+      (property?fieldHtml('edBorrowAccessories','Accessories',r.accessories||''):'')+
+      fieldHtml('edBorrowPurpose','Purpose',r.purpose||'','text','span12');
+  }
+
+  if(module==='dtr'){
+    r=state.dtr.find(x=>x.id===id);
+    if(!r||!canEditDtr(r))return toast('Only HR/Admin or Administrator can edit DTR monitoring.');
+    title=`Edit DTR — ${r.employeeName||''}`;
+    fields=
+      fieldHtml('edDtrMonth','Month',r.month||'','month','span4')+
+      fieldHtml('edDtrStatus','Status',r.status||'Pending','text','span4',['Pending','Submitted','Verified','Forwarded to SDO'])+
+      fieldHtml('edDtrRemarks','Remarks',r.remarks||'','text','span12');
+  }
+
+  if(module==='leave'){
+    r=state.leaves.find(x=>x.id===id);
+    if(!r||!canEditLeave(r))return toast('You are not allowed to edit this leave record.');
+    title=`Edit Leave — ${r.employeeName||''}`;
+    fields=
+      fieldHtml('edLeaveType','Leave Type',r.type||'Vacation Leave','text','span6',['Vacation Leave','Sick Leave','Mandatory / Forced Leave','Special Privilege Leave','Maternity Leave','Paternity Leave','Other'])+
+      fieldHtml('edLeaveFrom','From',r.from||'','date','span3')+
+      fieldHtml('edLeaveTo','To',r.to||'','date','span3')+
+      fieldHtml('edLeaveRemarks','Remarks',r.remarks||'','text','span12');
+  }
+
+  if(!r)return;
+  editContext={module,id};
+  $('recordModalTitle').textContent=title;
+  $('recordEditFields').innerHTML=fields;
+  $('recordEditStatus').textContent='';
+  $('recordModal').classList.remove('hidden');
+}
+window.openRecordEditor=openRecordEditor;
+
+$('recordModalX').onclick=closeRecordEditor;
+$('recordCancelBtn').onclick=closeRecordEditor;
+$('recordModal').onclick=e=>{if(e.target===$('recordModal'))closeRecordEditor()};
+
+$('recordEditForm').onsubmit=async e=>{
+  e.preventDefault();
+  if(!editContext)return;
+  const {module,id}=editContext;
+  const status=$('recordEditStatus');
+  const btn=$('recordSaveBtn');
+  status.textContent='Saving...';
+  status.style.color='#667085';
+  btn.disabled=true;
+
+  try{
+    let collectionName='',payload={},reference='';
+
+    if(module==='supply'){
+      const r=state.supplies.find(x=>x.id===id);
+      if(!r||!canEditSupply(r))throw new Error('You are not allowed to edit this supply request.');
+      collectionName='supplyRequests';reference=r.requestNo||id;
+      payload={
+        office:$('edSupplyOffice').value.trim(),
+        item:$('edSupplyItem').value.trim(),
+        unit:$('edSupplyUnit').value.trim(),
+        qty:Number($('edSupplyQty').value),
+        purpose:$('edSupplyPurpose').value.trim(),
+        updatedAt:serverTimestamp()
+      };
+      if(!payload.item||!payload.unit||!payload.qty||payload.qty<1||!payload.purpose)throw new Error('Complete the required supply fields.');
+    }
+
+    if(module==='borrow'){
+      const r=state.borrows.find(x=>x.id===id);
+      if(!r||!canEditBorrow(r))throw new Error('You are not allowed to edit this equipment transaction.');
+      collectionName='borrowTransactions';reference=r.transactionNo||id;
+      payload={
+        requestedItem:$('edBorrowItem').value.trim(),
+        date:$('edBorrowDate').value,
+        due:$('edBorrowDue').value,
+        purpose:$('edBorrowPurpose').value.trim(),
+        updatedAt:serverTimestamp()
+      };
+      if(hasRole('Property Custodian','Administrator')){
+        payload.assetId=$('edBorrowAsset')?.value.trim()||'';
+        payload.serial=$('edBorrowSerial')?.value.trim()||'';
+        payload.conditionBefore=$('edBorrowCondition')?.value.trim()||'';
+        payload.accessories=$('edBorrowAccessories')?.value.trim()||'';
+      }
+      if(!payload.requestedItem||!payload.date||!payload.due||!payload.purpose)throw new Error('Complete the required equipment fields.');
+    }
+
+    if(module==='dtr'){
+      const r=state.dtr.find(x=>x.id===id);
+      if(!r||!canEditDtr(r))throw new Error('You are not allowed to edit this DTR record.');
+      collectionName='dtrRecords';reference=`${r.employeeName||''} ${r.month||''}`;
+      payload={
+        month:$('edDtrMonth').value,
+        status:$('edDtrStatus').value,
+        remarks:$('edDtrRemarks').value.trim(),
+        updatedByUid:state.user.uid,
+        updatedAt:serverTimestamp()
+      };
+      if(!payload.month)throw new Error('Month is required.');
+    }
+
+    if(module==='leave'){
+      const r=state.leaves.find(x=>x.id===id);
+      if(!r||!canEditLeave(r))throw new Error('You are not allowed to edit this leave record.');
+      collectionName='leaveApplications';reference=r.leaveNo||id;
+      payload={
+        type:$('edLeaveType').value,
+        from:$('edLeaveFrom').value,
+        to:$('edLeaveTo').value,
+        remarks:$('edLeaveRemarks').value.trim(),
+        updatedAt:serverTimestamp()
+      };
+      if(!payload.from||!payload.to)throw new Error('Leave dates are required.');
+    }
+
+    await updateDoc(doc(db,collectionName,id),payload);
+    await audit(module==='supply'?'Supplies':module==='borrow'?'Equipment':module==='dtr'?'DTR':'Leave','Edited record',reference);
+    status.textContent='Changes saved successfully.';
+    status.style.color='#027a48';
+    toast('Record updated.');
+    setTimeout(closeRecordEditor,450);
+  }catch(err){
+    console.error('EDIT RECORD ERROR:',err);
+    status.textContent=err?.code==='permission-denied'
+      ?'Firestore denied this edit. Publish the updated firestore.rules included with SAMS v9.'
+      :(err?.message||'Could not update the record.');
+    status.style.color='#b42318';
+  }finally{btn.disabled=false}
+};
+
+async function softDeleteRecord(module,id){
+  let r=null,collectionName='',reference='',allowed=false;
+  if(module==='supply'){r=state.supplies.find(x=>x.id===id);collectionName='supplyRequests';allowed=r&&canDeleteSupply(r);reference=r?.requestNo||id}
+  if(module==='borrow'){r=state.borrows.find(x=>x.id===id);collectionName='borrowTransactions';allowed=r&&canDeleteBorrow(r);reference=r?.transactionNo||id}
+  if(module==='dtr'){r=state.dtr.find(x=>x.id===id);collectionName='dtrRecords';allowed=r&&canDeleteDtr(r);reference=r?`${r.employeeName||''} ${r.month||''}`:id}
+  if(module==='leave'){r=state.leaves.find(x=>x.id===id);collectionName='leaveApplications';allowed=r&&canDeleteLeave(r);reference=r?.leaveNo||id}
+  if(!r||!allowed)return toast('You are not allowed to delete this record.');
+
+  const reason=prompt('Reason for deleting/archiving this record (optional):','');
+  if(reason===null)return;
+  if(!confirm('Delete this record from the working table? It will remain archived for audit purposes.'))return;
+
+  try{
+    await updateDoc(doc(db,collectionName,id),{
+      deleted:true,
+      deletedAt:serverTimestamp(),
+      deletedByUid:state.user.uid,
+      deletedByName:state.profile.displayName||state.user.email||'',
+      deleteReason:reason.trim(),
+      updatedAt:serverTimestamp()
+    });
+    await audit(module==='supply'?'Supplies':module==='borrow'?'Equipment':module==='dtr'?'DTR':'Leave','Deleted / archived record',reference);
+    toast('Record deleted from the working table and archived.');
+  }catch(err){
+    console.error('DELETE RECORD ERROR:',err);
+    toast(err?.code==='permission-denied'
+      ?'Firestore denied this delete. Publish the updated firestore.rules included with SAMS v9.'
+      :'Could not delete the record.');
+  }
+}
+window.softDeleteRecord=softDeleteRecord;
+
 $('supplyForm').onsubmit=async e=>{e.preventDefault();try{const no=refNo('SR');await addDoc(collection(db,'supplyRequests'),{requestNo:no,requesterUid:state.user.uid,requestor:state.profile.displayName||state.user.email,requesterEmail:state.user.email||'',office:$('srOffice').value.trim(),item:$('srItem').value.trim(),unit:$('srUnit').value.trim(),qty:Number($('srQty').value),purpose:$('srPurpose').value.trim(),status:'Pending',requestDate:today(),createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Submitted supply request',no);e.target.reset();$('srQty').value=1;$('srRequestor').value=state.profile.displayName||state.user.email;$('srOffice').value=state.profile.office||'';toast('Supply request submitted.')}catch(e){console.error(e);toast('Could not submit supply request.')}};
 $('supplySearch').oninput=renderSupplies;
 window.supplyAction=async(id,action)=>{const r=state.supplies.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'supplyRequests',id);if(action==='approve'){await updateDoc(ref,{status:'Approved',approvedByUid:state.user.uid,approvedByName:state.profile.displayName,approvedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Approved supply request',r.requestNo)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,rejectedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Rejected supply request',r.requestNo)}if(action==='issue'){const ris=refNo('RIS');await updateDoc(ref,{status:'Issued',risNo:ris,issueDate:today(),issuedByUid:state.user.uid,issuedByName:state.profile.displayName,issuedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Issued supplies / generated RIS',ris)}toast('Supply record updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
-function renderSupplies(){const q=$('supplySearch').value.toLowerCase();$('supplyBody').innerHTML=state.supplies.filter(r=>JSON.stringify(r).toLowerCase().includes(q)).map(r=>{const approve=hasRole('School Head','Supply Officer','Administrator')&&r.status==='Pending';const issue=hasRole('Supply Officer','Administrator')&&r.status==='Approved';return `<tr><td>${safe(r.requestNo)}</td><td>${safe(r.requestDate)}</td><td>${safe(r.requestor)}</td><td>${safe(r.office)}</td><td>${safe(r.item)}<br><span class="muted">${safe(r.unit)}</span></td><td>${safe(r.qty)}</td><td>${safe(r.purpose)}</td><td>${badge(r.status)}</td><td><div class="actions">${approve?`<button class="btn success xs" onclick="supplyAction('${r.id}','approve')">Approve</button><button class="btn danger xs" onclick="supplyAction('${r.id}','reject')">Reject</button>`:''}${issue?`<button class="btn warning xs" onclick="supplyAction('${r.id}','issue')">Issue</button>`:''}${r.status==='Issued'?`<button class="btn light xs" onclick="showRIS('${r.id}')">RIS</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="9" class="muted">No supply requests found.</td></tr>'}
+function renderSupplies(){const q=$('supplySearch').value.toLowerCase();const rows=state.supplies.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q));$('supplyBody').innerHTML=rows.map(r=>{const approve=hasRole('School Head','Supply Officer','Administrator')&&r.status==='Pending';const issue=hasRole('Supply Officer','Administrator')&&r.status==='Approved';const edit=canEditSupply(r),del=canDeleteSupply(r);return `<tr><td>${safe(r.requestNo)}</td><td>${safe(r.requestDate)}</td><td>${safe(r.requestor)}</td><td>${safe(r.office)}</td><td>${safe(r.item)}<br><span class="muted">${safe(r.unit)}</span></td><td>${safe(r.qty)}</td><td>${safe(r.purpose)}</td><td>${badge(r.status)}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('supply','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('supply','${r.id}')">🗑 Delete</button>`:''}${approve?`<button class="btn success xs" onclick="supplyAction('${r.id}','approve')">Approve</button><button class="btn danger xs" onclick="supplyAction('${r.id}','reject')">Reject</button>`:''}${issue?`<button class="btn warning xs" onclick="supplyAction('${r.id}','issue')">Issue</button>`:''}${r.status==='Issued'?`<button class="btn light xs" onclick="showRIS('${r.id}')">RIS</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="9" class="muted">No supply requests found.</td></tr>'}
 
 let activeRisRecordId=null;
 
@@ -592,6 +843,7 @@ function risCopyHtml(r,d){
   }
 
   return `
+  <div class="ris-copy-slot">
   <div class="ris-copy">
     <div class="ris-appendix">Appendix 63</div>
     <div class="ris-title">REQUISITION AND ISSUE SLIP</div>
@@ -684,6 +936,7 @@ function risCopyHtml(r,d){
         <td>${safe(d.receivedDate)}</td>
       </tr>
     </table>
+  </div>
   </div>`;
 }
 
@@ -857,6 +1110,7 @@ window.showRIS=id=>{
     <div class="ris-preview-wrap">
       <div class="ris-print-page" id="risPrintPage"></div>
     </div>
+    <div class="ris-editor-note no-print">The RIS preview is scaled to 76%, matching the print scale configured in the uploaded Excel template, so the complete signatory section fits on both copies.</div>
   `);
 
   renderRisPreview();
@@ -870,7 +1124,7 @@ window.showRIS=id=>{
 $('borrowForm').onsubmit=async e=>{e.preventDefault();try{const cust=hasRole('Property Custodian','Administrator');let buid=state.user.uid,b=state.profile;if(cust){buid=$('brBorrower').value;b=state.users.find(u=>u.id===buid)||state.profile}const no=refNo('BRW');await addDoc(collection(db,'borrowTransactions'),{transactionNo:no,borrowerUid:buid,borrowerName:b.displayName||b.email,borrowerOffice:b.office||'',requestedItem:$('brItem').value.trim(),assetId:cust?$('brAsset').value.trim():'',serial:cust?$('brSerial').value.trim():'',date:$('brDate').value,due:$('brDue').value,conditionBefore:cust?$('brCondition').value:'',accessories:cust?$('brAccessories').value.trim():'',purpose:$('brPurpose').value.trim(),status:cust?'Borrowed':'Requested',createdByUid:state.user.uid,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment',cust?'Recorded equipment release':'Submitted equipment borrowing request',no);e.target.reset();$('brDate').value=today();toast('Equipment transaction saved.')}catch(e){console.error(e);toast('Could not save equipment transaction.')}};
 $('borrowSearch').oninput=renderBorrows;
 window.borrowAction=async(id,action)=>{const r=state.borrows.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'borrowTransactions',id);if(action==='release'){const asset=prompt('PCMS Asset ID:',r.assetId||'');if(!asset)return;const serial=prompt('Serial / Property No. (optional):',r.serial||'');if(serial===null)return;const cond=prompt('Condition before release:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{assetId:asset,serial,conditionBefore:cond,status:'Borrowed',releasedByUid:state.user.uid,releasedByName:state.profile.displayName,releasedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Released equipment',r.transactionNo)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,updatedAt:serverTimestamp()});await audit('Equipment','Rejected borrowing request',r.transactionNo)}if(action==='return'){const cond=prompt('Condition upon return:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{status:'Returned',returnCondition:cond,returnDate:today(),receivedByUid:state.user.uid,receivedByName:state.profile.displayName,returnedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Recorded equipment return',r.transactionNo)}toast('Equipment transaction updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
-function renderBorrows(){const q=$('borrowSearch').value.toLowerCase();$('borrowBody').innerHTML=state.borrows.filter(r=>JSON.stringify(r).toLowerCase().includes(q)).map(r=>{let st=r.status;if(r.status==='Borrowed'&&r.due&&r.due<today())st='Overdue';const c=hasRole('Property Custodian','Administrator');return `<tr><td>${safe(r.transactionNo)}</td><td>${safe(r.borrowerName)}<br><span class="muted">${safe(r.borrowerOffice)}</span></td><td>${safe(r.requestedItem)}</td><td>${safe(r.assetId||'—')}</td><td>${safe(r.date)}</td><td>${safe(r.due)}</td><td>${badge(st)}</td><td>${safe(r.returnCondition||r.conditionBefore||'—')}</td><td><div class="actions">${c&&r.status==='Requested'?`<button class="btn success xs" onclick="borrowAction('${r.id}','release')">Release</button><button class="btn danger xs" onclick="borrowAction('${r.id}','reject')">Reject</button>`:''}${c&&r.status==='Borrowed'?`<button class="btn success xs" onclick="borrowAction('${r.id}','return')">Return</button>`:''}<button class="btn light xs" onclick="showBorrow('${r.id}')">Slip</button></div></td></tr>`}).join('')||'<tr><td colspan="9" class="muted">No equipment transactions found.</td></tr>'}
+function renderBorrows(){const q=$('borrowSearch').value.toLowerCase();const rows=state.borrows.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q));$('borrowBody').innerHTML=rows.map(r=>{let st=r.status;if(r.status==='Borrowed'&&r.due&&r.due<today())st='Overdue';const c=hasRole('Property Custodian','Administrator');const edit=canEditBorrow(r),del=canDeleteBorrow(r);return `<tr><td>${safe(r.transactionNo)}</td><td>${safe(r.borrowerName)}<br><span class="muted">${safe(r.borrowerOffice)}</span></td><td>${safe(r.requestedItem)}</td><td>${safe(r.assetId||'—')}</td><td>${safe(r.date)}</td><td>${safe(r.due)}</td><td>${badge(st)}</td><td>${safe(r.returnCondition||r.conditionBefore||'—')}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('borrow','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('borrow','${r.id}')">🗑 Delete</button>`:''}${c&&r.status==='Requested'?`<button class="btn success xs" onclick="borrowAction('${r.id}','release')">Release</button><button class="btn danger xs" onclick="borrowAction('${r.id}','reject')">Reject</button>`:''}${c&&r.status==='Borrowed'?`<button class="btn success xs" onclick="borrowAction('${r.id}','return')">Return</button>`:''}<button class="btn light xs" onclick="showBorrow('${r.id}')">Slip</button></div></td></tr>`}).join('')||'<tr><td colspan="9" class="muted">No equipment transactions found.</td></tr>'}
 window.showBorrow=id=>{
   const r=state.borrows.find(x=>x.id===id);
   if(!r)return;
@@ -943,11 +1197,11 @@ window.showBorrow=id=>{
 };
 
 $('dtrForm').onsubmit=async e=>{e.preventDefault();if(!hasRole('HR/Admin','Administrator'))return;const uid=$('dtEmployee').value;const emp=state.users.find(u=>u.id===uid);if(!emp)return toast('Select an employee.');const month=$('dtMonth').value;try{const id=`${uid}_${month}`;await setDoc(doc(db,'dtrRecords',id),{employeeUid:uid,employeeName:emp.displayName||emp.email,month,status:$('dtStatus').value,remarks:$('dtRemarks').value.trim(),updatedByUid:state.user.uid,updatedAt:serverTimestamp(),createdAt:serverTimestamp()},{merge:true});await audit('DTR','Saved DTR monitoring status',`${emp.displayName||emp.email} ${month}`);e.target.reset();$('dtMonth').value=today().slice(0,7);toast('DTR status saved.')}catch(e){console.error(e);toast('Could not save DTR record.')}};
-function renderDtr(){$('dtrBody').innerHTML=state.dtr.map(r=>`<tr><td>${safe(r.employeeName)}</td><td>${safe(r.month)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td>${fmtTs(r.updatedAt)}</td></tr>`).join('')||'<tr><td colspan="5" class="muted">No DTR records found.</td></tr>'}
+function renderDtr(){const rows=state.dtr.filter(isVisibleRecord);$('dtrBody').innerHTML=rows.map(r=>{const edit=canEditDtr(r),del=canDeleteDtr(r);return `<tr><td>${safe(r.employeeName)}</td><td>${safe(r.month)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td>${fmtTs(r.updatedAt)}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('dtr','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('dtr','${r.id}')">🗑 Delete</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="6" class="muted">No DTR records found.</td></tr>'}
 
 $('leaveForm').onsubmit=async e=>{e.preventDefault();try{const no=refNo('LV');await addDoc(collection(db,'leaveApplications'),{leaveNo:no,employeeUid:state.user.uid,employeeName:state.profile.displayName||state.user.email,employeeOffice:state.profile.office||'',type:$('lvType').value,from:$('lvFrom').value,to:$('lvTo').value,remarks:$('lvRemarks').value.trim(),status:'Pending',createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Leave','Submitted leave monitoring record',no);e.target.reset();$('lvEmployee').value=state.profile.displayName||state.user.email;toast('Leave record submitted.')}catch(e){console.error(e);toast('Could not submit leave record.')}};
 window.leaveAction=async(id,status)=>{const r=state.leaves.find(x=>x.id===id);if(!r)return;try{await updateDoc(doc(db,'leaveApplications',id),{status,actionByUid:state.user.uid,actionByName:state.profile.displayName,updatedAt:serverTimestamp()});await audit('Leave',`${status} leave record`,r.leaveNo);toast('Leave status updated.')}catch(e){console.error(e);toast('You are not allowed to update that leave record.')}};
-function renderLeave(){const act=hasRole('HR/Admin','School Head','Administrator');$('leaveBody').innerHTML=state.leaves.map(r=>`<tr><td>${safe(r.employeeName)}</td><td>${safe(r.type)}</td><td>${safe(r.from)} to ${safe(r.to)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td><div class="actions">${act&&r.status!=='Approved'?`<button class="btn success xs" onclick="leaveAction('${r.id}','Approved')">Approve</button>`:''}${act&&r.status!=='Disapproved'?`<button class="btn danger xs" onclick="leaveAction('${r.id}','Disapproved')">Disapprove</button>`:''}</div></td></tr>`).join('')||'<tr><td colspan="6" class="muted">No leave records found.</td></tr>'}
+function renderLeave(){const act=hasRole('HR/Admin','School Head','Administrator');const rows=state.leaves.filter(isVisibleRecord);$('leaveBody').innerHTML=rows.map(r=>{const edit=canEditLeave(r),del=canDeleteLeave(r);return `<tr><td>${safe(r.employeeName)}</td><td>${safe(r.type)}</td><td>${safe(r.from)} to ${safe(r.to)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('leave','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('leave','${r.id}')">🗑 Delete</button>`:''}${act&&r.status!=='Approved'?`<button class="btn success xs" onclick="leaveAction('${r.id}','Approved')">Approve</button>`:''}${act&&r.status!=='Disapproved'?`<button class="btn danger xs" onclick="leaveAction('${r.id}','Disapproved')">Disapprove</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="6" class="muted">No leave records found.</td></tr>'}
 
 function renderUsers(){if(!hasRole('Administrator'))return;const roles=['Employee','Supply Officer','Property Custodian','HR/Admin','School Head','Administrator'];$('usersBody').innerHTML=state.users.map(u=>`<tr><td>${safe(u.displayName||'')}${u.position?`<br><span class="muted">${safe(u.position)}</span>`:''}</td><td>${safe(u.email||'')}</td><td><input id="office_${u.id}" class="role-input" value="${safe(u.office||'')}"></td><td><select id="role_${u.id}" class="role-input">${roles.map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}</select></td><td>${badge(u.active===false?'Inactive':'Active')}</td><td><div class="actions"><button class="btn primary xs" onclick="saveUser('${u.id}')">Save</button><button class="btn ${u.active===false?'success':'danger'} xs" onclick="toggleUser('${u.id}',${u.active!==false})">${u.active===false?'Activate':'Disable'}</button></div></td></tr>`).join('')}
 window.saveUser=async id=>{const u=state.users.find(x=>x.id===id);if(!u)return;const role=$(`role_${id}`).value,office=$(`office_${id}`).value.trim();if(id===state.user.uid&&role!=='Administrator'&&!confirm('Changing your own Administrator role can remove access to User Management. Continue?'))return;try{await updateDoc(doc(db,'users',id),{role,office,updatedAt:serverTimestamp()});await audit('Users',`Changed user role to ${role}`,u.email||id);await loadUsers();toast('User updated.')}catch(e){console.error(e);toast('Could not update user.')}};
@@ -956,7 +1210,7 @@ $('refreshUsers').onclick=loadUsers;
 
 function renderAudit(){$('auditBody').innerHTML=state.audit.map(r=>`<tr><td>${fmtTs(r.createdAt)}</td><td>${safe(r.actorName||r.actorEmail)}</td><td>${safe(r.actorRole)}</td><td>${safe(r.module)}</td><td>${safe(r.action)}</td><td>${safe(r.reference||'')}</td></tr>`).join('')||'<tr><td colspan="6" class="muted">No audit records.</td></tr>'}
 function renderRecent(){if(!hasRole('School Head','Administrator'))return $('recentActivity').textContent='Your records are synchronized with Firestore. Detailed audit viewing is restricted to management roles.';$('recentActivity').innerHTML=state.audit.slice(0,6).map(r=>`<div style="padding:7px 0;border-bottom:1px solid #edf1f5"><b>${safe(r.module)}</b> — ${safe(r.action)} <span class="muted">(${safe(r.actorName||r.actorEmail)} · ${fmtTs(r.createdAt)})</span></div>`).join('')||'No recent activity.'}
-function renderDashboard(){$('kpiSupply').textContent=state.supplies.filter(x=>x.status==='Pending').length;$('kpiBorrow').textContent=state.borrows.filter(x=>['Requested','Borrowed'].includes(x.status)).length;$('kpiDtr').textContent=state.dtr.filter(x=>x.status==='Pending').length;$('kpiLeave').textContent=state.leaves.filter(x=>['Pending','For Verification','For Approval'].includes(x.status)).length}
+function renderDashboard(){$('kpiSupply').textContent=state.supplies.filter(x=>isVisibleRecord(x)&&x.status==='Pending').length;$('kpiBorrow').textContent=state.borrows.filter(x=>isVisibleRecord(x)&&['Requested','Borrowed'].includes(x.status)).length;$('kpiDtr').textContent=state.dtr.filter(x=>isVisibleRecord(x)&&x.status==='Pending').length;$('kpiLeave').textContent=state.leaves.filter(x=>isVisibleRecord(x)&&['Pending','For Verification','For Approval'].includes(x.status)).length}
 
 $('editProfileBtn').onclick=openProfileEditor;
 $('profileModalX').onclick=closeProfileEditor;
@@ -1095,9 +1349,10 @@ $('modalX').onclick=closeModal;$('modalClose').onclick=closeModal;function print
       *{box-sizing:border-box}
       html,body{margin:0;padding:0;background:#fff;color:#000}
       body{font-family:Arial,Helvetica,sans-serif}
-      .ris-print-page{width:210mm;height:297mm;background:#fff;color:#000;padding:5mm 7mm 4mm;font-family:Arial,Helvetica,sans-serif}
-      .ris-copy{width:100%;height:137mm;position:relative;color:#000;background:#fff;overflow:hidden}
-      .ris-copy + .ris-copy{margin-top:8mm}
+      .ris-print-page{width:210mm;height:297mm;background:#fff;color:#000;padding:4mm 6mm 3mm;font-family:Arial,Helvetica,sans-serif}
+      .ris-copy-slot{width:100%;height:132mm;position:relative;overflow:visible}
+      .ris-copy-slot + .ris-copy-slot{margin-top:7mm}
+      .ris-copy{width:131.578947%;height:auto;position:relative;color:#000;background:#fff;transform:scale(.76);transform-origin:top left}
       .ris-appendix{text-align:right;font-family:Calibri,Arial,sans-serif;font-style:italic;font-size:8.5pt;height:5mm;line-height:5mm}
       .ris-title{text-align:center;font-family:Calibri,Arial,sans-serif;font-size:10.5pt;font-weight:700;height:8mm;line-height:8mm}
       .ris-form{width:100%;border-collapse:collapse;table-layout:fixed;color:#000;font-size:8.2pt}
@@ -1111,10 +1366,10 @@ $('modalX').onclick=closeModal;$('modalClose').onclick=closeModal;function print
       .ris-items td:nth-child(1),.ris-items td:nth-child(2),.ris-items td:nth-child(4),.ris-items td:nth-child(5),.ris-items td:nth-child(6),.ris-items td:nth-child(7){text-align:center}
       .ris-purpose td{border:.7pt solid #000;height:6mm;font-size:8pt}
       .ris-sign-head td{border:.7pt solid #000;height:6.5mm;font-weight:700;font-size:8pt}
-      .ris-sign-row td{border:.7pt solid #000;height:5.8mm;font-size:7.8pt;text-align:center}
+      .ris-sign-row td{border:.7pt solid #000;height:5.4mm;font-size:7.8pt;text-align:center}
       .ris-sign-row .row-label{text-align:left;font-weight:400}
       .ris-printed-name{font-family:Calibri,Arial,sans-serif;font-weight:700!important;font-size:8pt!important}
-      .ris-date-row td{height:6mm}
+      .ris-date-row td{height:5.5mm}
     `;
     popup.document.open();
     popup.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Requisition and Issue Slip</title><style>'+css+'</style></head><body>'+risPage.outerHTML+'</body></html>');
