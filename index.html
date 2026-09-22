@@ -324,7 +324,7 @@
 
       <section id="dtr" class="section">
         <div class="two-col">
-          <article id="dtrAdminCard" class="card"><h3>Add / Update DTR Monitoring</h3><form id="dtrForm" class="form-grid"><div class="f span6"><label>Employee</label><select id="dtEmployee"></select></div><div class="f span3"><label>Month</label><input id="dtMonth" type="month" required></div><div class="f span3"><label>Status</label><select id="dtStatus"><option>Pending</option><option>Submitted</option><option>Verified</option><option>Forwarded to SDO</option></select></div><div class="f span12"><label>Remarks</label><input id="dtRemarks"></div><div class="span12"><button class="btn primary">Save DTR Record</button></div></form></article>
+          <article id="dtrAdminCard" class="card"><h3>Add / Update DTR Monitoring</h3><p class="muted" style="margin:-4px 0 12px">Employee list is taken from the Employee Masterlist.</p><form id="dtrForm" class="form-grid"><div class="f span6"><label>Employee</label><select id="dtEmployee"></select></div><div class="f span3"><label>Month</label><input id="dtMonth" type="month" required></div><div class="f span3"><label>Status</label><select id="dtStatus"><option>Pending</option><option>Submitted</option><option>Verified</option><option>Forwarded to SDO</option></select></div><div class="f span12"><label>Remarks</label><input id="dtRemarks"></div><div class="span12"><button class="btn primary">Save DTR Record</button></div></form></article>
           <article class="card"><h3>Control</h3><p class="muted">This module monitors submission and verification. It does not replace the official DTR/CS Form No. 48.</p></article>
         </div>
         <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Month</th><th>Status</th><th>Remarks</th><th>Updated</th><th>Actions</th></tr></thead><tbody id="dtrBody"></tbody></table></div></article>
@@ -332,7 +332,7 @@
 
       <section id="leave" class="section">
         <div class="two-col">
-          <article class="card"><h3>Leave Monitoring</h3><form id="leaveForm" class="form-grid"><div class="f span6"><label>Employee</label><input id="lvEmployee" readonly></div><div class="f span6"><label>Leave Type</label><select id="lvType"><option>Vacation Leave</option><option>Sick Leave</option><option>Mandatory / Forced Leave</option><option>Special Privilege Leave</option><option>Maternity Leave</option><option>Paternity Leave</option><option>Other</option></select></div><div class="f span4"><label>From</label><input id="lvFrom" type="date" required></div><div class="f span4"><label>To</label><input id="lvTo" type="date" required></div><div class="f span4"><label>Remarks</label><input id="lvRemarks"></div><div class="span12"><button class="btn primary">Submit Leave for Monitoring</button></div></form></article>
+          <article class="card"><h3>Leave Monitoring</h3><p id="leaveEmployeeHint" class="muted" style="margin:-4px 0 12px"></p><form id="leaveForm" class="form-grid"><div class="f span6"><label>Employee</label><select id="lvEmployee" required></select></div><div class="f span6"><label>Leave Type</label><select id="lvType"><option>Vacation Leave</option><option>Sick Leave</option><option>Mandatory / Forced Leave</option><option>Special Privilege Leave</option><option>Maternity Leave</option><option>Paternity Leave</option><option>Other</option></select></div><div class="f span4"><label>From</label><input id="lvFrom" type="date" required></div><div class="f span4"><label>To</label><input id="lvTo" type="date" required></div><div class="f span4"><label>Remarks</label><input id="lvRemarks"></div><div class="span12"><button class="btn primary">Submit Leave for Monitoring</button></div></form></article>
           <article class="card"><h3>Official Form</h3><p class="muted">SAMS is the monitoring layer. The official CS Form No. 6 should be generated/attached in the later document-management phase.</p></article>
         </div>
         <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Type</th><th>Period</th><th>Status</th><th>Remarks</th><th>Actions</th></tr></thead><tbody id="leaveBody"></tbody></table></div></article>
@@ -508,7 +508,7 @@ function updateProfileUI(profile=state.profile){
 
   $('srRequestor').value=profile.displayName||state.user?.email||'';
   $('srOffice').value=profile.office||'';
-  $('lvEmployee').value=profile.displayName||state.user?.email||'';
+  fillHrEmployeeSelectors();
 }
 
 function openProfileEditor(){
@@ -544,7 +544,7 @@ async function loadUsers(){
     else state.users=[state.profile];
   }catch(e){console.warn(e);state.users=[state.profile]}
   const active=state.users.filter(x=>x.active!==false);const opts=active.map(u=>`<option value="${safe(u.id)}">${safe(u.displayName||u.email)}${u.office?' — '+safe(u.office):''}</option>`).join('');
-  $('brBorrower').innerHTML=opts;$('dtEmployee').innerHTML=opts;renderUsers();fillWalkInEmployeeSelect();
+  $('brBorrower').innerHTML=opts;renderUsers();fillWalkInEmployeeSelect();fillHrEmployeeSelectors();
 }
 
 
@@ -601,7 +601,7 @@ function listenData(clearExisting=true){
     const mq=collection(db,'employeeMasterlist');
     state.unsubs.push(onSnapshot(mq,s=>{
       state.masterlist=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.displayName||'').localeCompare(String(b.displayName||'')));
-      renderMasterlist();fillWalkInEmployeeSelect();
+      renderMasterlist();fillWalkInEmployeeSelect();fillHrEmployeeSelectors();
     },syncError));
   }else{state.masterlist=[];renderMasterlist();fillWalkInEmployeeSelect()}
 
@@ -635,6 +635,103 @@ $('loginForm').onsubmit=async e=>{e.preventDefault();loginMsg('');if(placeholder
 $('forgotBtn').onclick=async()=>{const email=$('loginEmail').value.trim();if(!email)return loginMsg('Enter your email first.');try{await sendPasswordResetEmail(auth,email);loginMsg('Password reset email sent if the account exists.')}catch{loginMsg('Unable to send password reset email.')}};
 $('logoutBtn').onclick=async()=>{clearSubs();await signOut(auth)};
 
+
+
+/* EMPLOYEE DIRECTORY FOR DTR + LEAVE */
+function employeeDirectoryRows(){
+  const rows=[];
+  const usedEmails=new Set();
+
+  activeMasterEmployees().forEach(e=>{
+    const email=String(e.email||'').trim().toLowerCase();
+    if(email)usedEmails.add(email);
+    rows.push({
+      key:`master:${e.id}`,
+      masterEmployeeId:e.id,
+      linkedUserUid:e.linkedUserUid||matchingUserUid(e.email)||'',
+      displayName:e.displayName||e.email||'Employee',
+      office:e.office||'',
+      position:e.position||'',
+      email:e.email||''
+    });
+  });
+
+  state.users.filter(u=>u.active!==false).forEach(u=>{
+    const email=String(u.email||'').trim().toLowerCase();
+    if(email&&usedEmails.has(email))return;
+    rows.push({
+      key:`user:${u.id}`,
+      masterEmployeeId:'',
+      linkedUserUid:u.id||u.uid||'',
+      displayName:u.displayName||u.email||'Employee',
+      office:u.office||'',
+      position:u.position||'',
+      email:u.email||''
+    });
+  });
+
+  return rows.sort((a,b)=>String(a.displayName).localeCompare(String(b.displayName)));
+}
+
+function currentEmployeeDirectoryRow(){
+  const uid=state.user?.uid||'';
+  const email=String(state.user?.email||state.profile?.email||'').trim().toLowerCase();
+  const directory=employeeDirectoryRows();
+  return directory.find(e=>e.linkedUserUid===uid)
+      || directory.find(e=>String(e.email||'').trim().toLowerCase()===email)
+      || {
+        key:`user:${uid}`,
+        masterEmployeeId:'',
+        linkedUserUid:uid,
+        displayName:state.profile?.displayName||state.user?.email||'Employee',
+        office:state.profile?.office||'',
+        position:state.profile?.position||'',
+        email:state.user?.email||''
+      };
+}
+
+function employeeOptionHtml(e){
+  const suffix=e.office?` — ${safe(e.office)}`:'';
+  return `<option value="${safe(e.key)}">${safe(e.displayName)}${suffix}</option>`;
+}
+
+function fillHrEmployeeSelectors(){
+  const directory=employeeDirectoryRows();
+  const manager=hasRole('HR/Admin','Administrator');
+
+  const dt=$('dtEmployee');
+  if(dt){
+    const current=dt.value;
+    dt.innerHTML=directory.length
+      ?directory.map(employeeOptionHtml).join('')
+      :'<option value="">No employees in masterlist</option>';
+    if([...dt.options].some(o=>o.value===current))dt.value=current;
+  }
+
+  const lv=$('lvEmployee');
+  const hint=$('leaveEmployeeHint');
+  if(lv){
+    const current=lv.value;
+    if(manager){
+      lv.innerHTML=directory.length
+        ?directory.map(employeeOptionHtml).join('')
+        :'<option value="">No employees in masterlist</option>';
+      if([...lv.options].some(o=>o.value===current))lv.value=current;
+      if(hint)hint.textContent='Select an employee from the Employee Masterlist for manual leave monitoring.';
+    }else{
+      const self=currentEmployeeDirectoryRow();
+      lv.innerHTML=employeeOptionHtml(self);
+      lv.value=self.key;
+      if(hint)hint.textContent='Your own name is used for leave monitoring.';
+    }
+  }
+}
+
+function selectedDirectoryEmployee(selectId){
+  const key=$(selectId)?.value||'';
+  return employeeDirectoryRows().find(e=>e.key===key)
+      || (key===currentEmployeeDirectoryRow().key?currentEmployeeDirectoryRow():null);
+}
 
 /* EMPLOYEE MASTERLIST + WALK-IN SUPPLY BACKUP */
 let masterEditId=null;
@@ -1546,10 +1643,92 @@ window.showBorrow=id=>{
   `);
 };
 
-$('dtrForm').onsubmit=async e=>{e.preventDefault();if(!hasRole('HR/Admin','Administrator'))return;const uid=$('dtEmployee').value;const emp=state.users.find(u=>u.id===uid);if(!emp)return toast('Select an employee.');const month=$('dtMonth').value;try{const id=`${uid}_${month}`;await setDoc(doc(db,'dtrRecords',id),{employeeUid:uid,employeeName:emp.displayName||emp.email,month,status:$('dtStatus').value,remarks:$('dtRemarks').value.trim(),updatedByUid:state.user.uid,updatedAt:serverTimestamp(),createdAt:serverTimestamp()},{merge:true});await audit('DTR','Saved DTR monitoring status',`${emp.displayName||emp.email} ${month}`);e.target.reset();$('dtMonth').value=today().slice(0,7);toast('DTR status saved.')}catch(e){console.error(e);toast('Could not save DTR record.')}};
+$('dtrForm').onsubmit=async e=>{
+  e.preventDefault();
+  if(!hasRole('HR/Admin','Administrator'))return;
+
+  const emp=selectedDirectoryEmployee('dtEmployee');
+  if(!emp)return toast('Select an employee.');
+
+  const month=$('dtMonth').value;
+  if(!month)return toast('Select a month.');
+
+  try{
+    const identity=emp.masterEmployeeId||emp.linkedUserUid||String(emp.email||emp.displayName).replace(/[^a-zA-Z0-9_-]/g,'_');
+    const id=`${identity}_${month}`;
+
+    await setDoc(doc(db,'dtrRecords',id),{
+      employeeUid:emp.linkedUserUid||'',
+      masterEmployeeId:emp.masterEmployeeId||'',
+      employeeName:emp.displayName,
+      employeeOffice:emp.office||'',
+      employeePosition:emp.position||'',
+      employeeEmail:emp.email||'',
+      month,
+      status:$('dtStatus').value,
+      remarks:$('dtRemarks').value.trim(),
+      source:'HR Monitoring',
+      updatedByUid:state.user.uid,
+      updatedAt:serverTimestamp(),
+      createdAt:serverTimestamp()
+    },{merge:true});
+
+    await audit('DTR','Saved DTR monitoring status',`${emp.displayName} ${month}`);
+    e.target.reset();
+    $('dtMonth').value=today().slice(0,7);
+    fillHrEmployeeSelectors();
+    toast('DTR status saved.');
+  }catch(err){
+    console.error(err);
+    toast('Could not save DTR record.');
+  }
+};
 function renderDtr(){const rows=state.dtr.filter(isVisibleRecord);$('dtrBody').innerHTML=rows.map(r=>{const edit=canEditDtr(r),del=canDeleteDtr(r);return `<tr><td>${safe(r.employeeName)}</td><td>${safe(r.month)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td>${fmtTs(r.updatedAt)}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('dtr','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('dtr','${r.id}')">🗑 Delete</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="6" class="muted">No DTR records found.</td></tr>'}
 
-$('leaveForm').onsubmit=async e=>{e.preventDefault();try{const no=refNo('LV');await addDoc(collection(db,'leaveApplications'),{leaveNo:no,employeeUid:state.user.uid,employeeName:state.profile.displayName||state.user.email,employeeOffice:state.profile.office||'',type:$('lvType').value,from:$('lvFrom').value,to:$('lvTo').value,remarks:$('lvRemarks').value.trim(),status:'Pending',createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Leave','Submitted leave monitoring record',no);e.target.reset();$('lvEmployee').value=state.profile.displayName||state.user.email;toast('Leave record submitted.')}catch(e){console.error(e);toast('Could not submit leave record.')}};
+$('leaveForm').onsubmit=async e=>{
+  e.preventDefault();
+
+  const manager=hasRole('HR/Admin','Administrator');
+  const emp=manager?selectedDirectoryEmployee('lvEmployee'):currentEmployeeDirectoryRow();
+  if(!emp)return toast('Select an employee.');
+
+  try{
+    const no=refNo('LV');
+    const payload={
+      leaveNo:no,
+      employeeUid:emp.linkedUserUid||state.user.uid,
+      masterEmployeeId:emp.masterEmployeeId||'',
+      employeeName:emp.displayName,
+      employeeOffice:emp.office||'',
+      employeePosition:emp.position||'',
+      employeeEmail:emp.email||'',
+      type:$('lvType').value,
+      from:$('lvFrom').value,
+      to:$('lvTo').value,
+      remarks:$('lvRemarks').value.trim(),
+      status:'Pending',
+      source:manager?'Manual Encoding':'Online',
+      createdByUid:state.user.uid,
+      createdByName:state.profile.displayName||state.user.email||'',
+      createdAt:serverTimestamp(),
+      updatedAt:serverTimestamp()
+    };
+
+    if(!payload.from||!payload.to)return toast('Complete the leave period.');
+
+    await addDoc(collection(db,'leaveApplications'),payload);
+    await audit('Leave',manager?'Encoded leave monitoring record':'Submitted leave monitoring record',no);
+
+    e.target.reset();
+    fillHrEmployeeSelectors();
+    toast(manager?'Leave monitoring record added.':'Leave record submitted.');
+  }catch(err){
+    console.error(err);
+    toast(err?.code==='permission-denied'
+      ?'Firestore denied this entry. Publish the updated v14 Firestore rules.'
+      :'Could not submit leave record.');
+  }
+};
 window.leaveAction=async(id,status)=>{const r=state.leaves.find(x=>x.id===id);if(!r)return;try{await updateDoc(doc(db,'leaveApplications',id),{status,actionByUid:state.user.uid,actionByName:state.profile.displayName,updatedAt:serverTimestamp()});await audit('Leave',`${status} leave record`,r.leaveNo);toast('Leave status updated.')}catch(e){console.error(e);toast('You are not allowed to update that leave record.')}};
 function renderLeave(){const act=hasRole('HR/Admin','School Head','Administrator');const rows=state.leaves.filter(isVisibleRecord);$('leaveBody').innerHTML=rows.map(r=>{const edit=canEditLeave(r),del=canDeleteLeave(r);return `<tr><td>${safe(r.employeeName)}</td><td>${safe(r.type)}</td><td>${safe(r.from)} to ${safe(r.to)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('leave','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('leave','${r.id}')">🗑 Delete</button>`:''}${act&&r.status!=='Approved'?`<button class="btn success xs" onclick="leaveAction('${r.id}','Approved')">Approve</button>`:''}${act&&r.status!=='Disapproved'?`<button class="btn danger xs" onclick="leaveAction('${r.id}','Disapproved')">Disapprove</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="6" class="muted">No leave records found.</td></tr>'}
 
