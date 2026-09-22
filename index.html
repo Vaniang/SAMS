@@ -6,8 +6,36 @@
 <meta name="theme-color" content="#184e77">
 <title>SAMS Phase 2</title>
 <style>
-:root{--p:#184e77;--p2:#1e6091;--bg:#f4f7fb;--card:#fff;--txt:#1f2937;--mut:#667085;--bd:#dce4ed;--ok:#027a48;--warn:#b54708;--bad:#b42318;--side:250px}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--txt)}button,input,select{font:inherit}.hidden{display:none!important}.loading{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;align-content:center;color:var(--mut)}.spinner{width:36px;height:36px;border:4px solid #d7e0e8;border-top-color:var(--p2);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#edf5fb,#fbfdff)}.auth-card{width:min(430px,100%);background:#fff;border:1px solid var(--bd);border-radius:18px;padding:28px;box-shadow:0 16px 45px rgba(20,60,90,.12)}.brand-login{display:flex;gap:13px;align-items:center;margin-bottom:22px}.logo,.brand-mark{width:44px;height:44px;border-radius:12px;background:var(--p);color:#fff;display:grid;place-items:center;font-weight:800;font-size:22px}.brand-login h1{margin:0}.brand-login p{margin:3px 0 0;color:var(--mut);font-size:12px}.alert{background:#fee4e2;color:var(--bad);padding:10px;border-radius:8px;font-size:12px;margin-bottom:12px}.auth-card label,#settingsForm label{display:block;font-size:11px;font-weight:700;margin:10px 0 5px}.auth-card input,#settingsForm input,.f input,.f select,.toolbar input{width:100%;border:1px solid var(--bd);border-radius:8px;padding:9px 10px;background:#fff}.btn{border:0;border-radius:8px;padding:9px 12px;font-weight:700;font-size:12px;cursor:pointer}.primary{background:var(--p2);color:#fff}.light{background:#edf2f7;color:#344054}.success{background:var(--ok);color:#fff}.warning{background:#d97706;color:#fff}.danger{background:var(--bad);color:#fff}.block{width:100%;margin-top:14px}.link-btn{border:0;background:transparent;color:var(--p2);padding:12px 0 0;cursor:pointer}.small-note,.muted{font-size:12px;color:var(--mut);line-height:1.55}.msg{min-height:16px;font-size:12px;margin-top:10px;color:var(--bad)}.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:var(--side);background:linear-gradient(180deg,#123b59,#0d2f48);color:#fff;padding:14px 12px;display:flex;flex-direction:column}.brand{display:flex;gap:10px;align-items:center;padding:4px 8px 15px}.brand-mark{width:36px;height:36px;background:#fff;color:var(--p)}.brand-text{display:flex;flex-direction:column}.brand-text small{font-size:10px;opacity:.7}.sidebar nav{display:grid;gap:5px}.nav{border:0;background:transparent;color:#fff;padding:10px 11px;border-radius:8px;text-align:left;cursor:pointer}.nav:hover,.nav.active{background:rgba(255,255,255,.14)}.nav span{margin-left:8px;font-size:12px}.user-mini{margin-top:auto;border-top:1px solid rgba(255,255,255,.15);padding:13px 8px;display:flex;flex-direction:column}.user-mini b{font-size:12px}.user-mini small{font-size:10px;opacity:.7;margin-top:3px}.app main{margin-left:var(--side)}.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--bd);padding:10px 19px;display:flex;justify-content:space-between;align-items:center}.topbar h2{margin:0;font-size:18px}.topbar small{color:var(--mut)}.top-actions{display:flex;gap:10px;align-items:center}.top-actions span{font-size:11px;color:var(--ok)}.content{padding:20px}.section{display:none}.section.active{display:block}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{background:#fff;border:1px solid var(--bd);border-radius:13px;padding:15px;box-shadow:0 2px 8px rgba(20,60,90,.035)}.card h3{margin:0 0 12px;font-size:15px}.metric{display:flex;gap:12px;align-items:center}.metric>div{width:42px;height:42px;border-radius:11px;background:#eef6fb;display:grid;place-items:center;font-size:19px}.metric span{font-size:10px;color:var(--mut);text-transform:uppercase}.metric b{display:block;font-size:25px;color:var(--txt);margin-top:4px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:13px}.mt{margin-top:13px}.mt10{margin-top:10px}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.info-grid div{background:#f8fafc;border-radius:8px;padding:9px}.info-grid small{display:block;color:var(--mut);text-transform:uppercase;font-size:9px}.info-grid b{font-size:12px}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.card-head h3{margin:0}.profile-note{margin-top:9px;font-size:11px;color:var(--mut)}.profile-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-form .full{grid-column:1/-1}.locked{background:#f2f4f7!important;color:#667085}.profile-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px}.profile-summary div{background:#f8fafc;border-radius:8px;padding:9px}.profile-summary small{display:block;color:var(--mut);text-transform:uppercase;font-size:9px}.profile-summary b{font-size:12px}.callout{border-left:4px solid var(--p2);background:#f3f8fb;padding:10px;font-size:12px}.form-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:9px}.span2{grid-column:span 2}.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}.span12{grid-column:span 12}.f label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:#475467;margin-bottom:4px}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.toolbar h3{margin:0}.toolbar input{width:250px}.table-wrap{overflow:auto;border:1px solid var(--bd);border-radius:9px}table{border-collapse:collapse;width:100%;min-width:900px}th,td{padding:9px 10px;border-bottom:1px solid #edf1f5;text-align:left;font-size:11px;vertical-align:top}th{background:#f8fafc;color:#475467;font-size:9px;text-transform:uppercase;letter-spacing:.035em}.badge{display:inline-block;border-radius:999px;padding:4px 7px;font-size:10px;font-weight:700}.ok{background:#d1fadf;color:var(--ok)}.warn{background:#fef0c7;color:var(--warn)}.bad{background:#fee4e2;color:var(--bad)}.info{background:#dbeafe;color:#175cd3}.actions{display:flex;gap:5px;flex-wrap:wrap}.xs{padding:6px 7px;font-size:10px}.role-input{padding:6px;border:1px solid var(--bd);border-radius:6px;min-width:135px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:80;display:grid;place-items:center;padding:18px}.modal-card{width:min(900px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:14px;padding:18px}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0}.modal-head button{border:0;background:#eef2f6;border-radius:50%;width:32px;height:32px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--bd);padding-top:12px;margin-top:14px}.print-doc{color:#000;font-family:Arial,sans-serif}.print-doc h2,.print-doc h3{text-align:center;margin:4px}.print-meta{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:14px 0}.print-table{width:100%;min-width:0}.print-table th,.print-table td{border:1px solid #000;color:#000}.signatures{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:35px}.sig{text-align:center;border-top:1px solid #000;font-size:10px;padding-top:5px}.toast{position:fixed;right:18px;bottom:18px;background:#101828;color:#fff;padding:10px 13px;border-radius:9px;font-size:12px;z-index:120}
-@media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.span2,.span3,.span4,.span6{grid-column:span 6}}@media(max-width:700px){.profile-form,.profile-summary{grid-template-columns:1fr}:root{--side:66px}.brand-text,.nav span,.user-mini{display:none}.sidebar{padding:10px 7px}.nav{text-align:center}.app main{margin-left:var(--side)}.content{padding:12px}.cards,.info-grid{grid-template-columns:1fr}.span2,.span3,.span4,.span6,.span12{grid-column:span 12}.toolbar{flex-direction:column;align-items:stretch}.toolbar input{width:100%}}@media print{body>*:not(#modal){display:none!important}#modal{position:static;background:#fff;padding:0;display:block!important}.modal-card{max-height:none;width:100%;padding:0}.modal-head,.modal-actions{display:none!important}.print-doc{padding:10mm}}
+:root{--p:#184e77;--p2:#1e6091;--bg:#f4f7fb;--card:#fff;--txt:#1f2937;--mut:#667085;--bd:#dce4ed;--ok:#027a48;--warn:#b54708;--bad:#b42318;--side:250px}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--txt)}button,input,select{font:inherit}.hidden{display:none!important}.loading{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;align-content:center;color:var(--mut)}.spinner{width:36px;height:36px;border:4px solid #d7e0e8;border-top-color:var(--p2);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#edf5fb,#fbfdff)}.auth-card{width:min(430px,100%);background:#fff;border:1px solid var(--bd);border-radius:18px;padding:28px;box-shadow:0 16px 45px rgba(20,60,90,.12)}.brand-login{display:flex;gap:13px;align-items:center;margin-bottom:22px}.logo,.brand-mark{width:44px;height:44px;border-radius:12px;background:var(--p);color:#fff;display:grid;place-items:center;font-weight:800;font-size:22px}.brand-login h1{margin:0}.brand-login p{margin:3px 0 0;color:var(--mut);font-size:12px}.alert{background:#fee4e2;color:var(--bad);padding:10px;border-radius:8px;font-size:12px;margin-bottom:12px}.auth-card label,#settingsForm label{display:block;font-size:11px;font-weight:700;margin:10px 0 5px}.auth-card input,#settingsForm input,.f input,.f select,.toolbar input{width:100%;border:1px solid var(--bd);border-radius:8px;padding:9px 10px;background:#fff}.btn{border:0;border-radius:8px;padding:9px 12px;font-weight:700;font-size:12px;cursor:pointer}.primary{background:var(--p2);color:#fff}.light{background:#edf2f7;color:#344054}.success{background:var(--ok);color:#fff}.warning{background:#d97706;color:#fff}.danger{background:var(--bad);color:#fff}.block{width:100%;margin-top:14px}.link-btn{border:0;background:transparent;color:var(--p2);padding:12px 0 0;cursor:pointer}.small-note,.muted{font-size:12px;color:var(--mut);line-height:1.55}.msg{min-height:16px;font-size:12px;margin-top:10px;color:var(--bad)}.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:var(--side);background:linear-gradient(180deg,#123b59,#0d2f48);color:#fff;padding:14px 12px;display:flex;flex-direction:column}.brand{display:flex;gap:10px;align-items:center;padding:4px 8px 15px}.brand-mark{width:36px;height:36px;background:#fff;color:var(--p)}.brand-text{display:flex;flex-direction:column}.brand-text small{font-size:10px;opacity:.7}.sidebar nav{display:grid;gap:5px}.nav{border:0;background:transparent;color:#fff;padding:10px 11px;border-radius:8px;text-align:left;cursor:pointer}.nav:hover,.nav.active{background:rgba(255,255,255,.14)}.nav span{margin-left:8px;font-size:12px}.user-mini{margin-top:auto;border-top:1px solid rgba(255,255,255,.15);padding:13px 8px;display:flex;flex-direction:column}.user-mini b{font-size:12px}.user-mini small{font-size:10px;opacity:.7;margin-top:3px}.app main{margin-left:var(--side)}.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--bd);padding:10px 19px;display:flex;justify-content:space-between;align-items:center}.topbar h2{margin:0;font-size:18px}.topbar small{color:var(--mut)}.top-actions{display:flex;gap:10px;align-items:center}.top-actions span{font-size:11px;color:var(--ok)}.content{padding:20px}.section{display:none}.section.active{display:block}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{background:#fff;border:1px solid var(--bd);border-radius:13px;padding:15px;box-shadow:0 2px 8px rgba(20,60,90,.035)}.card h3{margin:0 0 12px;font-size:15px}.metric{display:flex;gap:12px;align-items:center}.metric>div{width:42px;height:42px;border-radius:11px;background:#eef6fb;display:grid;place-items:center;font-size:19px}.metric span{font-size:10px;color:var(--mut);text-transform:uppercase}.metric b{display:block;font-size:25px;color:var(--txt);margin-top:4px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:13px}.mt{margin-top:13px}.mt10{margin-top:10px}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.info-grid div{background:#f8fafc;border-radius:8px;padding:9px}.info-grid small{display:block;color:var(--mut);text-transform:uppercase;font-size:9px}.info-grid b{font-size:12px}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.card-head h3{margin:0}.profile-note{margin-top:9px;font-size:11px;color:var(--mut)}.profile-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-form .full{grid-column:1/-1}.locked{background:#f2f4f7!important;color:#667085}.profile-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px}.profile-summary div{background:#f8fafc;border-radius:8px;padding:9px}.profile-summary small{display:block;color:var(--mut);text-transform:uppercase;font-size:9px}.profile-summary b{font-size:12px}.callout{border-left:4px solid var(--p2);background:#f3f8fb;padding:10px;font-size:12px}.form-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:9px}.span2{grid-column:span 2}.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}.span12{grid-column:span 12}.f label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:#475467;margin-bottom:4px}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.toolbar h3{margin:0}.toolbar input{width:250px}.table-wrap{overflow:auto;border:1px solid var(--bd);border-radius:9px}table{border-collapse:collapse;width:100%;min-width:900px}th,td{padding:9px 10px;border-bottom:1px solid #edf1f5;text-align:left;font-size:11px;vertical-align:top}th{background:#f8fafc;color:#475467;font-size:9px;text-transform:uppercase;letter-spacing:.035em}.badge{display:inline-block;border-radius:999px;padding:4px 7px;font-size:10px;font-weight:700}.ok{background:#d1fadf;color:var(--ok)}.warn{background:#fef0c7;color:var(--warn)}.bad{background:#fee4e2;color:var(--bad)}.info{background:#dbeafe;color:#175cd3}.actions{display:flex;gap:5px;flex-wrap:wrap}.xs{padding:6px 7px;font-size:10px}.role-input{padding:6px;border:1px solid var(--bd);border-radius:6px;min-width:135px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:80;display:grid;place-items:center;padding:18px}.modal-card{width:min(900px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:14px;padding:18px}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0}.modal-head button{border:0;background:#eef2f6;border-radius:50%;width:32px;height:32px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--bd);padding-top:12px;margin-top:14px}.print-doc{color:#000;font-family:Arial,sans-serif}.print-doc h2,.print-doc h3{text-align:center;margin:4px}.print-meta{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:14px 0}.print-table{width:100%;min-width:0}.print-table th,.print-table td{border:1px solid #000;color:#000}.signatures{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:35px}.sig{text-align:center;border-top:1px solid #000;font-size:10px;padding-top:5px}
+
+/* A5 landscape Equipment Borrowing / Return Slip */
+.equipment-slip{width:min(200mm,100%);min-height:138mm;margin:0 auto;background:#fff;color:#000;padding:0;font-family:Arial,Helvetica,sans-serif}
+.equipment-slip *{box-sizing:border-box}
+.slip-letterhead{text-align:center;line-height:1.05;padding:0 2mm}
+.slip-logo{width:15mm;height:15mm;object-fit:contain;display:block;margin:0 auto 1.2mm}
+.slip-logo-placeholder{width:15mm;height:15mm;border:1px solid #777;border-radius:50%;display:grid;place-items:center;margin:0 auto 1.2mm;font-size:5.5pt;color:#666;font-weight:700}
+.slip-republic{font-family:Georgia,'Times New Roman',serif;font-size:6.8pt}
+.slip-deped{font-family:Georgia,'Times New Roman',serif;font-size:9pt;font-weight:700}
+.slip-region,.slip-division{font-family:'Times New Roman',serif;font-size:7.2pt;text-transform:uppercase}
+.slip-school{font-family:'Times New Roman',serif;font-size:8.2pt;font-weight:700;text-transform:uppercase;letter-spacing:.15px}
+.slip-address{font-family:'Times New Roman',serif;font-size:6.8pt}
+.slip-rule{border:0;border-top:.6pt solid #000;margin:1.4mm 0 2mm}
+.slip-title{text-align:center;font-size:9.5pt;font-weight:800;letter-spacing:.15px;margin:0 0 2mm}
+.slip-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:7.2pt}
+.slip-table col.label{width:16.5%}.slip-table col.value{width:24.5%}.slip-table col.label2{width:20.5%}.slip-table col.value2{width:38.5%}
+.slip-table th,.slip-table td{border:.65pt solid #000;padding:1mm 1.5mm;line-height:1.05;height:6.4mm;vertical-align:middle}
+.slip-table th{text-align:left;font-weight:800;text-transform:uppercase;white-space:nowrap}
+.slip-table td{font-weight:500;overflow-wrap:anywhere}
+.slip-purpose-row td{height:7.5mm}
+.slip-signatures{display:grid;grid-template-columns:repeat(4,1fr);gap:6mm;margin-top:10mm;padding:0 .5mm}
+.slip-signature{font-size:6.8pt;text-align:left;min-width:0}
+.slip-signature-name{font-size:7.2pt;font-weight:800;text-transform:uppercase;text-decoration:underline;text-underline-offset:1.2px;min-height:4mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slip-signature-position{margin-top:1.5mm;min-height:3.5mm}
+.slip-signature-role{margin-top:.7mm;font-size:6.6pt}
+.slip-print-note{font-size:10px;color:var(--mut);margin-top:8px}
+
+.toast{position:fixed;right:18px;bottom:18px;background:#101828;color:#fff;padding:10px 13px;border-radius:9px;font-size:12px;z-index:120}
+@media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.span2,.span3,.span4,.span6{grid-column:span 6}}@media(max-width:700px){.profile-form,.profile-summary{grid-template-columns:1fr}.sidebar{--side:66px}.brand-text,.nav span,.user-mini{display:none}.sidebar{padding:10px 7px}.nav{text-align:center}.app main{margin-left:var(--side)}.content{padding:12px}.cards,.info-grid{grid-template-columns:1fr}.span2,.span3,.span4,.span6,.span12{grid-column:span 12}.toolbar{flex-direction:column;align-items:stretch}.toolbar input{width:100%}}@media print{body>*:not(#modal){display:none!important}#modal{position:static;background:#fff;padding:0;display:block!important}.modal-card{max-height:none;width:100%;padding:0}.modal-head,.modal-actions{display:none!important}.print-doc{padding:10mm}}
 
 </style>
 </head>
@@ -142,7 +170,7 @@
 
       <section id="audit" class="section"><article class="card"><h3>Audit Trail</h3><p class="muted">Phase 2 records authenticated client activity. Phase 3 should move critical audit events to Cloud Functions for stronger tamper resistance.</p><div class="table-wrap"><table><thead><tr><th>Date/Time</th><th>User</th><th>Role</th><th>Module</th><th>Action</th><th>Reference</th></tr></thead><tbody id="auditBody"></tbody></table></div></article></section>
 
-      <section id="settings" class="section"><div class="two-col"><article class="card"><h3>School Settings</h3><form id="settingsForm"><label>School Name</label><input id="setSchool" required><label>School ID</label><input id="setSchoolId"><label>School Head</label><input id="setHead"><label>Supply Officer</label><input id="setSupply"><label>Property Custodian</label><input id="setProperty"><button id="saveSettingsBtn" class="btn primary mt10" type="submit">Save Settings</button><div id="settingsStatus" class="msg" style="margin-top:8px"></div></form></article><article class="card"><h3>Phase 2 Security</h3><ul class="muted"><li>Email/password authentication</li><li>Role-based Firestore rules</li><li>Employee-scoped records</li><li>Admin-controlled roles/status</li><li>Cloud timestamps</li></ul></article></div></section>
+      <section id="settings" class="section"><div class="two-col"><article class="card"><h3>School Settings</h3><form id="settingsForm"><label>School Name</label><input id="setSchool" required><label>School ID</label><input id="setSchoolId"><label>Region</label><input id="setRegion" placeholder="REGION I"><label>Schools Division</label><input id="setDivision" placeholder="DIVISION OF LA UNION"><label>School Address</label><input id="setAddress" placeholder="San Manuel Norte, Agoo, La Union"><label>School Logo URL / GitHub File Path</label><input id="setLogoUrl" placeholder="school-logo.png"><div class="small-note">Upload your logo to the GitHub repository and enter its filename here, for example <b>school-logo.png</b>.</div><label>School Head</label><input id="setHead"><label>School Head Position</label><input id="setHeadPosition" placeholder="School Principal"><label>Supply Officer</label><input id="setSupply"><label>Property Custodian</label><input id="setProperty"><label>Property Custodian Position</label><input id="setPropertyPosition" placeholder="Property Custodian"><button id="saveSettingsBtn" class="btn primary mt10" type="submit">Save Settings</button><div id="settingsStatus" class="msg" style="margin-top:8px"></div></form></article><article class="card"><h3>Phase 2 Security</h3><ul class="muted"><li>Email/password authentication</li><li>Role-based Firestore rules</li><li>Employee-scoped records</li><li>Admin-controlled roles/status</li><li>Cloud timestamps</li></ul></article></div></section>
     </div>
   </main>
 </div>
@@ -299,7 +327,7 @@ async function loadSettings(){
   try{const s=await getDoc(doc(db,'settings','school'));state.settings=s.exists()?s.data():{}}catch{state.settings={}}
   $('schoolHeader').textContent=state.settings.schoolName||'School Administrative Monitoring System';
   if(hasRole('Administrator')){
-    $('setSchool').value=state.settings.schoolName||'';$('setSchoolId').value=state.settings.schoolId||'';$('setHead').value=state.settings.schoolHead||'';$('setSupply').value=state.settings.supplyOfficer||'';$('setProperty').value=state.settings.propertyCustodian||'';
+    $('setSchool').value=state.settings.schoolName||'';$('setSchoolId').value=state.settings.schoolId||'';$('setRegion').value=state.settings.region||'REGION I';$('setDivision').value=state.settings.division||'DIVISION OF LA UNION';$('setAddress').value=state.settings.schoolAddress||'';$('setLogoUrl').value=state.settings.schoolLogoUrl||'';$('setHead').value=state.settings.schoolHead||'';$('setHeadPosition').value=state.settings.schoolHeadPosition||'';$('setSupply').value=state.settings.supplyOfficer||'';$('setProperty').value=state.settings.propertyCustodian||'';$('setPropertyPosition').value=state.settings.propertyCustodianPosition||'';
   }
 }
 
@@ -367,6 +395,23 @@ function listenData(clearExisting=true){
     state.unsubs.push(onSnapshot(aq,s=>{state.audit=s.docs.map(d=>({id:d.id,...d.data()}));renderAudit();renderRecent()},syncError));
   }else renderRecent();
 }
+
+function absoluteAssetUrl(value){
+  const v=String(value||'').trim();
+  if(!v)return '';
+  try{return new URL(v,window.location.href).href}catch{return v}
+}
+
+function userByUid(uid){
+  if(!uid)return null;
+  return state.users.find(u=>u.id===uid||u.uid===uid)
+    || (state.user?.uid===uid?state.profile:null);
+}
+
+function upper(value,fallback=''){
+  return safe(String(value||fallback).toUpperCase());
+}
+
 function syncError(e){console.error(e);$('syncStatus').textContent='● Sync / access issue';$('syncStatus').style.color='#b42318'}
 
 $('loginForm').onsubmit=async e=>{e.preventDefault();loginMsg('');if(placeholder())return loginMsg('Configure Firebase first in index.html.');try{await signInWithEmailAndPassword(auth,$('loginEmail').value.trim(),$('loginPassword').value)}catch(e){console.error(e);loginMsg('Unable to sign in. Check the account, password, and Firebase Authentication settings.')}};
@@ -383,7 +428,76 @@ $('borrowForm').onsubmit=async e=>{e.preventDefault();try{const cust=hasRole('Pr
 $('borrowSearch').oninput=renderBorrows;
 window.borrowAction=async(id,action)=>{const r=state.borrows.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'borrowTransactions',id);if(action==='release'){const asset=prompt('PCMS Asset ID:',r.assetId||'');if(!asset)return;const serial=prompt('Serial / Property No. (optional):',r.serial||'');if(serial===null)return;const cond=prompt('Condition before release:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{assetId:asset,serial,conditionBefore:cond,status:'Borrowed',releasedByUid:state.user.uid,releasedByName:state.profile.displayName,releasedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Released equipment',r.transactionNo)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,updatedAt:serverTimestamp()});await audit('Equipment','Rejected borrowing request',r.transactionNo)}if(action==='return'){const cond=prompt('Condition upon return:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{status:'Returned',returnCondition:cond,returnDate:today(),receivedByUid:state.user.uid,receivedByName:state.profile.displayName,returnedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Recorded equipment return',r.transactionNo)}toast('Equipment transaction updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
 function renderBorrows(){const q=$('borrowSearch').value.toLowerCase();$('borrowBody').innerHTML=state.borrows.filter(r=>JSON.stringify(r).toLowerCase().includes(q)).map(r=>{let st=r.status;if(r.status==='Borrowed'&&r.due&&r.due<today())st='Overdue';const c=hasRole('Property Custodian','Administrator');return `<tr><td>${safe(r.transactionNo)}</td><td>${safe(r.borrowerName)}<br><span class="muted">${safe(r.borrowerOffice)}</span></td><td>${safe(r.requestedItem)}</td><td>${safe(r.assetId||'—')}</td><td>${safe(r.date)}</td><td>${safe(r.due)}</td><td>${badge(st)}</td><td>${safe(r.returnCondition||r.conditionBefore||'—')}</td><td><div class="actions">${c&&r.status==='Requested'?`<button class="btn success xs" onclick="borrowAction('${r.id}','release')">Release</button><button class="btn danger xs" onclick="borrowAction('${r.id}','reject')">Reject</button>`:''}${c&&r.status==='Borrowed'?`<button class="btn success xs" onclick="borrowAction('${r.id}','return')">Return</button>`:''}<button class="btn light xs" onclick="showBorrow('${r.id}')">Slip</button></div></td></tr>`}).join('')||'<tr><td colspan="9" class="muted">No equipment transactions found.</td></tr>'}
-window.showBorrow=id=>{const r=state.borrows.find(x=>x.id===id);if(!r)return;openModal('Equipment Borrowing / Return Slip',`<div class="print-doc"><h3>${safe(state.settings.schoolName||'SCHOOL NAME')}</h3><h2>EQUIPMENT BORROWING / RETURN SLIP</h2><table class="print-table"><tr><th>Transaction No.</th><td>${safe(r.transactionNo)}</td><th>PCMS Asset ID</th><td>${safe(r.assetId||'')}</td></tr><tr><th>Borrower</th><td>${safe(r.borrowerName)}</td><th>Office</th><td>${safe(r.borrowerOffice)}</td></tr><tr><th>Equipment</th><td>${safe(r.requestedItem)}</td><th>Serial/Property No.</th><td>${safe(r.serial||'')}</td></tr><tr><th>Date</th><td>${safe(r.date)}</td><th>Expected Return</th><td>${safe(r.due)}</td></tr><tr><th>Condition Before</th><td>${safe(r.conditionBefore||'')}</td><th>Accessories</th><td>${safe(r.accessories||'')}</td></tr><tr><th>Purpose</th><td colspan="3">${safe(r.purpose)}</td></tr><tr><th>Return Date</th><td>${safe(r.returnDate||'')}</td><th>Condition Upon Return</th><td>${safe(r.returnCondition||'')}</td></tr></table><div class="signatures"><div class="sig">Borrower<br>${safe(r.borrowerName)}</div><div class="sig">Approved by<br>${safe(state.settings.schoolHead||'School Head')}</div><div class="sig">Released by<br>${safe(r.releasedByName||state.settings.propertyCustodian||'Property Custodian')}</div><div class="sig">Received upon return<br>${safe(r.receivedByName||state.settings.propertyCustodian||'Property Custodian')}</div></div></div>`)};
+window.showBorrow=id=>{
+  const r=state.borrows.find(x=>x.id===id);
+  if(!r)return;
+
+  const borrowerProfile=userByUid(r.borrowerUid)||{};
+  const borrowerPosition=borrowerProfile.position||'';
+  const approverName=state.settings.schoolHead||'';
+  const approverPosition=state.settings.schoolHeadPosition||'School Head';
+  const releasedName=r.releasedByName||state.settings.propertyCustodian||'';
+  const releasedPosition=state.settings.propertyCustodianPosition||'Property Custodian';
+  const receivedName=r.receivedByName||state.settings.propertyCustodian||'';
+  const receivedPosition=state.settings.propertyCustodianPosition||'Property Custodian';
+  const logoUrl=absoluteAssetUrl(state.settings.schoolLogoUrl||'');
+
+  const logoHtml=logoUrl
+    ? `<img class="slip-logo" src="${safe(logoUrl)}" alt="School Logo">`
+    : `<div class="slip-logo-placeholder">LOGO</div>`;
+
+  openModal('Equipment Borrowing / Return Slip',`
+    <div class="equipment-slip" id="equipmentSlipPrint">
+      <header class="slip-letterhead">
+        ${logoHtml}
+        <div class="slip-republic">Republic of the Philippines</div>
+        <div class="slip-deped">Department of Education</div>
+        <div class="slip-region">${upper(state.settings.region,'REGION I')}</div>
+        <div class="slip-division">${upper(state.settings.division,'DIVISION OF LA UNION')}</div>
+        <div class="slip-school">${upper(state.settings.schoolName,'SCHOOL NAME')}</div>
+        <div class="slip-address">${safe(state.settings.schoolAddress||'')}</div>
+      </header>
+
+      <hr class="slip-rule">
+      <div class="slip-title">EQUIPMENT BORROWING / RETURN SLIP</div>
+
+      <table class="slip-table">
+        <colgroup><col class="label"><col class="value"><col class="label2"><col class="value2"></colgroup>
+        <tr><th>TRANSACTION NO.</th><td>${safe(r.transactionNo||'')}</td><th>PCMS ASSET ID</th><td>${safe(r.assetId||'')}</td></tr>
+        <tr><th>BORROWER</th><td>${safe(r.borrowerName||'')}</td><th>OFFICE</th><td>${safe(r.borrowerOffice||'')}</td></tr>
+        <tr><th>EQUIPMENT</th><td>${safe(r.requestedItem||'')}</td><th>SERIAL/PROPERTY NO.</th><td>${safe(r.serial||'')}</td></tr>
+        <tr><th>DATE</th><td>${safe(r.date||'')}</td><th>EXPECTED RETURN</th><td>${safe(r.due||'')}</td></tr>
+        <tr><th>CONDITION BEFORE</th><td>${safe(r.conditionBefore||'')}</td><th>ACCESSORIES</th><td>${safe(r.accessories||'')}</td></tr>
+        <tr class="slip-purpose-row"><th>PURPOSE</th><td colspan="3">${safe(r.purpose||'')}</td></tr>
+        <tr><th>RETURN DATE</th><td>${safe(r.returnDate||'')}</td><th>CONDITION UPON RETURN</th><td>${safe(r.returnCondition||'')}</td></tr>
+      </table>
+
+      <div class="slip-signatures">
+        <div class="slip-signature">
+          <div class="slip-signature-name">${upper(r.borrowerName,'')}</div>
+          <div class="slip-signature-position">Position: ${safe(borrowerPosition||'')}</div>
+          <div class="slip-signature-role">Borrower</div>
+        </div>
+        <div class="slip-signature">
+          <div class="slip-signature-name">${upper(approverName,'')}</div>
+          <div class="slip-signature-position">Position: ${safe(approverPosition||'')}</div>
+          <div class="slip-signature-role">Approved by:</div>
+        </div>
+        <div class="slip-signature">
+          <div class="slip-signature-name">${upper(releasedName,'')}</div>
+          <div class="slip-signature-position">Position: ${safe(releasedPosition||'')}</div>
+          <div class="slip-signature-role">Released by:</div>
+        </div>
+        <div class="slip-signature">
+          <div class="slip-signature-name">${upper(receivedName,'')}</div>
+          <div class="slip-signature-position">Position: ${safe(receivedPosition||'')}</div>
+          <div class="slip-signature-role">Received upon return</div>
+        </div>
+      </div>
+    </div>
+    <div class="slip-print-note">Print format: A5 Landscape (210 × 148 mm).</div>
+  `);
+};
 
 $('dtrForm').onsubmit=async e=>{e.preventDefault();if(!hasRole('HR/Admin','Administrator'))return;const uid=$('dtEmployee').value;const emp=state.users.find(u=>u.id===uid);if(!emp)return toast('Select an employee.');const month=$('dtMonth').value;try{const id=`${uid}_${month}`;await setDoc(doc(db,'dtrRecords',id),{employeeUid:uid,employeeName:emp.displayName||emp.email,month,status:$('dtStatus').value,remarks:$('dtRemarks').value.trim(),updatedByUid:state.user.uid,updatedAt:serverTimestamp(),createdAt:serverTimestamp()},{merge:true});await audit('DTR','Saved DTR monitoring status',`${emp.displayName||emp.email} ${month}`);e.target.reset();$('dtMonth').value=today().slice(0,7);toast('DTR status saved.')}catch(e){console.error(e);toast('Could not save DTR record.')}};
 function renderDtr(){$('dtrBody').innerHTML=state.dtr.map(r=>`<tr><td>${safe(r.employeeName)}</td><td>${safe(r.month)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td>${fmtTs(r.updatedAt)}</td></tr>`).join('')||'<tr><td colspan="5" class="muted">No DTR records found.</td></tr>'}
@@ -480,9 +594,15 @@ $('settingsForm').onsubmit=async e=>{
     const d={
       schoolName:$('setSchool').value.trim(),
       schoolId:$('setSchoolId').value.trim(),
+      region:$('setRegion').value.trim(),
+      division:$('setDivision').value.trim(),
+      schoolAddress:$('setAddress').value.trim(),
+      schoolLogoUrl:$('setLogoUrl').value.trim(),
       schoolHead:$('setHead').value.trim(),
+      schoolHeadPosition:$('setHeadPosition').value.trim(),
       supplyOfficer:$('setSupply').value.trim(),
       propertyCustodian:$('setProperty').value.trim(),
+      propertyCustodianPosition:$('setPropertyPosition').value.trim(),
       updatedByUid:state.user.uid,
       updatedByEmail:state.user.email||'',
       updatedAt:serverTimestamp()
@@ -515,7 +635,54 @@ $('settingsForm').onsubmit=async e=>{
 
 function openModal(title,html){$('modalTitle').textContent=title;$('modalBody').innerHTML=html;$('modal').classList.remove('hidden')}
 function closeModal(){$('modal').classList.add('hidden')}
-$('modalX').onclick=closeModal;$('modalClose').onclick=closeModal;$('printBtn').onclick=()=>window.print();$('modal').onclick=e=>{if(e.target===$('modal'))closeModal()};
+$('modalX').onclick=closeModal;$('modalClose').onclick=closeModal;function printCurrentDocument(){
+  const slip=$('modalBody').querySelector('.equipment-slip');
+  if(!slip){
+    window.print();
+    return;
+  }
+
+  const popup=window.open('','_blank','width=1100,height=800');
+  if(!popup){
+    toast('Pop-up blocked. Allow pop-ups for this site, then try Print again.');
+    return;
+  }
+
+  const printCss=`
+    @page{size:A5 landscape;margin:5mm}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:#fff;color:#000}
+    body{font-family:Arial,Helvetica,sans-serif}
+    .equipment-slip{width:200mm;min-height:138mm;margin:0;background:#fff;color:#000;padding:0}
+    .slip-letterhead{text-align:center;line-height:1.05;padding:0 2mm}
+    .slip-logo{width:15mm;height:15mm;object-fit:contain;display:block;margin:0 auto 1.2mm}
+    .slip-logo-placeholder{width:15mm;height:15mm;border:1px solid #777;border-radius:50%;display:grid;place-items:center;margin:0 auto 1.2mm;font-size:5.5pt;color:#666;font-weight:700}
+    .slip-republic{font-family:Georgia,'Times New Roman',serif;font-size:6.8pt}
+    .slip-deped{font-family:Georgia,'Times New Roman',serif;font-size:9pt;font-weight:700}
+    .slip-region,.slip-division{font-family:'Times New Roman',serif;font-size:7.2pt;text-transform:uppercase}
+    .slip-school{font-family:'Times New Roman',serif;font-size:8.2pt;font-weight:700;text-transform:uppercase;letter-spacing:.15px}
+    .slip-address{font-family:'Times New Roman',serif;font-size:6.8pt}
+    .slip-rule{border:0;border-top:.6pt solid #000;margin:1.4mm 0 2mm}
+    .slip-title{text-align:center;font-size:9.5pt;font-weight:800;letter-spacing:.15px;margin:0 0 2mm}
+    .slip-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:7.2pt}
+    .slip-table col.label{width:16.5%}.slip-table col.value{width:24.5%}.slip-table col.label2{width:20.5%}.slip-table col.value2{width:38.5%}
+    .slip-table th,.slip-table td{border:.65pt solid #000;padding:1mm 1.5mm;line-height:1.05;height:6.4mm;vertical-align:middle}
+    .slip-table th{text-align:left;font-weight:800;text-transform:uppercase;white-space:nowrap}
+    .slip-table td{font-weight:500;overflow-wrap:anywhere}
+    .slip-purpose-row td{height:7.5mm}
+    .slip-signatures{display:grid;grid-template-columns:repeat(4,1fr);gap:6mm;margin-top:10mm;padding:0 .5mm}
+    .slip-signature{font-size:6.8pt;text-align:left;min-width:0}
+    .slip-signature-name{font-size:7.2pt;font-weight:800;text-transform:uppercase;text-decoration:underline;text-underline-offset:1.2px;min-height:4mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .slip-signature-position{margin-top:1.5mm;min-height:3.5mm}
+    .slip-signature-role{margin-top:.7mm;font-size:6.6pt}
+  `;
+
+  popup.document.open();
+  popup.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Equipment Borrowing Return Slip</title><style>'+printCss+'</style></head><body>'+slip.outerHTML+'</body></html>');
+  popup.document.close();
+  popup.onload=()=>setTimeout(()=>{popup.focus();popup.print();},250);
+}
+$('printBtn').onclick=printCurrentDocument;$('modal').onclick=e=>{if(e.target===$('modal'))closeModal()};
 
 function init(){
   $('brDate').value=today();$('dtMonth').value=today().slice(0,7);
