@@ -184,7 +184,7 @@
       <button class="nav" data-section="equipment" data-roles="Employee,Property Custodian,School Head,Administrator">💻 <span>Equipment</span></button>
       <button class="nav" data-section="dtr" data-roles="Employee,HR/Admin,School Head,Administrator">🕐 <span>DTR</span></button>
       <button class="nav" data-section="leave" data-roles="Employee,HR/Admin,School Head,Administrator">🗓️ <span>Leave</span></button>
-      <button class="nav" data-section="masterlist" data-roles="Administrator,HR/Admin,Supply Officer">📋 <span>Employee Masterlist</span></button>
+      <button class="nav" data-section="masterlist" data-roles="Administrator,HR/Admin,Supply Officer,Property Custodian">📋 <span>Employee Masterlist</span></button>
       <button class="nav" data-section="users" data-roles="Administrator">👥 <span>Users & Roles</span></button>
       <button class="nav" data-section="audit" data-roles="School Head,Administrator">🧾 <span>Audit Log</span></button>
       <button class="nav" data-section="settings" data-roles="Administrator">⚙️ <span>Settings</span></button>
@@ -282,7 +282,44 @@
           </article>
           <article class="card"><h3>PCMS Linkage</h3><p class="muted">A released equipment transaction stores the PCMS Asset ID instead of creating another independent property inventory.</p><div class="callout">Request → PCMS Asset → Release → Return → Condition</div></article>
         </div>
-        <article class="card mt"><div class="toolbar"><h3>Borrowing / Return Transactions</h3><input id="borrowSearch" placeholder="Search…"></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Borrower</th><th>Equipment</th><th>PCMS Asset</th><th>Date</th><th>Due</th><th>Status</th><th>Condition</th><th>Actions</th></tr></thead><tbody id="borrowBody"></tbody></table></div></article>
+        <article class="card mt" data-roles="Administrator,Property Custodian">
+          <div class="card-head">
+            <div>
+              <h3>Walk-In Equipment / Manual Encoding</h3>
+              <p class="muted" style="margin:4px 0 0">Use this when an employee personally borrows or requests equipment without submitting online.</p>
+            </div>
+            <span class="badge info">Manual / Walk-In</span>
+          </div>
+
+          <form id="walkInEquipmentForm" class="form-grid">
+            <div class="f span6">
+              <label>Employee</label>
+              <select id="walkEquipEmployee" required>
+                <option value="">Select employee…</option>
+              </select>
+            </div>
+            <div class="f span3"><label>Office / Unit</label><input id="walkEquipOffice" readonly></div>
+            <div class="f span3"><label>Position</label><input id="walkEquipPosition" readonly></div>
+
+            <div class="f span4"><label>Equipment</label><input id="walkEquipItem" placeholder="Laptop / Projector / Printer" required></div>
+            <div class="f span4"><label>PCMS Asset ID</label><input id="walkEquipAsset" placeholder="PCMS-DCP-0001"></div>
+            <div class="f span4"><label>Serial / Property No.</label><input id="walkEquipSerial"></div>
+
+            <div class="f span3"><label>Date Borrowed / Needed</label><input id="walkEquipDate" type="date" required></div>
+            <div class="f span3"><label>Expected Return</label><input id="walkEquipDue" type="date" required></div>
+            <div class="f span3"><label>Condition Before Release</label><select id="walkEquipCondition"><option>Serviceable / Good</option><option>With minor issue</option><option>For inspection</option></select></div>
+            <div class="f span3"><label>Record As</label><select id="walkEquipStatus"><option value="Borrowed" selected>Borrowed — already released</option><option value="Requested">Requested — for later release</option></select></div>
+
+            <div class="f span6"><label>Accessories</label><input id="walkEquipAccessories" placeholder="Charger, Bag, Mouse"></div>
+            <div class="f span6"><label>Purpose</label><input id="walkEquipPurpose" required></div>
+
+            <div class="span12">
+              <button class="btn primary" type="submit">Record Walk-In Equipment</button>
+              <span id="walkEquipStatusMsg" class="msg" style="margin-left:8px"></span>
+            </div>
+          </form>
+        </article>
+        <article class="card mt"><div class="toolbar"><h3>Borrowing / Return Transactions</h3><input id="borrowSearch" placeholder="Search…"></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Source</th><th>Borrower</th><th>Equipment</th><th>PCMS Asset</th><th>Date</th><th>Due</th><th>Status</th><th>Condition</th><th>Actions</th></tr></thead><tbody id="borrowBody"></tbody></table></div></article>
       </section>
 
       <section id="dtr" class="section">
@@ -560,7 +597,7 @@ function listenData(clearExisting=true){
     state.unsubs.push(onSnapshot(dq,s=>{state.dtr=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderDtr();renderDashboard()},syncError));
     state.unsubs.push(onSnapshot(lq,s=>{state.leaves=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderLeave();renderDashboard()},syncError));
   }
-  if(hasRole('Administrator','HR/Admin','Supply Officer','School Head')){
+  if(hasRole('Administrator','HR/Admin','Supply Officer','Property Custodian','School Head')){
     const mq=collection(db,'employeeMasterlist');
     state.unsubs.push(onSnapshot(mq,s=>{
       state.masterlist=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.displayName||'').localeCompare(String(b.displayName||'')));
@@ -614,13 +651,24 @@ function matchingUserUid(email){
 }
 
 function fillWalkInEmployeeSelect(){
-  const el=$('walkEmployee');
-  if(!el)return;
-  const current=el.value;
   const rows=activeMasterEmployees();
-  el.innerHTML='<option value="">Select employee…</option>'+rows.map(e=>`<option value="${safe(e.id)}">${safe(e.displayName||'')}${e.office?' — '+safe(e.office):''}</option>`).join('');
-  if(rows.some(e=>e.id===current))el.value=current;
-  updateWalkInEmployeeDetails();
+  const options='<option value="">Select employee…</option>'+rows.map(e=>`<option value="${safe(e.id)}">${safe(e.displayName||'')}${e.office?' — '+safe(e.office):''}</option>`).join('');
+
+  const supplyEl=$('walkEmployee');
+  if(supplyEl){
+    const current=supplyEl.value;
+    supplyEl.innerHTML=options;
+    if(rows.some(e=>e.id===current))supplyEl.value=current;
+    updateWalkInEmployeeDetails();
+  }
+
+  const equipEl=$('walkEquipEmployee');
+  if(equipEl){
+    const current=equipEl.value;
+    equipEl.innerHTML=options;
+    if(rows.some(e=>e.id===current))equipEl.value=current;
+    updateWalkInEquipmentEmployeeDetails();
+  }
 }
 
 function updateWalkInEmployeeDetails(){
@@ -759,6 +807,99 @@ $('walkInSupplyForm').onsubmit=async e=>{
     toast(status==='Issued'?'Walk-in issuance recorded. RIS is available in Supplies / RIS.':'Walk-in request recorded as Pending.');
   }catch(err){
     console.error(err);$('walkInStatus').textContent=err?.code==='permission-denied'?'Publish the updated Firestore rules.':'Could not record walk-in request.';$('walkInStatus').style.color='#b42318';
+  }
+};
+
+
+function updateWalkInEquipmentEmployeeDetails(){
+  const id=$('walkEquipEmployee')?.value||'';
+  const e=state.masterlist.find(x=>x.id===id);
+  if($('walkEquipOffice'))$('walkEquipOffice').value=e?.office||'';
+  if($('walkEquipPosition'))$('walkEquipPosition').value=e?.position||'';
+}
+$('walkEquipEmployee').onchange=updateWalkInEquipmentEmployeeDetails;
+
+$('walkInEquipmentForm').onsubmit=async e=>{
+  e.preventDefault();
+
+  if(!hasRole('Administrator','Property Custodian')){
+    return toast('Only Administrator or Property Custodian can record walk-in equipment transactions.');
+  }
+
+  const employee=state.masterlist.find(x=>x.id===$('walkEquipEmployee').value);
+  if(!employee)return toast('Select an employee from the masterlist.');
+
+  const status=$('walkEquipStatus').value;
+  const transactionNo=refNo('BRW');
+  const linkedUid=employee.linkedUserUid||matchingUserUid(employee.email)||'';
+
+  const payload={
+    transactionNo,
+    borrowerUid:linkedUid,
+    masterEmployeeId:employee.id,
+    borrowerName:employee.displayName||'',
+    borrowerOffice:employee.office||'',
+    borrowerPosition:employee.position||'',
+
+    requestedItem:$('walkEquipItem').value.trim(),
+    assetId:$('walkEquipAsset').value.trim(),
+    serial:$('walkEquipSerial').value.trim(),
+    date:$('walkEquipDate').value||today(),
+    due:$('walkEquipDue').value,
+    conditionBefore:$('walkEquipCondition').value,
+    accessories:$('walkEquipAccessories').value.trim(),
+    purpose:$('walkEquipPurpose').value.trim(),
+
+    status,
+    source:'Walk-In',
+    manualEntry:true,
+
+    createdByUid:state.user.uid,
+    createdByName:state.profile.displayName||state.user.email||'',
+    createdAt:serverTimestamp(),
+    updatedAt:serverTimestamp()
+  };
+
+  if(!payload.requestedItem||!payload.date||!payload.due||!payload.purpose){
+    return toast('Complete the required walk-in equipment fields.');
+  }
+
+  if(status==='Borrowed'){
+    payload.releasedByUid=state.user.uid;
+    payload.releasedByName=state.profile.displayName||state.user.email||'';
+    payload.releasedAt=serverTimestamp();
+  }else{
+    // Requested means no asset has to be assigned yet.
+    if(!payload.assetId)payload.assetId='';
+    if(!payload.serial)payload.serial='';
+  }
+
+  try{
+    await addDoc(collection(db,'borrowTransactions'),payload);
+    await audit(
+      'Equipment',
+      status==='Borrowed'?'Recorded walk-in equipment release':'Recorded walk-in equipment request',
+      transactionNo
+    );
+
+    $('walkEquipStatusMsg').textContent=`Recorded ${transactionNo}`;
+    $('walkEquipStatusMsg').style.color='#027a48';
+
+    e.target.reset();
+    $('walkEquipDate').value=today();
+    $('walkEquipStatus').value='Borrowed';
+    $('walkEquipCondition').value='Serviceable / Good';
+    fillWalkInEmployeeSelect();
+
+    toast(status==='Borrowed'
+      ?'Walk-in equipment release recorded.'
+      :'Walk-in equipment request recorded as Requested.');
+  }catch(err){
+    console.error('WALK-IN EQUIPMENT ERROR:',err);
+    $('walkEquipStatusMsg').textContent=err?.code==='permission-denied'
+      ?'Publish the updated Firestore rules.'
+      :'Could not record walk-in equipment.';
+    $('walkEquipStatusMsg').style.color='#b42318';
   }
 };
 
@@ -1333,13 +1474,13 @@ window.showRIS=id=>{
 $('borrowForm').onsubmit=async e=>{e.preventDefault();try{const cust=hasRole('Property Custodian','Administrator');let buid=state.user.uid,b=state.profile;if(cust){buid=$('brBorrower').value;b=state.users.find(u=>u.id===buid)||state.profile}const no=refNo('BRW');await addDoc(collection(db,'borrowTransactions'),{transactionNo:no,borrowerUid:buid,borrowerName:b.displayName||b.email,borrowerOffice:b.office||'',requestedItem:$('brItem').value.trim(),assetId:cust?$('brAsset').value.trim():'',serial:cust?$('brSerial').value.trim():'',date:$('brDate').value,due:$('brDue').value,conditionBefore:cust?$('brCondition').value:'',accessories:cust?$('brAccessories').value.trim():'',purpose:$('brPurpose').value.trim(),status:cust?'Borrowed':'Requested',createdByUid:state.user.uid,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment',cust?'Recorded equipment release':'Submitted equipment borrowing request',no);e.target.reset();$('brDate').value=today();toast('Equipment transaction saved.')}catch(e){console.error(e);toast('Could not save equipment transaction.')}};
 $('borrowSearch').oninput=renderBorrows;
 window.borrowAction=async(id,action)=>{const r=state.borrows.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'borrowTransactions',id);if(action==='release'){const asset=prompt('PCMS Asset ID:',r.assetId||'');if(!asset)return;const serial=prompt('Serial / Property No. (optional):',r.serial||'');if(serial===null)return;const cond=prompt('Condition before release:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{assetId:asset,serial,conditionBefore:cond,status:'Borrowed',releasedByUid:state.user.uid,releasedByName:state.profile.displayName,releasedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Released equipment',r.transactionNo)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,updatedAt:serverTimestamp()});await audit('Equipment','Rejected borrowing request',r.transactionNo)}if(action==='return'){const cond=prompt('Condition upon return:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{status:'Returned',returnCondition:cond,returnDate:today(),receivedByUid:state.user.uid,receivedByName:state.profile.displayName,returnedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Recorded equipment return',r.transactionNo)}toast('Equipment transaction updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
-function renderBorrows(){const q=$('borrowSearch').value.toLowerCase();const rows=state.borrows.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q));$('borrowBody').innerHTML=rows.map(r=>{let st=r.status;if(r.status==='Borrowed'&&r.due&&r.due<today())st='Overdue';const c=hasRole('Property Custodian','Administrator');const edit=canEditBorrow(r),del=canDeleteBorrow(r);return `<tr><td>${safe(r.transactionNo)}</td><td>${safe(r.borrowerName)}<br><span class="muted">${safe(r.borrowerOffice)}</span></td><td>${safe(r.requestedItem)}</td><td>${safe(r.assetId||'—')}</td><td>${safe(r.date)}</td><td>${safe(r.due)}</td><td>${badge(st)}</td><td>${safe(r.returnCondition||r.conditionBefore||'—')}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('borrow','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('borrow','${r.id}')">🗑 Delete</button>`:''}${c&&r.status==='Requested'?`<button class="btn success xs" onclick="borrowAction('${r.id}','release')">Release</button><button class="btn danger xs" onclick="borrowAction('${r.id}','reject')">Reject</button>`:''}${c&&r.status==='Borrowed'?`<button class="btn success xs" onclick="borrowAction('${r.id}','return')">Return</button>`:''}<button class="btn light xs" onclick="showBorrow('${r.id}')">Slip</button></div></td></tr>`}).join('')||'<tr><td colspan="9" class="muted">No equipment transactions found.</td></tr>'}
+function renderBorrows(){const q=$('borrowSearch').value.toLowerCase();const rows=state.borrows.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q));$('borrowBody').innerHTML=rows.map(r=>{let st=r.status;if(r.status==='Borrowed'&&r.due&&r.due<today())st='Overdue';const c=hasRole('Property Custodian','Administrator');const edit=canEditBorrow(r),del=canDeleteBorrow(r);return `<tr><td>${safe(r.transactionNo)}</td><td>${r.source==='Walk-In'?'<span class="badge info">Walk-In</span>':'<span class="badge ok">Online</span>'}</td><td>${safe(r.borrowerName)}<br><span class="muted">${safe(r.borrowerOffice)}</span></td><td>${safe(r.requestedItem)}</td><td>${safe(r.assetId||'—')}</td><td>${safe(r.date)}</td><td>${safe(r.due)}</td><td>${badge(st)}</td><td>${safe(r.returnCondition||r.conditionBefore||'—')}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('borrow','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('borrow','${r.id}')">🗑 Delete</button>`:''}${c&&r.status==='Requested'?`<button class="btn success xs" onclick="borrowAction('${r.id}','release')">Release</button><button class="btn danger xs" onclick="borrowAction('${r.id}','reject')">Reject</button>`:''}${c&&r.status==='Borrowed'?`<button class="btn success xs" onclick="borrowAction('${r.id}','return')">Return</button>`:''}<button class="btn light xs" onclick="showBorrow('${r.id}')">Slip</button></div></td></tr>`}).join('')||'<tr><td colspan="10" class="muted">No equipment transactions found.</td></tr>'}
 window.showBorrow=id=>{
   const r=state.borrows.find(x=>x.id===id);
   if(!r)return;
 
   const borrowerProfile=userByUid(r.borrowerUid)||{};
-  const borrowerPosition=borrowerProfile.position||'';
+  const borrowerPosition=r.borrowerPosition||borrowerProfile.position||'';
   const approverName=state.settings.schoolHead||'';
   const approverPosition=state.settings.schoolHeadPosition||'School Head';
   const releasedName=r.releasedByName||state.settings.propertyCustodian||'';
@@ -1636,7 +1777,7 @@ $('modalX').onclick=closeModal;$('modalClose').onclick=closeModal;function print
 $('printBtn').onclick=printCurrentDocument;$('modal').onclick=e=>{if(e.target===$('modal'))closeModal()};
 
 function init(){
-  $('brDate').value=today();$('dtMonth').value=today().slice(0,7);$('walkDate').value=today();
+  $('brDate').value=today();$('dtMonth').value=today().slice(0,7);$('walkDate').value=today();$('walkEquipDate').value=today();
   if(placeholder()){showLoading(false);$('loginScreen').classList.remove('hidden');$('configWarning').classList.remove('hidden');return}
   try{const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);onAuthStateChanged(auth,async user=>{showLoading(true);if(!user){clearSubs();state.user=null;state.profile=null;$('app').classList.add('hidden');$('loginScreen').classList.remove('hidden');showLoading(false);return}try{await startSession(user)}catch(e){console.error(e);loginMsg(e.message||'Unable to start SAMS.');$('app').classList.add('hidden');$('loginScreen').classList.remove('hidden');showLoading(false)}})}catch(e){console.error(e);showLoading(false);$('loginScreen').classList.remove('hidden');loginMsg('Firebase initialization failed. Check the Firebase configuration in index.html.')}
 }
