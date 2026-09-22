@@ -227,21 +227,7 @@
           </article>
           <article class="card"><h3>Architecture</h3><p class="muted"><b>PCMS</b> remains the master property/equipment database. <b>SAMS</b> manages requests, approvals, issuance, borrowing/return, HR monitoring, users, and audit history.</p><div class="callout">PCMS → Asset Master &nbsp; | &nbsp; SAMS → Transactions & Workflow</div></article>
         </div>
-        <article class="card mt" data-roles="Administrator,Supply Officer">
-          <div class="card-head"><div><h3>Walk-In Supply Backup</h3><p class="muted" style="margin:4px 0 0">Use this when an employee requests supplies personally instead of submitting online.</p></div><span class="badge info">Manual / Walk-In</span></div>
-          <form id="walkInSupplyForm" class="form-grid">
-            <div class="f span6"><label>Employee</label><select id="walkEmployee" required><option value="">Select employee…</option></select></div>
-            <div class="f span3"><label>Office / Unit</label><input id="walkOffice" readonly></div>
-            <div class="f span3"><label>Position</label><input id="walkPosition" readonly></div>
-            <div class="f span4"><label>Item</label><input id="walkItem" placeholder="Bond Paper A4" required></div>
-            <div class="f span2"><label>Unit</label><input id="walkUnit" placeholder="ream" required></div>
-            <div class="f span2"><label>Quantity</label><input id="walkQty" type="number" min="1" value="1" required></div>
-            <div class="f span4"><label>Date</label><input id="walkDate" type="date" required></div>
-            <div class="f span8"><label>Purpose</label><input id="walkPurpose" required></div>
-            <div class="f span4"><label>Record As</label><select id="walkStatus"><option value="Issued" selected>Issued — already received</option><option value="Pending">Pending — for approval/issuance</option></select></div>
-            <div class="span12"><button class="btn primary" type="submit">Record Walk-In Request</button> <span id="walkInStatus" class="msg" style="margin-left:8px"></span></div>
-          </form>
-        </article>
+        
         <article class="card mt"><h3>Recent Activity</h3><div id="recentActivity" class="muted">Detailed audit viewing is restricted to management roles.</div></article>
       </section>
 
@@ -260,6 +246,21 @@
           </article>
           <article class="card"><h3>Workflow</h3><ol class="muted"><li>Employee submits.</li><li>Authorized staff reviews.</li><li>Supply Officer records issuance.</li><li>SAMS generates RIS data.</li><li>RIS is printed/saved when required.</li></ol></article>
         </div>
+        <article class="card mt" data-roles="Administrator,Supply Officer">
+          <div class="card-head"><div><h3>Walk-In Supply Backup / Manual Encoding</h3><p class="muted" style="margin:4px 0 0">Use this when an employee requests supplies personally instead of submitting online.</p></div><span class="badge info">Manual / Walk-In</span></div>
+          <form id="walkInSupplyForm" class="form-grid">
+            <div class="f span6"><label>Employee</label><select id="walkEmployee" required><option value="">Select employee…</option></select></div>
+            <div class="f span3"><label>Office / Unit</label><input id="walkOffice" readonly></div>
+            <div class="f span3"><label>Position</label><input id="walkPosition" readonly></div>
+            <div class="f span4"><label>Item</label><input id="walkItem" placeholder="Bond Paper A4" required></div>
+            <div class="f span2"><label>Unit</label><input id="walkUnit" placeholder="ream" required></div>
+            <div class="f span2"><label>Quantity</label><input id="walkQty" type="number" min="1" value="1" required></div>
+            <div class="f span4"><label>Date</label><input id="walkDate" type="date" required></div>
+            <div class="f span8"><label>Purpose</label><input id="walkPurpose" required></div>
+            <div class="f span4"><label>Record As</label><select id="walkStatus"><option value="Issued" selected>Issued — already received</option><option value="Pending">Pending — for approval/issuance</option></select></div>
+            <div class="span12"><button class="btn primary" type="submit">Record Walk-In Request</button> <span id="walkInStatus" class="msg" style="margin-left:8px"></span></div>
+          </form>
+        </article>
         <article class="card mt"><div class="toolbar"><h3>Supply Requests</h3><input id="supplySearch" placeholder="Search…"></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Date</th><th>Source</th><th>Requestor</th><th>Office</th><th>Item</th><th>Qty</th><th>Purpose</th><th>Status</th><th>Actions</th></tr></thead><tbody id="supplyBody"></tbody></table></div></article>
       </section>
 
