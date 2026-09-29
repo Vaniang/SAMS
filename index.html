@@ -155,6 +155,10 @@
 .toast{position:fixed;right:18px;bottom:18px;background:#101828;color:#fff;padding:10px 13px;border-radius:9px;font-size:12px;z-index:120}
 @media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.span2,.span3,.span4,.span6{grid-column:span 6}}@media(max-width:700px){.profile-form,.profile-summary{grid-template-columns:1fr}.sidebar{--side:66px}.brand-text,.nav span,.user-mini{display:none}.sidebar{padding:10px 7px}.nav{text-align:center}.app main{margin-left:var(--side)}.content{padding:12px}.cards,.info-grid{grid-template-columns:1fr}.span2,.span3,.span4,.span6,.span12{grid-column:span 12}.toolbar{flex-direction:column;align-items:stretch}.toolbar input{width:100%}}@media print{body>*:not(#modal){display:none!important}#modal{position:static;background:#fff;padding:0;display:block!important}.modal-card{max-height:none;width:100%;padding:0}.modal-head,.modal-actions{display:none!important}.print-doc{padding:10mm}}
 
+
+/* ===== SAMS PHASE 3 FOUNDATION ===== */
+.nav-group{font-size:9px;text-transform:uppercase;letter-spacing:.08em;opacity:.55;padding:12px 11px 4px}.top-search{width:220px;border:1px solid var(--bd);border-radius:8px;padding:8px 10px;font-size:11px}.notif-btn{position:relative}.notif-count{position:absolute;top:-7px;right:-7px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--bad);color:#fff;display:grid;place-items:center;font-size:9px}.report-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.report-tile{border:1px solid var(--bd);border-radius:10px;padding:12px;background:#fff}.report-tile small{display:block;color:var(--mut);font-size:10px;text-transform:uppercase}.report-tile b{font-size:22px;display:block;margin-top:5px}.empty-state{padding:24px;text-align:center;color:var(--mut)}.phase3-note{border:1px dashed #9fc3dc;background:#f4f9fc;border-radius:10px;padding:12px;font-size:11px;color:#475467}.archive-meta{font-size:10px;color:var(--mut);margin-top:3px}@media(max-width:900px){.report-grid{grid-template-columns:1fr 1fr}.top-search{display:none}}@media(max-width:600px){.report-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -184,7 +188,12 @@
       <button class="nav" data-section="equipment" data-roles="Employee,Property Custodian,School Head,Administrator">💻 <span>Equipment</span></button>
       <button class="nav" data-section="dtr" data-roles="Employee,HR/Admin,School Head,Administrator">🕐 <span>DTR</span></button>
       <button class="nav" data-section="leave" data-roles="Employee,HR/Admin,School Head,Administrator">🗓️ <span>Leave</span></button>
+      <div class="nav-group">Records</div>
       <button class="nav" data-section="masterlist" data-roles="Administrator,HR/Admin,Supply Officer,Property Custodian">📋 <span>Employee Masterlist</span></button>
+      <button class="nav" data-section="notifications" data-roles="ALL">🔔 <span>Notifications</span></button>
+      <button class="nav" data-section="reports" data-roles="Administrator,HR/Admin,Supply Officer,Property Custodian,School Head">📊 <span>Reports</span></button>
+      <button class="nav" data-section="archives" data-roles="Administrator,HR/Admin,Supply Officer,Property Custodian,School Head">🗄️ <span>Archives</span></button>
+      <div class="nav-group">Administration</div>
       <button class="nav" data-section="users" data-roles="Administrator">👥 <span>Users & Roles</span></button>
       <button class="nav" data-section="audit" data-roles="School Head,Administrator">🧾 <span>Audit Log</span></button>
       <button class="nav" data-section="settings" data-roles="Administrator">⚙️ <span>Settings</span></button>
@@ -195,7 +204,7 @@
   <main>
     <header class="topbar">
       <div><h2 id="pageTitle">Dashboard</h2><small id="schoolHeader">School Administrative Monitoring System</small></div>
-      <div class="top-actions"><span id="syncStatus">● Connected</span><button id="logoutBtn" class="btn light">Sign out</button></div>
+      <div class="top-actions"><input id="globalSearch" class="top-search" placeholder="Search SAMS…" title="Press Enter to search"><span id="syncStatus">● Checking…</span><button id="notifTopBtn" class="btn light notif-btn" type="button">🔔<span id="notifCount" class="notif-count hidden">0</span></button><button id="logoutBtn" class="btn light">Sign out</button></div>
     </header>
 
     <div class="content">
@@ -359,6 +368,29 @@
         <article class="card mt"><div class="toolbar"><div><h3>Employee Records</h3><p class="muted" style="margin:3px 0 0"><span id="masterCount">0</span> active personnel</p></div><input id="masterSearch" placeholder="Search employee…"></div><div class="table-wrap"><table><thead><tr><th>Employee No.</th><th>Name</th><th>Office / Unit</th><th>Position</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead><tbody id="masterBody"></tbody></table></div></article>
       </section>
 
+      <section id="notifications" class="section">
+        <article class="card">
+          <div class="toolbar"><div><h3>Notifications</h3><p class="muted" style="margin:3px 0 0">Workflow updates addressed to your account.</p></div><button id="markAllNotifBtn" class="btn light" type="button">Mark all as read</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Date/Time</th><th>Module</th><th>Notification</th><th>Reference</th><th>Status</th><th>Action</th></tr></thead><tbody id="notificationBody"></tbody></table></div>
+        </article>
+      </section>
+
+      <section id="reports" class="section">
+        <article class="card">
+          <div class="toolbar"><div><h3>Operational Reports</h3><p class="muted" style="margin:3px 0 0">Live summary from records currently available to your role.</p></div><button id="exportSummaryBtn" class="btn primary" type="button">Export CSV</button></div>
+          <div id="reportTiles" class="report-grid"></div>
+          <div class="phase3-note mt">This is the Phase 3 reporting foundation. Detailed official report layouts can be added after the core workflows and forms are finalized.</div>
+          <div class="table-wrap mt"><table><thead><tr><th>Module</th><th>Total</th><th>Pending / Open</th><th>Completed / Closed</th><th>Attention</th></tr></thead><tbody id="reportBody"></tbody></table></div>
+        </article>
+      </section>
+
+      <section id="archives" class="section">
+        <article class="card">
+          <div class="toolbar"><div><h3>Archived Records</h3><p class="muted" style="margin:3px 0 0">Soft-deleted records remain available for accountability and restoration.</p></div><input id="archiveSearch" placeholder="Search archives…"></div>
+          <div class="table-wrap"><table><thead><tr><th>Module</th><th>Reference</th><th>Record</th><th>Archived By</th><th>Archived</th><th>Reason</th><th>Action</th></tr></thead><tbody id="archiveBody"></tbody></table></div>
+        </article>
+      </section>
+
       <section id="users" class="section"><article class="card"><div class="toolbar"><div><h3>Users & Roles</h3><p class="muted">Create Authentication accounts in Firebase Console. After first login, promote roles here.</p></div><button id="refreshUsers" class="btn light">Refresh</button></div><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Office</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="usersBody"></tbody></table></div></article></section>
 
       <section id="audit" class="section"><article class="card"><h3>Audit Trail</h3><p class="muted">Phase 2 records authenticated client activity. Phase 3 should move critical audit events to Cloud Functions for stronger tamper resistance.</p><div class="table-wrap"><table><thead><tr><th>Date/Time</th><th>User</th><th>Role</th><th>Module</th><th>Action</th><th>Reference</th></tr></thead><tbody id="auditBody"></tbody></table></div></article></section>
@@ -410,7 +442,7 @@
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
-import { getFirestore, doc, getDoc, setDoc, updateDoc, addDoc, collection, getDocs, query, where, onSnapshot, serverTimestamp, orderBy, limit } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+import { getFirestore, doc, getDoc, setDoc, updateDoc, addDoc, collection, getDocs, query, where, onSnapshot, serverTimestamp, orderBy, limit, runTransaction } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
 
 
 /* =============================================================
@@ -431,11 +463,27 @@ const firebaseConfig = {
 };
 
 const $=id=>document.getElementById(id);
-const state={user:null,profile:null,settings:{},users:[],masterlist:[],supplies:[],borrows:[],dtr:[],leaves:[],audit:[],unsubs:[]};
+const state={user:null,profile:null,settings:{},users:[],masterlist:[],supplies:[],borrows:[],dtr:[],leaves:[],audit:[],notifications:[],unsubs:[]};
 let auth,db;
 const today=()=>new Date().toISOString().slice(0,10);
 const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const refNo=p=>`${p}-${new Date().getFullYear()}-${String(Date.now()).slice(-7)}`;
+async function nextRefNo(prefix){
+  const year=new Date().getFullYear();
+  const counterRef=doc(db,'referenceCounters',`${prefix}_${year}`);
+  try{
+    const n=await runTransaction(db,async tx=>{
+      const snap=await tx.get(counterRef);
+      const next=(snap.exists()?Number(snap.data().lastNumber||0):0)+1;
+      tx.set(counterRef,{prefix,year,lastNumber:next,updatedAt:serverTimestamp()},{merge:true});
+      return next;
+    });
+    return `${prefix}-${year}-${String(n).padStart(6,'0')}`;
+  }catch(err){
+    console.warn('Reference counter unavailable; using collision-resistant fallback.',err);
+    return refNo(prefix);
+  }
+}
 const placeholder=()=>Object.values(firebaseConfig).some(v=>String(v).includes('PASTE_YOUR'));
 const hasRole=(...roles)=>roles.includes(state.profile?.role);
 const isStaff=()=>hasRole('Administrator','School Head','Supply Officer','Property Custodian','HR/Admin');
@@ -483,6 +531,69 @@ async function audit(module,action,reference=''){
   try{await addDoc(collection(db,'auditLogs'),{actorUid:state.user.uid,actorEmail:state.user.email||'',actorName:state.profile.displayName||'',actorRole:state.profile.role,module,action,reference,createdAt:serverTimestamp()})}catch(e){console.warn('Audit log:',e)}
 }
 
+
+async function notifyUser(targetUid,module,title,message,reference='',recordId=''){
+  if(!targetUid)return;
+  try{await addDoc(collection(db,'notifications'),{targetUid,module,title,message,reference,recordId,read:false,createdAt:serverTimestamp(),createdByUid:state.user?.uid||''})}catch(e){console.warn('Notification:',e)}
+}
+
+function renderNotifications(){
+  const rows=[...state.notifications].sort(byCreated);
+  const unread=rows.filter(n=>!n.read).length;
+  $('notifCount').textContent=unread;
+  $('notifCount').classList.toggle('hidden',unread===0);
+  $('notificationBody').innerHTML=rows.map(n=>`<tr><td>${fmtTs(n.createdAt)}</td><td>${safe(n.module||'')}</td><td><b>${safe(n.title||'Update')}</b><br><span class="muted">${safe(n.message||'')}</span></td><td>${safe(n.reference||'—')}</td><td>${n.read?'<span class="badge ok">Read</span>':'<span class="badge warn">Unread</span>'}</td><td>${!n.read?`<button class="btn light xs" onclick="markNotificationRead('${n.id}')">Mark read</button>`:''}</td></tr>`).join('')||'<tr><td colspan="6" class="muted">No notifications yet.</td></tr>';
+}
+window.markNotificationRead=async id=>{try{await updateDoc(doc(db,'notifications',id),{read:true,readAt:serverTimestamp()})}catch(e){console.error(e);toast('Could not update notification.')}};
+
+function archiveRows(){
+  const map=(arr,module,refFn,labelFn)=>arr.filter(r=>r.deleted===true).map(r=>({module,id:r.id,reference:refFn(r),label:labelFn(r),deletedBy:r.deletedByName||'',deletedAt:r.deletedAt,reason:r.deleteReason||''}));
+  return [
+    ...map(state.supplies,'Supplies',r=>r.requestNo||r.id,r=>`${r.requestor||''} — ${r.item||''}`),
+    ...map(state.borrows,'Equipment',r=>r.transactionNo||r.id,r=>`${r.borrowerName||''} — ${r.requestedItem||''}`),
+    ...map(state.dtr,'DTR',r=>`${r.employeeName||''} ${r.month||''}`,r=>`${r.employeeName||''} — ${r.month||''}`),
+    ...map(state.leaves,'Leave',r=>r.leaveNo||r.id,r=>`${r.employeeName||''} — ${r.type||''}`)
+  ];
+}
+function canRestoreModule(module){return module==='Supplies'?hasRole('Supply Officer','Administrator'):module==='Equipment'?hasRole('Property Custodian','Administrator'):module==='DTR'?hasRole('HR/Admin','Administrator'):module==='Leave'?hasRole('HR/Admin','School Head','Administrator'):false}
+function renderArchives(){
+  if(!$('archiveBody'))return;
+  const q=($('archiveSearch')?.value||'').toLowerCase();
+  const rows=archiveRows().filter(r=>JSON.stringify(r).toLowerCase().includes(q));
+  $('archiveBody').innerHTML=rows.map(r=>`<tr><td>${safe(r.module)}</td><td>${safe(r.reference)}</td><td>${safe(r.label)}</td><td>${safe(r.deletedBy||'—')}</td><td>${fmtTs(r.deletedAt)}</td><td>${safe(r.reason||'—')}</td><td>${canRestoreModule(r.module)?`<button class="btn success xs" onclick="restoreArchived('${r.module}','${r.id}')">Restore</button>`:''}</td></tr>`).join('')||'<tr><td colspan="7" class="muted">No archived records found.</td></tr>';
+}
+window.restoreArchived=async(module,id)=>{
+  const collections={Supplies:'supplyRequests',Equipment:'borrowTransactions',DTR:'dtrRecords',Leave:'leaveApplications'};
+  if(!canRestoreModule(module)||!collections[module])return toast('You are not allowed to restore this record.');
+  if(!confirm('Restore this archived record to the working table?'))return;
+  try{await updateDoc(doc(db,collections[module],id),{deleted:false,restoredAt:serverTimestamp(),restoredByUid:state.user.uid,restoredByName:state.profile.displayName||state.user.email||'',updatedAt:serverTimestamp()});await audit(module,'Restored archived record',id);toast('Record restored.')}catch(e){console.error(e);toast('Could not restore record.')}
+};
+
+function reportMetrics(){
+  const s=state.supplies.filter(isVisibleRecord),b=state.borrows.filter(isVisibleRecord),d=state.dtr.filter(isVisibleRecord),l=state.leaves.filter(isVisibleRecord);
+  return [
+    {module:'Supplies',total:s.length,open:s.filter(x=>['Pending','Approved'].includes(x.status)).length,closed:s.filter(x=>x.status==='Issued').length,attention:s.filter(x=>x.status==='Rejected').length},
+    {module:'Equipment',total:b.length,open:b.filter(x=>['Requested','Borrowed'].includes(x.status)).length,closed:b.filter(x=>x.status==='Returned').length,attention:b.filter(x=>x.status==='Borrowed'&&x.due&&x.due<today()).length},
+    {module:'DTR',total:d.length,open:d.filter(x=>['Pending','Submitted'].includes(x.status)).length,closed:d.filter(x=>['Verified','Forwarded to SDO'].includes(x.status)).length,attention:d.filter(x=>x.status==='Pending').length},
+    {module:'Leave',total:l.length,open:l.filter(x=>['Pending','For Verification','For Approval'].includes(x.status)).length,closed:l.filter(x=>x.status==='Approved').length,attention:l.filter(x=>x.status==='Disapproved').length}
+  ];
+}
+function renderReports(){
+  if(!$('reportTiles'))return;
+  const m=reportMetrics();
+  $('reportTiles').innerHTML=m.map(x=>`<div class="report-tile"><small>${safe(x.module)} records</small><b>${x.total}</b><span class="muted">${x.open} open · ${x.attention} attention</span></div>`).join('');
+  $('reportBody').innerHTML=m.map(x=>`<tr><td>${safe(x.module)}</td><td>${x.total}</td><td>${x.open}</td><td>${x.closed}</td><td>${x.attention}</td></tr>`).join('');
+}
+function renderPhase3Panels(){renderReports();renderArchives();renderNotifications()}
+
+function exportSummaryCSV(){
+  const rows=[['Module','Total','Pending/Open','Completed/Closed','Attention'],...reportMetrics().map(x=>[x.module,x.total,x.open,x.closed,x.attention])];
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`SAMS-Summary-${today()}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+
+function updateConnectivityStatus(){const online=navigator.onLine;$('syncStatus').textContent=online?'● Online':'● Offline';$('syncStatus').style.color=online?'#027a48':'#b54708'}
+window.addEventListener('online',updateConnectivityStatus);window.addEventListener('offline',updateConnectivityStatus);
 
 async function refreshOwnProfile(){
   if(!state.user) return null;
@@ -587,7 +698,7 @@ async function startSession(user){
   if(state.profile.active===false){loginMsg('Your SAMS access is disabled. Contact the Administrator.');await signOut(auth);return}
   updateProfileUI(state.profile);
   applyRoleUI();await loadSettings();await loadUsers();listenData();listenToOwnProfile();setSection('dashboard');
-  $('loginScreen').classList.add('hidden');$('app').classList.remove('hidden');showLoading(false);
+  $('loginScreen').classList.add('hidden');$('app').classList.remove('hidden');updateConnectivityStatus();renderPhase3Panels();showLoading(false);
 }
 
 function listenData(clearExisting=true){
@@ -612,6 +723,9 @@ function listenData(clearExisting=true){
       renderMasterlist();fillWalkInEmployeeSelect();fillHrEmployeeSelectors();
     },syncError));
   }else{state.masterlist=[];renderMasterlist();fillWalkInEmployeeSelect()}
+
+  const nq=query(collection(db,'notifications'),where('targetUid','==',uid));
+  state.unsubs.push(onSnapshot(nq,s=>{state.notifications=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderNotifications()},e=>{console.warn('Notification listener:',e);state.notifications=[];renderNotifications()}));
 
   if(hasRole('School Head','Administrator')){
     const aq=query(collection(db,'auditLogs'),orderBy('createdAt','desc'),limit(100));
@@ -884,7 +998,7 @@ $('walkInSupplyForm').onsubmit=async e=>{
   const employee=state.masterlist.find(x=>x.id===$('walkEmployee').value);
   if(!employee)return toast('Select an employee from the masterlist.');
   const status=$('walkStatus').value;
-  const requestNo=refNo('SR');
+  const requestNo=await nextRefNo('SR');
   const linkedUid=employee.linkedUserUid||matchingUserUid(employee.email)||'';
   const payload={
     requestNo,
@@ -902,7 +1016,7 @@ $('walkInSupplyForm').onsubmit=async e=>{
   };
   if(!payload.item||!payload.unit||!payload.qty||payload.qty<1||!payload.purpose)return toast('Complete the walk-in request fields.');
   if(status==='Issued'){
-    payload.risNo=refNo('RIS');payload.issueDate=payload.requestDate;payload.issuedByUid=state.user.uid;payload.issuedByName=state.profile.displayName||state.user.email||'';payload.issuedAt=serverTimestamp();
+    payload.risNo=await nextRefNo('RIS');payload.issueDate=payload.requestDate;payload.issuedByUid=state.user.uid;payload.issuedByName=state.profile.displayName||state.user.email||'';payload.issuedAt=serverTimestamp();
   }
   try{
     await addDoc(collection(db,'supplyRequests'),payload);
@@ -935,7 +1049,7 @@ $('walkInEquipmentForm').onsubmit=async e=>{
   if(!employee)return toast('Select an employee from the masterlist.');
 
   const status=$('walkEquipStatus').value;
-  const transactionNo=refNo('BRW');
+  const transactionNo=await nextRefNo('BRW');
   const linkedUid=employee.linkedUserUid||matchingUserUid(employee.email)||'';
 
   const payload={
@@ -1234,9 +1348,9 @@ async function softDeleteRecord(module,id){
 }
 window.softDeleteRecord=softDeleteRecord;
 
-$('supplyForm').onsubmit=async e=>{e.preventDefault();try{const no=refNo('SR');await addDoc(collection(db,'supplyRequests'),{requestNo:no,requesterUid:state.user.uid,requestor:state.profile.displayName||state.user.email,requesterEmail:state.user.email||'',office:$('srOffice').value.trim(),item:$('srItem').value.trim(),unit:$('srUnit').value.trim(),qty:Number($('srQty').value),purpose:$('srPurpose').value.trim(),status:'Pending',requestDate:today(),createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Submitted supply request',no);e.target.reset();$('srQty').value=1;$('srRequestor').value=state.profile.displayName||state.user.email;$('srOffice').value=state.profile.office||'';toast('Supply request submitted.')}catch(e){console.error(e);toast('Could not submit supply request.')}};
+$('supplyForm').onsubmit=async e=>{e.preventDefault();try{const no=await nextRefNo('SR');await addDoc(collection(db,'supplyRequests'),{requestNo:no,requesterUid:state.user.uid,requestor:state.profile.displayName||state.user.email,requesterEmail:state.user.email||'',office:$('srOffice').value.trim(),item:$('srItem').value.trim(),unit:$('srUnit').value.trim(),qty:Number($('srQty').value),purpose:$('srPurpose').value.trim(),status:'Pending',requestDate:today(),createdAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Submitted supply request',no);e.target.reset();$('srQty').value=1;$('srRequestor').value=state.profile.displayName||state.user.email;$('srOffice').value=state.profile.office||'';toast('Supply request submitted.')}catch(e){console.error(e);toast('Could not submit supply request.')}};
 $('supplySearch').oninput=renderSupplies;
-window.supplyAction=async(id,action)=>{const r=state.supplies.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'supplyRequests',id);if(action==='approve'){await updateDoc(ref,{status:'Approved',approvedByUid:state.user.uid,approvedByName:state.profile.displayName,approvedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Approved supply request',r.requestNo)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,rejectedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Rejected supply request',r.requestNo)}if(action==='issue'){const ris=refNo('RIS');await updateDoc(ref,{status:'Issued',risNo:ris,issueDate:today(),issuedByUid:state.user.uid,issuedByName:state.profile.displayName,issuedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Issued supplies / generated RIS',ris)}toast('Supply record updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
+window.supplyAction=async(id,action)=>{const r=state.supplies.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'supplyRequests',id);if(action==='approve'){await updateDoc(ref,{status:'Approved',approvedByUid:state.user.uid,approvedByName:state.profile.displayName,approvedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Approved supply request',r.requestNo);await notifyUser(r.requesterUid,'Supplies','Supply request approved','Your supply request has been approved.',r.requestNo,r.id)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,rejectedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Rejected supply request',r.requestNo);await notifyUser(r.requesterUid,'Supplies','Supply request rejected',reason||'Your supply request was rejected.',r.requestNo,r.id)}if(action==='issue'){const ris=await nextRefNo('RIS');await updateDoc(ref,{status:'Issued',risNo:ris,issueDate:today(),issuedByUid:state.user.uid,issuedByName:state.profile.displayName,issuedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Supplies','Issued supplies / generated RIS',ris);await notifyUser(r.requesterUid,'Supplies','Supplies issued',`Your requested supplies were issued. RIS: ${ris}`,r.requestNo,r.id)}toast('Supply record updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
 function renderSupplies(){const q=$('supplySearch').value.toLowerCase();const rows=state.supplies.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q));$('supplyBody').innerHTML=rows.map(r=>{const approve=hasRole('School Head','Supply Officer','Administrator')&&r.status==='Pending';const issue=hasRole('Supply Officer','Administrator')&&r.status==='Approved';const edit=canEditSupply(r),del=canDeleteSupply(r);return `<tr><td>${safe(r.requestNo)}</td><td>${safe(r.requestDate)}</td><td>${r.source==='Walk-In'?'<span class="badge info">Walk-In</span>':'<span class="badge ok">Online</span>'}</td><td>${safe(r.requestor)}</td><td>${safe(r.office)}</td><td>${safe(r.item)}<br><span class="muted">${safe(r.unit)}</span></td><td>${safe(r.qty)}</td><td>${safe(r.purpose)}</td><td>${badge(r.status)}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('supply','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('supply','${r.id}')">🗑 Delete</button>`:''}${approve?`<button class="btn success xs" onclick="supplyAction('${r.id}','approve')">Approve</button><button class="btn danger xs" onclick="supplyAction('${r.id}','reject')">Reject</button>`:''}${issue?`<button class="btn warning xs" onclick="supplyAction('${r.id}','issue')">Issue</button>`:''}${r.status==='Issued'?`<button class="btn light xs" onclick="showRIS('${r.id}')">RIS</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="10" class="muted">No supply requests found.</td></tr>'}
 
 let activeRisRecordId=null;
@@ -1585,7 +1699,7 @@ $('borrowForm').onsubmit=async e=>{
   }
 
   try{
-    const no=refNo('BRW');
+    const no=await nextRefNo('BRW');
     await addDoc(collection(db,'borrowTransactions'),{
       transactionNo:no,
       borrowerUid:state.user.uid,
@@ -1617,7 +1731,7 @@ $('borrowForm').onsubmit=async e=>{
   }
 };
 $('borrowSearch').oninput=renderBorrows;
-window.borrowAction=async(id,action)=>{const r=state.borrows.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'borrowTransactions',id);if(action==='release'){const asset=prompt('PCMS Asset ID:',r.assetId||'');if(!asset)return;const serial=prompt('Serial / Property No. (optional):',r.serial||'');if(serial===null)return;const cond=prompt('Condition before release:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{assetId:asset,serial,conditionBefore:cond,status:'Borrowed',releasedByUid:state.user.uid,releasedByName:state.profile.displayName,releasedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Released equipment',r.transactionNo)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,updatedAt:serverTimestamp()});await audit('Equipment','Rejected borrowing request',r.transactionNo)}if(action==='return'){const cond=prompt('Condition upon return:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{status:'Returned',returnCondition:cond,returnDate:today(),receivedByUid:state.user.uid,receivedByName:state.profile.displayName,returnedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Recorded equipment return',r.transactionNo)}toast('Equipment transaction updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
+window.borrowAction=async(id,action)=>{const r=state.borrows.find(x=>x.id===id);if(!r)return;try{const ref=doc(db,'borrowTransactions',id);if(action==='release'){const asset=prompt('PCMS Asset ID:',r.assetId||'');if(!asset)return;const serial=prompt('Serial / Property No. (optional):',r.serial||'');if(serial===null)return;const cond=prompt('Condition before release:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{assetId:asset,serial,conditionBefore:cond,status:'Borrowed',releasedByUid:state.user.uid,releasedByName:state.profile.displayName,releasedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Released equipment',r.transactionNo);await notifyUser(r.borrowerUid,'Equipment','Equipment released','Your equipment request has been released.',r.transactionNo,r.id)}if(action==='reject'){const reason=prompt('Reason for rejection (optional):','');if(reason===null)return;await updateDoc(ref,{status:'Rejected',rejectionReason:reason,rejectedByUid:state.user.uid,updatedAt:serverTimestamp()});await audit('Equipment','Rejected borrowing request',r.transactionNo);await notifyUser(r.borrowerUid,'Equipment','Equipment request rejected',reason||'Your equipment request was rejected.',r.transactionNo,r.id)}if(action==='return'){const cond=prompt('Condition upon return:','Serviceable / Good');if(cond===null)return;await updateDoc(ref,{status:'Returned',returnCondition:cond,returnDate:today(),receivedByUid:state.user.uid,receivedByName:state.profile.displayName,returnedAt:serverTimestamp(),updatedAt:serverTimestamp()});await audit('Equipment','Recorded equipment return',r.transactionNo);await notifyUser(r.borrowerUid,'Equipment','Equipment return recorded','Your equipment return has been recorded.',r.transactionNo,r.id)}toast('Equipment transaction updated.')}catch(e){console.error(e);toast('You are not allowed to perform that action.')}};
 function renderBorrows(){const q=$('borrowSearch').value.toLowerCase();const rows=state.borrows.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q));$('borrowBody').innerHTML=rows.map(r=>{let st=r.status;if(r.status==='Borrowed'&&r.due&&r.due<today())st='Overdue';const c=hasRole('Property Custodian','Administrator');const edit=canEditBorrow(r),del=canDeleteBorrow(r);return `<tr><td>${safe(r.transactionNo)}</td><td>${r.source==='Walk-In'?'<span class="badge info">Walk-In</span>':'<span class="badge ok">Online</span>'}</td><td>${safe(r.borrowerName)}<br><span class="muted">${safe(r.borrowerOffice)}</span></td><td>${safe(r.requestedItem)}</td><td>${safe(r.assetId||'—')}</td><td>${safe(r.date)}</td><td>${safe(r.due)}</td><td>${badge(st)}</td><td>${safe(r.returnCondition||r.conditionBefore||'—')}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('borrow','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('borrow','${r.id}')">🗑 Delete</button>`:''}${c&&r.status==='Requested'?`<button class="btn success xs" onclick="borrowAction('${r.id}','release')">Release</button><button class="btn danger xs" onclick="borrowAction('${r.id}','reject')">Reject</button>`:''}${c&&r.status==='Borrowed'?`<button class="btn success xs" onclick="borrowAction('${r.id}','return')">Return</button>`:''}<button class="btn light xs" onclick="showBorrow('${r.id}')">Slip</button></div></td></tr>`}).join('')||'<tr><td colspan="10" class="muted">No equipment transactions found.</td></tr>'}
 window.showBorrow=id=>{
   const r=state.borrows.find(x=>x.id===id);
@@ -1720,7 +1834,7 @@ $('dtrForm').onsubmit=async e=>{
       createdAt:serverTimestamp()
     },{merge:true});
 
-    await audit('DTR','Saved DTR monitoring status',`${emp.displayName} ${month}`);
+    await audit('DTR','Saved DTR monitoring status',`${emp.displayName} ${month}`);await notifyUser(emp.linkedUserUid,'DTR','DTR status updated',`Your DTR for ${month} is now ${$('dtStatus').value}.`,month,id);
     e.target.reset();
     $('dtMonth').value=today().slice(0,7);
     fillHrEmployeeSelectors();
@@ -1740,7 +1854,7 @@ $('leaveForm').onsubmit=async e=>{
   if(!emp)return toast('Select an employee.');
 
   try{
-    const no=refNo('LV');
+    const no=await nextRefNo('LV');
     const payload={
       leaveNo:no,
       employeeUid:emp.linkedUserUid||state.user.uid,
@@ -1776,17 +1890,22 @@ $('leaveForm').onsubmit=async e=>{
       :'Could not submit leave record.');
   }
 };
-window.leaveAction=async(id,status)=>{const r=state.leaves.find(x=>x.id===id);if(!r)return;try{await updateDoc(doc(db,'leaveApplications',id),{status,actionByUid:state.user.uid,actionByName:state.profile.displayName,updatedAt:serverTimestamp()});await audit('Leave',`${status} leave record`,r.leaveNo);toast('Leave status updated.')}catch(e){console.error(e);toast('You are not allowed to update that leave record.')}};
+window.leaveAction=async(id,status)=>{const r=state.leaves.find(x=>x.id===id);if(!r)return;try{await updateDoc(doc(db,'leaveApplications',id),{status,actionByUid:state.user.uid,actionByName:state.profile.displayName,updatedAt:serverTimestamp()});await audit('Leave',`${status} leave record`,r.leaveNo);await notifyUser(r.employeeUid,'Leave',`Leave ${status}`,`Your leave application ${r.leaveNo||''} is now ${status}.`,r.leaveNo,r.id);toast('Leave status updated.')}catch(e){console.error(e);toast('You are not allowed to update that leave record.')}};
 function renderLeave(){const act=hasRole('HR/Admin','School Head','Administrator');const rows=state.leaves.filter(isVisibleRecord);$('leaveBody').innerHTML=rows.map(r=>{const edit=canEditLeave(r),del=canDeleteLeave(r);return `<tr><td>${safe(r.employeeName)}</td><td>${safe(r.type)}</td><td>${safe(r.from)} to ${safe(r.to)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('leave','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('leave','${r.id}')">🗑 Delete</button>`:''}${act&&r.status!=='Approved'?`<button class="btn success xs" onclick="leaveAction('${r.id}','Approved')">Approve</button>`:''}${act&&r.status!=='Disapproved'?`<button class="btn danger xs" onclick="leaveAction('${r.id}','Disapproved')">Disapprove</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="6" class="muted">No leave records found.</td></tr>'}
 
 function renderUsers(){if(!hasRole('Administrator'))return;const roles=['Employee','Supply Officer','Property Custodian','HR/Admin','School Head','Administrator'];$('usersBody').innerHTML=state.users.map(u=>`<tr><td>${safe(u.displayName||'')}${u.position?`<br><span class="muted">${safe(u.position)}</span>`:''}</td><td>${safe(u.email||'')}</td><td><input id="office_${u.id}" class="role-input" value="${safe(u.office||'')}"></td><td><select id="role_${u.id}" class="role-input">${roles.map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}</select></td><td>${badge(u.active===false?'Inactive':'Active')}</td><td><div class="actions"><button class="btn primary xs" onclick="saveUser('${u.id}')">Save</button><button class="btn ${u.active===false?'success':'danger'} xs" onclick="toggleUser('${u.id}',${u.active!==false})">${u.active===false?'Activate':'Disable'}</button></div></td></tr>`).join('')}
 window.saveUser=async id=>{const u=state.users.find(x=>x.id===id);if(!u)return;const role=$(`role_${id}`).value,office=$(`office_${id}`).value.trim();if(id===state.user.uid&&role!=='Administrator'&&!confirm('Changing your own Administrator role can remove access to User Management. Continue?'))return;try{await updateDoc(doc(db,'users',id),{role,office,updatedAt:serverTimestamp()});await audit('Users',`Changed user role to ${role}`,u.email||id);await loadUsers();toast('User updated.')}catch(e){console.error(e);toast('Could not update user.')}};
 window.toggleUser=async(id,on)=>{if(id===state.user.uid)return toast('You cannot disable your own account here.');const u=state.users.find(x=>x.id===id);try{await updateDoc(doc(db,'users',id),{active:!on,updatedAt:serverTimestamp()});await audit('Users',on?'Disabled user':'Activated user',u?.email||id);await loadUsers();toast('User status updated.')}catch(e){console.error(e);toast('Could not update user.')}};
 $('refreshUsers').onclick=loadUsers;
+$('notifTopBtn').onclick=()=>setSection('notifications');
+$('markAllNotifBtn').onclick=async()=>{const unread=state.notifications.filter(n=>!n.read);try{await Promise.all(unread.map(n=>updateDoc(doc(db,'notifications',n.id),{read:true,readAt:serverTimestamp()})));toast('Notifications marked as read.')}catch(e){console.error(e);toast('Could not update all notifications.')}};
+$('archiveSearch').oninput=renderArchives;
+$('exportSummaryBtn').onclick=exportSummaryCSV;
+$('globalSearch').addEventListener('keydown',e=>{if(e.key!=='Enter')return;const q=e.target.value.trim().toLowerCase();if(!q)return;const hits=[];const add=(module,arr,label,ref)=>arr.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q)).slice(0,8).forEach(r=>hits.push({module,label:label(r),ref:ref(r)}));add('Supplies',state.supplies,r=>`${r.requestor||''} — ${r.item||''}`,r=>r.requestNo||r.id);add('Equipment',state.borrows,r=>`${r.borrowerName||''} — ${r.requestedItem||''}`,r=>r.transactionNo||r.id);add('DTR',state.dtr,r=>`${r.employeeName||''} — ${r.month||''}`,r=>r.month||r.id);add('Leave',state.leaves,r=>`${r.employeeName||''} — ${r.type||''}`,r=>r.leaveNo||r.id);add('Employees',state.masterlist,r=>`${r.displayName||''} — ${r.position||''}`,r=>r.employeeNo||r.id);openModal('SAMS Search Results',hits.length?`<div class="table-wrap"><table><thead><tr><th>Module</th><th>Record</th><th>Reference</th></tr></thead><tbody>${hits.map(h=>`<tr><td>${safe(h.module)}</td><td>${safe(h.label)}</td><td>${safe(h.ref)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty-state">No matching records found.</div>');});
 
 function renderAudit(){$('auditBody').innerHTML=state.audit.map(r=>`<tr><td>${fmtTs(r.createdAt)}</td><td>${safe(r.actorName||r.actorEmail)}</td><td>${safe(r.actorRole)}</td><td>${safe(r.module)}</td><td>${safe(r.action)}</td><td>${safe(r.reference||'')}</td></tr>`).join('')||'<tr><td colspan="6" class="muted">No audit records.</td></tr>'}
 function renderRecent(){if(!hasRole('School Head','Administrator'))return $('recentActivity').textContent='Your records are synchronized with Firestore. Detailed audit viewing is restricted to management roles.';$('recentActivity').innerHTML=state.audit.slice(0,6).map(r=>`<div style="padding:7px 0;border-bottom:1px solid #edf1f5"><b>${safe(r.module)}</b> — ${safe(r.action)} <span class="muted">(${safe(r.actorName||r.actorEmail)} · ${fmtTs(r.createdAt)})</span></div>`).join('')||'No recent activity.'}
-function renderDashboard(){$('kpiSupply').textContent=state.supplies.filter(x=>isVisibleRecord(x)&&x.status==='Pending').length;$('kpiBorrow').textContent=state.borrows.filter(x=>isVisibleRecord(x)&&['Requested','Borrowed'].includes(x.status)).length;$('kpiDtr').textContent=state.dtr.filter(x=>isVisibleRecord(x)&&x.status==='Pending').length;$('kpiLeave').textContent=state.leaves.filter(x=>isVisibleRecord(x)&&['Pending','For Verification','For Approval'].includes(x.status)).length}
+function renderDashboard(){$('kpiSupply').textContent=state.supplies.filter(x=>isVisibleRecord(x)&&x.status==='Pending').length;$('kpiBorrow').textContent=state.borrows.filter(x=>isVisibleRecord(x)&&['Requested','Borrowed'].includes(x.status)).length;$('kpiDtr').textContent=state.dtr.filter(x=>isVisibleRecord(x)&&x.status==='Pending').length;$('kpiLeave').textContent=state.leaves.filter(x=>isVisibleRecord(x)&&['Pending','For Verification','For Approval'].includes(x.status)).length;renderPhase3Panels()}
 
 $('editProfileBtn').onclick=openProfileEditor;
 $('profileModalX').onclick=closeProfileEditor;
