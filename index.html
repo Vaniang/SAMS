@@ -841,7 +841,7 @@ function clearSubs(){state.unsubs.forEach(fn=>{try{fn()}catch{}});state.unsubs=[
 function badge(s){const x=String(s||'').toLowerCase();let c='info';if(['approved','issued','returned','verified','forwarded','active'].some(k=>x.includes(k)))c='ok';if(['pending','requested','borrowed','verification','approval'].some(k=>x.includes(k)))c='warn';if(['rejected','disapproved','overdue','inactive'].some(k=>x.includes(k)))c='bad';return `<span class="badge ${c}">${safe(s)}</span>`}
 function byCreated(a,b){return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)}
 
-const SAMS_VERSION='5.0-unified-hr-suite';
+const SAMS_VERSION='5.0.1-unified-hr-suite';
 function tsDate(v){
   if(!v)return null;
   try{
@@ -2574,6 +2574,39 @@ function renderDtr(){
   }).join('')||'<tr><td colspan="8" class="muted">No DTR records found.</td></tr>';
   renderMonthlyHrSummary();
 }
+/* ============================================================
+   ONLINE CS FORM NO. 6 LEAVE WORKFLOW
+   Restored in v18.1 after v18 merge removed these declarations.
+   ============================================================ */
+let leaveEditId=null;
+
+const CS6_LEAVE_OPTIONS=[
+  ['Vacation Leave','Vacation Leave (Sec. 51, Rule XVI, Omnibus Rules Implementing E.O. No. 292)'],
+  ['Mandatory/Forced Leave','Mandatory/Forced Leave (Sec. 25, Rule XVI, Omnibus Rules Implementing E.O. No. 292)'],
+  ['Sick Leave','Sick Leave (Sec. 43, Rule XVI, Omnibus Rules Implementing E.O. No. 292)'],
+  ['Maternity Leave','Maternity Leave (R.A. No. 11210 / IRR issued by CSC, DOLE and SSS)'],
+  ['Paternity Leave','Paternity Leave (R.A. No. 8187 / CSC MC No. 71, s. 1998, as amended)'],
+  ['Special Privilege Leave','Special Privilege Leave (Sec. 21, Rule XVI, Omnibus Rules Implementing E.O. No. 292)'],
+  ['Solo Parent Leave','Solo Parent Leave (RA No. 8972 / CSC MC No. 8, s. 2004)'],
+  ['Study Leave','Study Leave (Sec. 68, Rule XVI, Omnibus Rules Implementing E.O. No. 292)'],
+  ['10-Day VAWC Leave','10-Day VAWC Leave (RA No. 9262 / CSC MC No. 15, s. 2005)'],
+  ['Rehabilitation Privilege','Rehabilitation Privilege (Sec. 55, Rule XVI, Omnibus Rules Implementing E.O. No. 292)'],
+  ['Special Leave Benefits for Women','Special Leave Benefits for Women (RA No. 9710 / CSC MC No. 25, s. 2010)'],
+  ['Special Emergency (Calamity) Leave','Special Emergency (Calamity) Leave (CSC MC No. 2, s. 2012, as amended)'],
+  ['Adoption Leave','Adoption Leave (R.A. No. 8552)']
+];
+
+function splitDisplayName(displayName=''){
+  const parts=String(displayName||'').trim().replace(/\s+/g,' ').split(' ').filter(Boolean);
+  if(!parts.length)return {firstName:'',middleName:'',lastName:''};
+  if(parts.length===1)return {firstName:parts[0],middleName:'',lastName:''};
+  return {
+    firstName:parts[0],
+    middleName:parts.slice(1,-1).join(' '),
+    lastName:parts[parts.length-1]
+  };
+}
+
 function employeeNameParts(emp){
   const fallback=splitDisplayName(emp?.displayName||'');
   return {firstName:emp?.firstName||fallback.firstName,middleName:emp?.middleName||fallback.middleName,lastName:emp?.lastName||fallback.lastName};
@@ -2669,7 +2702,7 @@ $('leaveForm').onsubmit=async e=>{
     }
     resetLeaveForm();
   }catch(err){
-    console.error('LEAVE FORM ERROR:',err);$('leaveFormStatus').textContent=err?.code==='permission-denied'?'Firestore denied this leave update. Publish the v17 firestore.rules.':(err?.message||'Could not save leave application.');$('leaveFormStatus').style.color='#b42318';
+    console.error('LEAVE FORM ERROR:',err);$('leaveFormStatus').textContent=err?.code==='permission-denied'?'Firestore denied this leave update. Publish the current SAMS v18 firestore.rules.':(err?.message||'Could not save leave application.');$('leaveFormStatus').style.color='#b42318';
   }
 };
 
