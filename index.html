@@ -547,36 +547,32 @@
           </div>
 
           <div class="hr-note mt">
-            <b>Required DTR Reports restored from the previous DTR system:</b>
-            Form 7 – Monthly Payroll Worksheet &amp; Report of Service; HRMO Form No. 6 – Monthly Report of Absences and Undertimes;
-            Without Pay – Non-Teaching / School Head; and Without Pay – Teaching Personnel.
+            <b>Required DTR Reports:</b>
+            Form 7 and HRMO Form No. 6 are generated as <b>one combined report for all personnel</b>.
+            Only the Without Pay reports are separated into <b>Non-Teaching Personnel / School Head</b> and <b>Teaching Personnel</b>.
           </div>
 
           <div class="card mt" style="box-shadow:none">
             <h4 style="margin:0 0 10px">Required Monthly Reports</h4>
             <div class="two-col">
               <div>
-                <h5 style="margin:0 0 8px">Regular Personnel</h5>
-                <div class="actions">
-                  <button class="btn light" type="button" onclick="printRequiredDtrReport('form7','regular')">📄 Form 7</button>
-                  <button class="btn light" type="button" onclick="printRequiredDtrReport('hrmo6','regular')">📄 HRMO Form 6</button>
-                </div>
+                <h5 style="margin:0 0 8px">Form 7 — All Personnel</h5>
+                <p class="muted" style="margin:0 0 8px">One combined Monthly Payroll Worksheet &amp; Report of Service.</p>
+                <button class="btn light" type="button" onclick="printRequiredDtrReport('form7','all')">📄 Print Form 7</button>
               </div>
               <div>
-                <h5 style="margin:0 0 8px">School Head</h5>
-                <div class="actions">
-                  <button class="btn light" type="button" onclick="printRequiredDtrReport('form7','head')">📄 Form 7</button>
-                  <button class="btn light" type="button" onclick="printRequiredDtrReport('hrmo6','head')">📄 HRMO Form 6</button>
-                </div>
+                <h5 style="margin:0 0 8px">HRMO Form No. 6 — All Personnel</h5>
+                <p class="muted" style="margin:0 0 8px">One combined Monthly Report of Absences and Undertimes.</p>
+                <button class="btn light" type="button" onclick="printRequiredDtrReport('hrmo6','all')">📄 Print HRMO Form 6</button>
               </div>
             </div>
             <div class="two-col mt">
               <div>
-                <h5 style="margin:0 0 8px">Without Pay – Non-Teaching / School Head</h5>
+                <h5 style="margin:0 0 8px">Without Pay — Non-Teaching Personnel / School Head</h5>
                 <button class="btn danger" type="button" onclick="printRequiredDtrReport('withoutpay-nonteaching','all')">🧾 Print Without Pay Report</button>
               </div>
               <div>
-                <h5 style="margin:0 0 8px">Without Pay – Teaching Personnel</h5>
+                <h5 style="margin:0 0 8px">Without Pay — Teaching Personnel</h5>
                 <button class="btn danger" type="button" onclick="printRequiredDtrReport('withoutpay-teaching','all')">🧾 Print Without Pay Report</button>
               </div>
             </div>
@@ -589,7 +585,7 @@
             <div class="toolbar"><div><h4 style="margin:0">Saved Monthly DTR Reports</h4><p class="muted" style="margin:3px 0 0">Re-open the required reports for previously saved months.</p></div></div>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>Month</th><th>Last Saved</th><th>Regular Personnel</th><th>School Head</th><th>Without Pay</th></tr></thead>
+                <thead><tr><th>Month</th><th>Last Saved</th><th>Form 7 / HRMO Form 6</th><th>Without Pay Reports</th></tr></thead>
                 <tbody id="savedRequiredReportsBody"></tbody>
               </table>
             </div>
@@ -904,7 +900,7 @@ function clearSubs(){state.unsubs.forEach(fn=>{try{fn()}catch{}});state.unsubs=[
 function badge(s){const x=String(s||'').toLowerCase();let c='info';if(['approved','issued','returned','verified','forwarded','active'].some(k=>x.includes(k)))c='ok';if(['pending','requested','borrowed','verification','approval'].some(k=>x.includes(k)))c='warn';if(['rejected','disapproved','overdue','inactive'].some(k=>x.includes(k)))c='bad';return `<span class="badge ${c}">${safe(s)}</span>`}
 function byCreated(a,b){return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)}
 
-const SAMS_VERSION='5.0.2-required-dtr-reports';
+const SAMS_VERSION='5.0.3-correct-dtr-report-grouping';
 function tsDate(v){
   if(!v)return null;
   try{
@@ -2581,8 +2577,12 @@ function reportEmployee(r){return masterEmployeeForRecord(r)||{}}
 function isSchoolHeadEmployee(emp){
   return /PRINCIPAL|SCHOOL HEAD/.test(String(emp?.position||'').toUpperCase());
 }
-function reportScopeRows(month,scope){
-  return state.dtr.filter(isVisibleRecord).filter(r=>r.month===month).filter(r=>{
+function reportScopeRows(month,scope='all'){
+  const rows=state.dtr.filter(isVisibleRecord).filter(r=>r.month===month);
+  if(scope==='all'){
+    return rows.sort((a,b)=>String(a.employeeName||'').localeCompare(String(b.employeeName||'')));
+  }
+  return rows.filter(r=>{
     const head=isSchoolHeadEmployee(reportEmployee(r));
     return scope==='head'?head:!head;
   }).sort((a,b)=>String(a.employeeName||'').localeCompare(String(b.employeeName||'')));
@@ -2658,7 +2658,7 @@ function form7ReportHtml(month,rows,scope){
       <h4>Implementation of Programs for Basic Education</h4>
       <h4>Monthly Payroll Worksheet &amp; Report of Service</h4>
       <h4>For the Month of ${safe(dtrMonthText(month))}</h4>
-      ${scope==='head'?'<div class="scope-label">SCHOOL HEAD</div>':'<div class="scope-label">REGULAR PERSONNEL</div>'}
+      ${scope==='all'?'':(scope==='head'?'<div class="scope-label">SCHOOL HEAD</div>':'<div class="scope-label">REGULAR PERSONNEL</div>')}
     </div>
     <table><thead><tr>
       <th>Employee No.</th><th>Name</th><th>Position Title</th><th>BASIC SALARY</th><th>PERA/ACA</th>
@@ -2687,7 +2687,7 @@ function hrmo6ReportHtml(month,rows,scope){
     <table class="head-table"><tr>
       <td class="left" style="width:23%"><b>HRMO Form No. 6</b><br>Revised 2005<br>Department of Education<br>${safe(s.region)}</td>
       <td style="width:30%"><b>${safe(s.division)}</b></td>
-      <td><b>MONTHLY REPORT OF ABSENCES AND UNDERTIMES</b><br>For the Month of: <b>${safe(dtrMonthText(month))}</b><br>${scope==='head'?'<b>SCHOOL HEAD</b>':'REGULAR PERSONNEL'}</td>
+      <td><b>MONTHLY REPORT OF ABSENCES AND UNDERTIMES</b><br>For the Month of: <b>${safe(dtrMonthText(month))}</b>${scope==='all'?'':`<br>${scope==='head'?'<b>SCHOOL HEAD</b>':'REGULAR PERSONNEL'}`}</td>
     </tr></table>
     <table><thead>
       <tr><th rowspan="2">#</th><th rowspan="2">Name</th><th rowspan="2">Employee No.</th><th rowspan="2">No. of Times Absent</th>
@@ -2754,7 +2754,7 @@ function openOfficialReportWindow(title,content,landscape=true){
   w.document.open();w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${safe(title)}</title><style>${css}</style></head><body>${content}</body></html>`);w.document.close();
   w.onload=()=>setTimeout(()=>{w.focus();w.print()},250);
 }
-window.printRequiredDtrReport=(type,scope='regular',monthOverride='')=>{
+window.printRequiredDtrReport=(type,scope='all',monthOverride='')=>{
   const month=monthOverride||$('hrReportMonth').value||today().slice(0,7);
   let content='',title='';
   if(type==='form7'){content=form7ReportHtml(month,reportScopeRows(month,scope),scope);title=`Form 7 - ${dtrMonthText(month)}`}
@@ -2771,11 +2771,10 @@ function renderSavedRequiredReports(){
     const when=r.savedAt?.toDate?r.savedAt.toDate().toLocaleString('en-PH'):'';
     return `<tr>
       <td><b>${safe(dtrMonthText(r.month))}</b></td><td>${safe(when)}</td>
-      <td><div class="actions"><button class="btn light xs" onclick="printRequiredDtrReport('form7','regular','${r.month}')">Form 7</button><button class="btn light xs" onclick="printRequiredDtrReport('hrmo6','regular','${r.month}')">Form 6</button></div></td>
-      <td><div class="actions"><button class="btn light xs" onclick="printRequiredDtrReport('form7','head','${r.month}')">Form 7</button><button class="btn light xs" onclick="printRequiredDtrReport('hrmo6','head','${r.month}')">Form 6</button></div></td>
-      <td><div class="actions"><button class="btn danger xs" onclick="printRequiredDtrReport('withoutpay-nonteaching','all','${r.month}')">Non-Teaching / Head</button><button class="btn danger xs" onclick="printRequiredDtrReport('withoutpay-teaching','all','${r.month}')">Teaching</button></div></td>
+      <td><div class="actions"><button class="btn light xs" onclick="printRequiredDtrReport('form7','all','${r.month}')">Form 7</button><button class="btn light xs" onclick="printRequiredDtrReport('hrmo6','all','${r.month}')">HRMO Form 6</button></div></td>
+      <td><div class="actions"><button class="btn danger xs" onclick="printRequiredDtrReport('withoutpay-nonteaching','all','${r.month}')">Non-Teaching / School Head</button><button class="btn danger xs" onclick="printRequiredDtrReport('withoutpay-teaching','all','${r.month}')">Teaching Personnel</button></div></td>
     </tr>`;
-  }).join('')||'<tr><td colspan="5" class="muted">No saved monthly DTR reports yet. Save a monthly snapshot first.</td></tr>';
+  }).join('')||'<tr><td colspan="4" class="muted">No saved monthly DTR reports yet. Save a monthly snapshot first.</td></tr>';
 }
 
 function renderMonthlyHrSummary(){renderSavedRequiredReports();
