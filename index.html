@@ -219,6 +219,182 @@
   .hr-kpis,.hr-ledger-summary,.att-grid,.check-grid{grid-template-columns:1fr}
 }
 
+
+/* ============================================================
+   SAMS v18.4 — RESPONSIVE / 100% ZOOM SCREEN FIX
+   Keeps controls visible on common laptop and desktop screens.
+   ============================================================ */
+html,body{max-width:100%;overflow-x:hidden}
+*{min-width:0}
+main,.main,.content,.page-content,#appMain{max-width:100%;min-width:0}
+
+/* Keep the main application from becoming wider than the viewport. */
+.app,.app-shell,.layout,.shell{max-width:100vw;overflow-x:hidden}
+.content{min-width:0}
+
+/* Cards and grids must be allowed to shrink. */
+.card,.two-col,.form-grid,.toolbar,.report-toolbar,.actions,.quick-actions,
+.dashboard-grid,.kpi-grid,.hr-kpis,.hr-ledger-summary,.att-grid{
+  min-width:0;
+  max-width:100%;
+}
+
+/* Toolbars wrap instead of pushing controls off-screen. */
+.toolbar,.report-toolbar,.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.toolbar{
+  align-items:center;
+  justify-content:space-between;
+}
+.toolbar>*,.report-toolbar>*,.actions>*{
+  min-width:0;
+}
+.toolbar .actions{
+  justify-content:flex-end;
+}
+
+/* Buttons stay readable but are allowed to wrap to another row. */
+.btn,button{
+  max-width:100%;
+}
+.actions .btn,.toolbar .btn,.report-toolbar .btn{
+  white-space:normal;
+  line-height:1.2;
+}
+
+/* Tables stay inside their cards. Wide tables scroll horizontally. */
+.table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+  overflow-y:visible;
+  -webkit-overflow-scrolling:touch;
+}
+.table-wrap table{
+  width:100%;
+  max-width:none;
+}
+.table-wrap th,.table-wrap td{
+  white-space:nowrap;
+}
+.table-wrap td .actions{
+  flex-wrap:nowrap;
+  min-width:max-content;
+}
+
+/* Long content should not expand the whole page. */
+td,th,.muted,.small-note,.hr-note{
+  overflow-wrap:anywhere;
+}
+
+/* Form controls may shrink with their grid cells. */
+input,select,textarea{
+  max-width:100%;
+  min-width:0;
+}
+.f{min-width:0}
+.form-grid>div{min-width:0}
+
+/* Modal windows fit within the current screen. */
+.modal-card,
+.modal-card.wide{
+  width:min(1100px,calc(100vw - 28px));
+  max-width:calc(100vw - 28px);
+  max-height:calc(100vh - 28px);
+  overflow:auto;
+}
+
+/* Dashboard cards use available width instead of forcing overflow. */
+.quick-grid,.dashboard-quick-grid{
+  grid-template-columns:repeat(auto-fit,minmax(155px,1fr))!important;
+}
+.hr-kpis{
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+}
+.hr-ledger-summary,.att-grid{
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+}
+
+/* Common laptop widths: compact the UI before controls disappear. */
+@media (max-width:1366px){
+  .card{padding:14px}
+  .two-col{gap:10px}
+  .form-grid{gap:9px}
+  .btn{padding:8px 10px;font-size:12px}
+  .btn.xs{padding:5px 7px;font-size:11px}
+  table{font-size:12px}
+  th,td{padding:7px 8px}
+  .sidebar{width:210px}
+  .main{margin-left:210px}
+}
+
+@media (max-width:1180px){
+  .two-col{grid-template-columns:1fr}
+  .span8,.span9,.span6,.span4,.span3,.span2{grid-column:span 12}
+  .toolbar{
+    align-items:flex-start;
+  }
+  .toolbar>div:first-child{
+    flex:1 1 260px;
+  }
+  .toolbar>.actions,.toolbar>div:last-child{
+    flex:1 1 auto;
+  }
+  .report-toolbar .f{
+    flex:1 1 190px;
+    min-width:160px;
+  }
+}
+
+@media (max-width:900px){
+  .sidebar{width:220px}
+  .main{margin-left:0!important;width:100%!important}
+  body:not(.sidebar-open) .sidebar{
+    transform:translateX(-100%);
+  }
+  body.sidebar-open .sidebar{
+    transform:translateX(0);
+  }
+  .page,.page-content,.content{padding-left:10px!important;padding-right:10px!important}
+  .toolbar,.report-toolbar{
+    align-items:stretch;
+  }
+  .toolbar .btn,.report-toolbar .btn{
+    flex:1 1 150px;
+  }
+}
+
+@media (max-width:640px){
+  .card{padding:11px}
+  .toolbar,.actions,.report-toolbar{
+    gap:6px;
+  }
+  .toolbar .btn,.actions .btn,.report-toolbar .btn{
+    width:100%;
+    flex:1 1 100%;
+  }
+  .table-wrap td .actions{
+    width:max-content;
+    display:flex;
+    flex-wrap:nowrap;
+  }
+  .hr-kpis,.hr-ledger-summary,.att-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .modal-card,.modal-card.wide{
+    width:calc(100vw - 14px);
+    max-width:calc(100vw - 14px);
+    max-height:calc(100vh - 14px);
+  }
+}
+
+@media (max-width:420px){
+  .hr-kpis,.hr-ledger-summary,.att-grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -398,7 +574,7 @@
             <div class="span12"><button class="btn primary" type="submit">Record Walk-In Request</button> <span id="walkInStatus" class="msg" style="margin-left:8px"></span></div>
           </form>
         </article>
-        <article class="card mt"><div class="toolbar"><h3>Supply Requests</h3><input id="supplySearch" placeholder="Search…"></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Date</th><th>Source</th><th>Requestor</th><th>Office</th><th>Item</th><th>Qty</th><th>Purpose</th><th>Status</th><th>Actions</th></tr></thead><tbody id="supplyBody"></tbody></table></div></article>
+        <article class="card mt"><div class="toolbar"><h3>Supply Requests</h3><input id="supplySearch" placeholder="Search…"></div><div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>No.</th><th>Date</th><th>Source</th><th>Requestor</th><th>Office</th><th>Item</th><th>Qty</th><th>Purpose</th><th>Status</th><th>Actions</th></tr></thead><tbody id="supplyBody"></tbody></table></div></article>
       </section>
 
       <section id="equipment" class="section">
@@ -456,7 +632,7 @@
             </div>
           </form>
         </article>
-        <article class="card mt"><div class="toolbar"><h3>Borrowing / Return Transactions</h3><input id="borrowSearch" placeholder="Search…"></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Source</th><th>Borrower</th><th>Equipment</th><th>PCMS Asset</th><th>Date</th><th>Due</th><th>Status</th><th>Condition</th><th>Actions</th></tr></thead><tbody id="borrowBody"></tbody></table></div></article>
+        <article class="card mt"><div class="toolbar"><h3>Borrowing / Return Transactions</h3><input id="borrowSearch" placeholder="Search…"></div><div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>No.</th><th>Source</th><th>Borrower</th><th>Equipment</th><th>PCMS Asset</th><th>Date</th><th>Due</th><th>Status</th><th>Condition</th><th>Actions</th></tr></thead><tbody id="borrowBody"></tbody></table></div></article>
       </section>
 
       <section id="dtr" class="section">
@@ -480,7 +656,7 @@
         </div>
         <article class="card mt">
           <div class="toolbar"><div><h3>DTR Records</h3><p class="muted" style="margin:3px 0 0">Open <b>Attendance</b> to encode detailed monthly data.</p></div></div>
-          <div class="table-wrap"><table><thead><tr><th>Employee</th><th>Month</th><th>Status</th><th>Attendance Eq.</th><th>Pay / Charge</th><th>Remarks</th><th>Updated</th><th>Actions</th></tr></thead><tbody id="dtrBody"></tbody></table></div>
+          <div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Employee</th><th>Month</th><th>Status</th><th>Attendance Eq.</th><th>Pay / Charge</th><th>Remarks</th><th>Updated</th><th>Actions</th></tr></thead><tbody id="dtrBody"></tbody></table></div>
         </article>
       </section>
 
@@ -530,7 +706,7 @@
             <button class="btn light mt10" type="button" onclick="startLeaveApplication()">＋ Start New Leave Application</button>
           </article>
         </div>
-        <article class="card mt"><div class="toolbar"><div><h3>Leave Applications</h3><p class="muted" style="margin:3px 0 0">Open, process, print, edit pending applications, or archive records.</p></div></div><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Leave Type</th><th>Period / Days</th><th>Status</th><th>Source</th><th>Actions</th></tr></thead><tbody id="leaveBody"></tbody></table></div></article>
+        <article class="card mt"><div class="toolbar"><div><h3>Leave Applications</h3><p class="muted" style="margin:3px 0 0">Open, process, print, edit pending applications, or archive records.</p></div></div><div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Employee</th><th>Leave Type</th><th>Period / Days</th><th>Status</th><th>Source</th><th>Actions</th></tr></thead><tbody id="leaveBody"></tbody></table></div></article>
       </section>
 
       
@@ -583,7 +759,7 @@
 
           <div class="card mt" style="box-shadow:none">
             <div class="toolbar"><div><h4 style="margin:0">Saved Monthly DTR Reports</h4><p class="muted" style="margin:3px 0 0">Re-open the required reports for previously saved months.</p></div></div>
-            <div class="table-wrap">
+            <div class="table-wrap" title="Scroll horizontally if more columns are available">
               <table>
                 <thead><tr><th>Month</th><th>Last Saved</th><th>Form 7 / HRMO Form 6</th><th>Without Pay Reports</th></tr></thead>
                 <tbody id="savedRequiredReportsBody"></tbody>
@@ -612,7 +788,7 @@
       <section id="files201" class="section">
         <article class="card">
           <div class="toolbar"><div><h3>201 File Monitoring</h3><p class="muted" style="margin:3px 0 0">Track personnel-document completeness without replacing the official 201 file.</p></div></div>
-          <div class="table-wrap"><table><thead><tr><th>Employee</th><th>PDS</th><th>SALN</th><th>Appointment</th><th>TOR / Diploma</th><th>Eligibility</th><th>NBI / Medical</th><th>Status</th><th>Action</th></tr></thead><tbody id="files201Body"></tbody></table></div>
+          <div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Employee</th><th>PDS</th><th>SALN</th><th>Appointment</th><th>TOR / Diploma</th><th>Eligibility</th><th>NBI / Medical</th><th>Status</th><th>Action</th></tr></thead><tbody id="files201Body"></tbody></table></div>
         </article>
       </section>
 
@@ -634,7 +810,7 @@
           </article>
           <article class="card"><h3>Training Summary</h3><div id="trainingSummary" class="hr-kpis"></div></article>
         </div>
-        <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Training</th><th>Provider</th><th>Dates</th><th>Hours</th><th>Level</th><th>Certificate</th><th>Action</th></tr></thead><tbody id="trainingBody"></tbody></table></div></article>
+        <article class="card mt"><div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Employee</th><th>Training</th><th>Provider</th><th>Dates</th><th>Hours</th><th>Level</th><th>Certificate</th><th>Action</th></tr></thead><tbody id="trainingBody"></tbody></table></div></article>
       </section>
 
       <section id="performance" class="section">
@@ -654,7 +830,7 @@
           </article>
           <article class="card"><h3>Performance Summary</h3><div id="performanceSummary" class="hr-kpis"></div></article>
         </div>
-        <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Period</th><th>Type</th><th>Rating</th><th>Adjectival</th><th>Submission</th><th>Remarks</th><th>Action</th></tr></thead><tbody id="performanceBody"></tbody></table></div></article>
+        <article class="card mt"><div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Employee</th><th>Period</th><th>Type</th><th>Rating</th><th>Adjectival</th><th>Submission</th><th>Remarks</th><th>Action</th></tr></thead><tbody id="performanceBody"></tbody></table></div></article>
       </section>
 
 <section id="masterlist" class="section">
@@ -690,13 +866,13 @@
           </article>
           <article class="card"><h3>How the Masterlist is Used</h3><ol class="muted"><li>Administrator/HR maintains employee names.</li><li>Supply Officer selects a walk-in employee from the list.</li><li>Office and position are filled automatically when available.</li><li>The request is recorded as Walk-In in the same Supplies/RIS monitoring table.</li><li>If the email matches a SAMS account, the transaction is linked to that user automatically.</li></ol></article>
         </div>
-        <article class="card mt"><div class="toolbar"><div><h3>Employee Records</h3><p class="muted" style="margin:3px 0 0"><span id="masterCount">0</span> active personnel</p></div><input id="masterSearch" placeholder="Search employee…"></div><div class="table-wrap"><table><thead><tr><th>Employee No.</th><th>Name</th><th>Office / Unit</th><th>Position</th><th>Type</th><th>Leave Basis</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead><tbody id="masterBody"></tbody></table></div></article>
+        <article class="card mt"><div class="toolbar"><div><h3>Employee Records</h3><p class="muted" style="margin:3px 0 0"><span id="masterCount">0</span> active personnel</p></div><input id="masterSearch" placeholder="Search employee…"></div><div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Employee No.</th><th>Name</th><th>Office / Unit</th><th>Position</th><th>Type</th><th>Leave Basis</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead><tbody id="masterBody"></tbody></table></div></article>
       </section>
 
       <section id="notifications" class="section">
         <article class="card">
           <div class="toolbar"><div><h3>Notifications</h3><p class="muted" style="margin:3px 0 0">Workflow updates addressed to your account.</p></div><button id="markAllNotifBtn" class="btn light" type="button">Mark all as read</button></div>
-          <div class="table-wrap"><table><thead><tr><th>Date/Time</th><th>Module</th><th>Notification</th><th>Reference</th><th>Status</th><th>Action</th></tr></thead><tbody id="notificationBody"></tbody></table></div>
+          <div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Date/Time</th><th>Module</th><th>Notification</th><th>Reference</th><th>Status</th><th>Action</th></tr></thead><tbody id="notificationBody"></tbody></table></div>
         </article>
       </section>
 
@@ -712,13 +888,13 @@
       <section id="archives" class="section">
         <article class="card">
           <div class="toolbar"><div><h3>Archived Records</h3><p class="muted" style="margin:3px 0 0">Soft-deleted records remain available for accountability and restoration.</p></div><input id="archiveSearch" placeholder="Search archives…"></div>
-          <div class="table-wrap"><table><thead><tr><th>Module</th><th>Reference</th><th>Record</th><th>Archived By</th><th>Archived</th><th>Reason</th><th>Action</th></tr></thead><tbody id="archiveBody"></tbody></table></div>
+          <div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Module</th><th>Reference</th><th>Record</th><th>Archived By</th><th>Archived</th><th>Reason</th><th>Action</th></tr></thead><tbody id="archiveBody"></tbody></table></div>
         </article>
       </section>
 
-      <section id="users" class="section"><article class="card"><div class="toolbar"><div><h3>Users & Roles</h3><p class="muted">Create Authentication accounts in Firebase Console. After first login, promote roles here.</p></div><button id="refreshUsers" class="btn light">Refresh</button></div><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Office</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="usersBody"></tbody></table></div></article></section>
+      <section id="users" class="section"><article class="card"><div class="toolbar"><div><h3>Users & Roles</h3><p class="muted">Create Authentication accounts in Firebase Console. After first login, promote roles here.</p></div><button id="refreshUsers" class="btn light">Refresh</button></div><div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Name</th><th>Email</th><th>Office</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="usersBody"></tbody></table></div></article></section>
 
-      <section id="audit" class="section"><article class="card"><h3>Audit Trail</h3><p class="muted">SAMS records authenticated client activity. For higher-assurance tamper resistance, critical audit events should eventually be written by a trusted server/Cloud Function.</p><div class="table-wrap"><table><thead><tr><th>Date/Time</th><th>User</th><th>Role</th><th>Module</th><th>Action</th><th>Reference</th></tr></thead><tbody id="auditBody"></tbody></table></div></article></section>
+      <section id="audit" class="section"><article class="card"><h3>Audit Trail</h3><p class="muted">SAMS records authenticated client activity. For higher-assurance tamper resistance, critical audit events should eventually be written by a trusted server/Cloud Function.</p><div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Date/Time</th><th>User</th><th>Role</th><th>Module</th><th>Action</th><th>Reference</th></tr></thead><tbody id="auditBody"></tbody></table></div></article></section>
 
       <section id="settings" class="section"><div class="two-col"><article class="card"><h3>School Settings</h3><form id="settingsForm"><label>School Name</label><input id="setSchool" required><label>School ID</label><input id="setSchoolId"><label>Region</label><input id="setRegion" placeholder="REGION I"><label>Schools Division</label><input id="setDivision" placeholder="DIVISION OF LA UNION"><label>School Address</label><input id="setAddress" placeholder="San Manuel Norte, Agoo, La Union"><label>School Logo URL / GitHub File Path</label><input id="setLogoUrl" placeholder="school-logo.png"><div class="small-note">Optional: upload a logo to GitHub and enter its filename, e.g. <b>school-logo.png</b>. If the path is blank or cannot be loaded, SAMS will use the embedded school logo automatically.</div><label>School Head</label><input id="setHead"><label>School Head Position</label><input id="setHeadPosition" placeholder="School Principal"><label>Supply Officer</label><input id="setSupply"><label>Property Custodian</label><input id="setProperty"><label>Property Custodian Position</label><input id="setPropertyPosition" placeholder="Property Custodian"><hr style="border:0;border-top:1px solid var(--bd);margin:14px 0"><h4 style="margin:0 0 6px">RIS Defaults (Appendix 63)</h4><label>Entity Name</label><input id="setRisEntity" placeholder="e.g. DepED RO I / School Name"><label>Fund Cluster</label><input id="setRisFundCluster" placeholder="01"><label>Responsibility Center Code</label><input id="setRisResponsibility" placeholder=""><label>Supply Officer Position</label><input id="setSupplyPosition" placeholder="Supply Officer"><hr style="border:0;border-top:1px solid var(--bd);margin:14px 0"><h4 style="margin:0 0 6px">HR / DTR Settings</h4>
 <label>Teaching Morning Time In</label><input id="setTeachingMorningIn" type="time">
@@ -900,7 +1076,7 @@ function clearSubs(){state.unsubs.forEach(fn=>{try{fn()}catch{}});state.unsubs=[
 function badge(s){const x=String(s||'').toLowerCase();let c='info';if(['approved','issued','returned','verified','forwarded','active'].some(k=>x.includes(k)))c='ok';if(['pending','requested','borrowed','verification','approval'].some(k=>x.includes(k)))c='warn';if(['rejected','disapproved','overdue','inactive'].some(k=>x.includes(k)))c='bad';return `<span class="badge ${c}">${safe(s)}</span>`}
 function byCreated(a,b){return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)}
 
-const SAMS_VERSION='5.0.3-correct-dtr-report-grouping';
+const SAMS_VERSION='5.0.4-responsive-100-percent';
 function tsDate(v){
   if(!v)return null;
   try{
@@ -3082,7 +3258,7 @@ $('markAllNotifBtn').onclick=async()=>{const unread=state.notifications.filter(n
 $('archiveSearch').oninput=renderArchives;
 $('exportSummaryBtn').onclick=exportSummaryCSV;
 $('backupJsonBtn').onclick=exportSamsBackup;
-$('globalSearch').addEventListener('keydown',e=>{if(e.key!=='Enter')return;const q=e.target.value.trim().toLowerCase();if(!q)return;const hits=[];const add=(module,arr,label,ref)=>arr.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q)).slice(0,8).forEach(r=>hits.push({module,label:label(r),ref:ref(r)}));add('Supplies',state.supplies,r=>`${r.requestor||''} — ${r.item||''}`,r=>r.requestNo||r.id);add('Equipment',state.borrows,r=>`${r.borrowerName||''} — ${r.requestedItem||''}`,r=>r.transactionNo||r.id);add('DTR',state.dtr,r=>`${r.employeeName||''} — ${r.month||''}`,r=>r.month||r.id);add('Leave',state.leaves,r=>`${r.employeeName||''} — ${r.type||''}`,r=>r.leaveNo||r.id);add('Employees',state.masterlist,r=>`${r.displayName||''} — ${r.position||''}`,r=>r.employeeNo||r.id);openModal('SAMS Search Results',hits.length?`<div class="table-wrap"><table><thead><tr><th>Module</th><th>Record</th><th>Reference</th><th>Open</th></tr></thead><tbody>${hits.map(h=>{const section={Supplies:'supplies',Equipment:'equipment',DTR:'dtr',Leave:'leave',Employees:'masterlist'}[h.module]||'dashboard';return `<tr><td>${safe(h.module)}</td><td>${safe(h.label)}</td><td>${safe(h.ref)}</td><td><button class="btn light xs" onclick="closeModal();dashboardGo('${section}')">Open</button></td></tr>`}).join('')}</tbody></table></div>`:'<div class="empty-state">No matching records found.</div>');});
+$('globalSearch').addEventListener('keydown',e=>{if(e.key!=='Enter')return;const q=e.target.value.trim().toLowerCase();if(!q)return;const hits=[];const add=(module,arr,label,ref)=>arr.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q)).slice(0,8).forEach(r=>hits.push({module,label:label(r),ref:ref(r)}));add('Supplies',state.supplies,r=>`${r.requestor||''} — ${r.item||''}`,r=>r.requestNo||r.id);add('Equipment',state.borrows,r=>`${r.borrowerName||''} — ${r.requestedItem||''}`,r=>r.transactionNo||r.id);add('DTR',state.dtr,r=>`${r.employeeName||''} — ${r.month||''}`,r=>r.month||r.id);add('Leave',state.leaves,r=>`${r.employeeName||''} — ${r.type||''}`,r=>r.leaveNo||r.id);add('Employees',state.masterlist,r=>`${r.displayName||''} — ${r.position||''}`,r=>r.employeeNo||r.id);openModal('SAMS Search Results',hits.length?`<div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Module</th><th>Record</th><th>Reference</th><th>Open</th></tr></thead><tbody>${hits.map(h=>{const section={Supplies:'supplies',Equipment:'equipment',DTR:'dtr',Leave:'leave',Employees:'masterlist'}[h.module]||'dashboard';return `<tr><td>${safe(h.module)}</td><td>${safe(h.label)}</td><td>${safe(h.ref)}</td><td><button class="btn light xs" onclick="closeModal();dashboardGo('${section}')">Open</button></td></tr>`}).join('')}</tbody></table></div>`:'<div class="empty-state">No matching records found.</div>');});
 
 function renderAudit(){$('auditBody').innerHTML=state.audit.map(r=>`<tr><td>${fmtTs(r.createdAt)}</td><td>${safe(r.actorName||r.actorEmail)}</td><td>${safe(r.actorRole)}</td><td>${safe(r.module)}</td><td>${safe(r.action)}</td><td>${safe(r.reference||'')}</td></tr>`).join('')||'<tr><td colspan="6" class="muted">No audit records.</td></tr>'}
 function renderRecent(){if(!hasRole('School Head','Administrator'))return $('recentActivity').textContent='Your records are synchronized with Firestore. Detailed audit viewing is restricted to management roles.';$('recentActivity').innerHTML=state.audit.slice(0,6).map(r=>`<div style="padding:7px 0;border-bottom:1px solid #edf1f5"><b>${safe(r.module)}</b> — ${safe(r.action)} <span class="muted">(${safe(r.actorName||r.actorEmail)} · ${fmtTs(r.createdAt)})</span></div>`).join('')||'No recent activity.'}
