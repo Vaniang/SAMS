@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#184e77">
-<title>SAMS Phase 2</title>
+<title>SAMS | School Administrative Monitoring System</title>
 <style>
-:root{--p:#184e77;--p2:#1e6091;--bg:#f4f7fb;--card:#fff;--txt:#1f2937;--mut:#667085;--bd:#dce4ed;--ok:#027a48;--warn:#b54708;--bad:#b42318;--side:250px}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--txt)}button,input,select{font:inherit}.hidden{display:none!important}.loading{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;align-content:center;color:var(--mut)}.spinner{width:36px;height:36px;border:4px solid #d7e0e8;border-top-color:var(--p2);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#edf5fb,#fbfdff)}.auth-card{width:min(430px,100%);background:#fff;border:1px solid var(--bd);border-radius:18px;padding:28px;box-shadow:0 16px 45px rgba(20,60,90,.12)}.brand-login{display:flex;gap:13px;align-items:center;margin-bottom:22px}.logo,.brand-mark{width:44px;height:44px;border-radius:12px;background:var(--p);color:#fff;display:grid;place-items:center;font-weight:800;font-size:22px}.brand-login h1{margin:0}.brand-login p{margin:3px 0 0;color:var(--mut);font-size:12px}.alert{background:#fee4e2;color:var(--bad);padding:10px;border-radius:8px;font-size:12px;margin-bottom:12px}.auth-card label,#settingsForm label{display:block;font-size:11px;font-weight:700;margin:10px 0 5px}.auth-card input,#settingsForm input,.f input,.f select,.toolbar input{width:100%;border:1px solid var(--bd);border-radius:8px;padding:9px 10px;background:#fff}.btn{border:0;border-radius:8px;padding:9px 12px;font-weight:700;font-size:12px;cursor:pointer}.primary{background:var(--p2);color:#fff}.light{background:#edf2f7;color:#344054}.success{background:var(--ok);color:#fff}.warning{background:#d97706;color:#fff}.danger{background:var(--bad);color:#fff}.block{width:100%;margin-top:14px}.link-btn{border:0;background:transparent;color:var(--p2);padding:12px 0 0;cursor:pointer}.small-note,.muted{font-size:12px;color:var(--mut);line-height:1.55}.msg{min-height:16px;font-size:12px;margin-top:10px;color:var(--bad)}.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:var(--side);background:linear-gradient(180deg,#123b59,#0d2f48);color:#fff;padding:14px 12px;display:flex;flex-direction:column}.brand{display:flex;gap:10px;align-items:center;padding:4px 8px 15px}.brand-mark{width:36px;height:36px;background:#fff;color:var(--p)}.brand-text{display:flex;flex-direction:column}.brand-text small{font-size:10px;opacity:.7}.sidebar nav{display:grid;gap:5px}.nav{border:0;background:transparent;color:#fff;padding:10px 11px;border-radius:8px;text-align:left;cursor:pointer}.nav:hover,.nav.active{background:rgba(255,255,255,.14)}.nav span{margin-left:8px;font-size:12px}.user-mini{margin-top:auto;border-top:1px solid rgba(255,255,255,.15);padding:13px 8px;display:flex;flex-direction:column}.user-mini b{font-size:12px}.user-mini small{font-size:10px;opacity:.7;margin-top:3px}.app main{margin-left:var(--side)}.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--bd);padding:10px 19px;display:flex;justify-content:space-between;align-items:center}.topbar h2{margin:0;font-size:18px}.topbar small{color:var(--mut)}.top-actions{display:flex;gap:10px;align-items:center}.top-actions span{font-size:11px;color:var(--ok)}.content{padding:20px}.section{display:none}.section.active{display:block}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{background:#fff;border:1px solid var(--bd);border-radius:13px;padding:15px;box-shadow:0 2px 8px rgba(20,60,90,.035)}.card h3{margin:0 0 12px;font-size:15px}.metric{display:flex;gap:12px;align-items:center}.metric>div{width:42px;height:42px;border-radius:11px;background:#eef6fb;display:grid;place-items:center;font-size:19px}.metric span{font-size:10px;color:var(--mut);text-transform:uppercase}.metric b{display:block;font-size:25px;color:var(--txt);margin-top:4px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:13px}.two-col.single-col{grid-template-columns:1fr}.mt{margin-top:13px}.mt10{margin-top:10px}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.info-grid div{background:#f8fafc;border-radius:8px;padding:9px}.info-grid small{display:block;color:var(--mut);text-transform:uppercase;font-size:9px}.info-grid b{font-size:12px}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.card-head h3{margin:0}.profile-note{margin-top:9px;font-size:11px;color:var(--mut)}.profile-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-form .full{grid-column:1/-1}.locked{background:#f2f4f7!important;color:#667085}.profile-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px}.profile-summary div{background:#f8fafc;border-radius:8px;padding:9px}.profile-summary small{display:block;color:var(--mut);text-transform:uppercase;font-size:9px}.profile-summary b{font-size:12px}.callout{border-left:4px solid var(--p2);background:#f3f8fb;padding:10px;font-size:12px}.form-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:9px}.span2{grid-column:span 2}.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.span12{grid-column:span 12}.f label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:#475467;margin-bottom:4px}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.toolbar h3{margin:0}.toolbar input{width:250px}.table-wrap{overflow:auto;border:1px solid var(--bd);border-radius:9px}table{border-collapse:collapse;width:100%;min-width:900px}th,td{padding:9px 10px;border-bottom:1px solid #edf1f5;text-align:left;font-size:11px;vertical-align:top}th{background:#f8fafc;color:#475467;font-size:9px;text-transform:uppercase;letter-spacing:.035em}.badge{display:inline-block;border-radius:999px;padding:4px 7px;font-size:10px;font-weight:700}.ok{background:#d1fadf;color:var(--ok)}.warn{background:#fef0c7;color:var(--warn)}.bad{background:#fee4e2;color:var(--bad)}.info{background:#dbeafe;color:#175cd3}.actions{display:flex;gap:5px;flex-wrap:wrap}.xs{padding:6px 7px;font-size:10px}.role-input{padding:6px;border:1px solid var(--bd);border-radius:6px;min-width:135px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:80;display:grid;place-items:center;padding:18px}.modal-card{width:min(900px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:14px;padding:18px}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0}.modal-head button{border:0;background:#eef2f6;border-radius:50%;width:32px;height:32px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--bd);padding-top:12px;margin-top:14px}.print-doc{color:#000;font-family:Arial,sans-serif}.print-doc h2,.print-doc h3{text-align:center;margin:4px}.print-meta{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:14px 0}.print-table{width:100%;min-width:0}.print-table th,.print-table td{border:1px solid #000;color:#000}.signatures{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:35px}.sig{text-align:center;border-top:1px solid #000;font-size:10px;padding-top:5px}
+:root{--p:#184e77;--p2:#1e6091;--bg:#f4f7fb;--card:#fff;--txt:#1f2937;--mut:#667085;--bd:#dce4ed;--ok:#027a48;--warn:#b54708;--bad:#b42318;--side:250px}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--txt)}button,input,select,textarea{font:inherit}.hidden{display:none!important}.loading{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;align-content:center;color:var(--mut)}.spinner{width:36px;height:36px;border:4px solid #d7e0e8;border-top-color:var(--p2);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#edf5fb,#fbfdff)}.auth-card{width:min(430px,100%);background:#fff;border:1px solid var(--bd);border-radius:18px;padding:28px;box-shadow:0 16px 45px rgba(20,60,90,.12)}.brand-login{display:flex;gap:13px;align-items:center;margin-bottom:22px}.logo,.brand-mark{width:44px;height:44px;border-radius:12px;background:var(--p);color:#fff;display:grid;place-items:center;font-weight:800;font-size:22px}.brand-login h1{margin:0}.brand-login p{margin:3px 0 0;color:var(--mut);font-size:12px}.alert{background:#fee4e2;color:var(--bad);padding:10px;border-radius:8px;font-size:12px;margin-bottom:12px}.auth-card label,#settingsForm label{display:block;font-size:11px;font-weight:700;margin:10px 0 5px}.auth-card input,#settingsForm input,.f input,.f select,.f textarea,.toolbar input{width:100%;border:1px solid var(--bd);border-radius:8px;padding:9px 10px;background:#fff}.btn{border:0;border-radius:8px;padding:9px 12px;font-weight:700;font-size:12px;cursor:pointer}.primary{background:var(--p2);color:#fff}.light{background:#edf2f7;color:#344054}.success{background:var(--ok);color:#fff}.warning{background:#d97706;color:#fff}.danger{background:var(--bad);color:#fff}.block{width:100%;margin-top:14px}.link-btn{border:0;background:transparent;color:var(--p2);padding:12px 0 0;cursor:pointer}.small-note,.muted{font-size:12px;color:var(--mut);line-height:1.55}.msg{min-height:16px;font-size:12px;margin-top:10px;color:var(--bad)}.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:var(--side);background:linear-gradient(180deg,#123b59,#0d2f48);color:#fff;padding:14px 12px;display:flex;flex-direction:column}.brand{display:flex;gap:10px;align-items:center;padding:4px 8px 15px}.brand-mark{width:36px;height:36px;background:#fff;color:var(--p)}.brand-text{display:flex;flex-direction:column}.brand-text small{font-size:10px;opacity:.7}.sidebar nav{display:grid;gap:5px}.nav{border:0;background:transparent;color:#fff;padding:10px 11px;border-radius:8px;text-align:left;cursor:pointer}.nav:hover,.nav.active{background:rgba(255,255,255,.14)}.nav span{margin-left:8px;font-size:12px}.user-mini{margin-top:auto;border-top:1px solid rgba(255,255,255,.15);padding:13px 8px;display:flex;flex-direction:column}.user-mini b{font-size:12px}.user-mini small{font-size:10px;opacity:.7;margin-top:3px}.app main{margin-left:var(--side)}.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--bd);padding:10px 19px;display:flex;justify-content:space-between;align-items:center}.topbar h2{margin:0;font-size:18px}.topbar small{color:var(--mut)}.top-actions{display:flex;gap:10px;align-items:center}.top-actions span{font-size:11px;color:var(--ok)}.content{padding:20px}.section{display:none}.section.active{display:block}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{background:#fff;border:1px solid var(--bd);border-radius:13px;padding:15px;box-shadow:0 2px 8px rgba(20,60,90,.035)}.card h3{margin:0 0 12px;font-size:15px}.metric{display:flex;gap:12px;align-items:center}.metric>div{width:42px;height:42px;border-radius:11px;background:#eef6fb;display:grid;place-items:center;font-size:19px}.metric span{font-size:10px;color:var(--mut);text-transform:uppercase}.metric b{display:block;font-size:25px;color:var(--txt);margin-top:4px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:13px}.two-col.single-col{grid-template-columns:1fr}.mt{margin-top:13px}.mt10{margin-top:10px}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.info-grid div{background:#f8fafc;border-radius:8px;padding:9px}.info-grid small{display:block;color:var(--mut);text-transform:uppercase;font-size:9px}.info-grid b{font-size:12px}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.card-head h3{margin:0}.profile-note{margin-top:9px;font-size:11px;color:var(--mut)}.profile-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-form .full{grid-column:1/-1}.locked{background:#f2f4f7!important;color:#667085}.profile-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px}.profile-summary div{background:#f8fafc;border-radius:8px;padding:9px}.profile-summary small{display:block;color:var(--mut);text-transform:uppercase;font-size:9px}.profile-summary b{font-size:12px}.callout{border-left:4px solid var(--p2);background:#f3f8fb;padding:10px;font-size:12px}.form-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:9px}.span2{grid-column:span 2}.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.span12{grid-column:span 12}.f label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:#475467;margin-bottom:4px}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.toolbar h3{margin:0}.toolbar input{width:250px}.table-wrap{overflow:auto;border:1px solid var(--bd);border-radius:9px}table{border-collapse:collapse;width:100%;min-width:900px}th,td{padding:9px 10px;border-bottom:1px solid #edf1f5;text-align:left;font-size:11px;vertical-align:top}th{background:#f8fafc;color:#475467;font-size:9px;text-transform:uppercase;letter-spacing:.035em}.badge{display:inline-block;border-radius:999px;padding:4px 7px;font-size:10px;font-weight:700}.ok{background:#d1fadf;color:var(--ok)}.warn{background:#fef0c7;color:var(--warn)}.bad{background:#fee4e2;color:var(--bad)}.info{background:#dbeafe;color:#175cd3}.actions{display:flex;gap:5px;flex-wrap:wrap}.xs{padding:6px 7px;font-size:10px}.role-input{padding:6px;border:1px solid var(--bd);border-radius:6px;min-width:135px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:80;display:grid;place-items:center;padding:18px}.modal-card{width:min(900px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:14px;padding:18px}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0}.modal-head button{border:0;background:#eef2f6;border-radius:50%;width:32px;height:32px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--bd);padding-top:12px;margin-top:14px}.print-doc{color:#000;font-family:Arial,sans-serif}.print-doc h2,.print-doc h3{text-align:center;margin:4px}.print-meta{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:14px 0}.print-table{width:100%;min-width:0}.print-table th,.print-table td{border:1px solid #000;color:#000}.signatures{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:35px}.sig{text-align:center;border-top:1px solid #000;font-size:10px;padding-top:5px}
 
 /* A6 landscape Equipment Borrowing / Return Slip */
 .equipment-slip{width:min(140mm,100%);min-height:97mm;margin:0 auto;background:#fff;color:#000;padding:0;font-family:Arial,Helvetica,sans-serif}
@@ -152,12 +152,72 @@
   .ris-editor-grid,.ris-editor-signatories{grid-template-columns:1fr}
 }
 
-.toast{position:fixed;right:18px;bottom:18px;background:#101828;color:#fff;padding:10px 13px;border-radius:9px;font-size:12px;z-index:120}
-@media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.span2,.span3,.span4,.span6{grid-column:span 6}}@media(max-width:700px){.profile-form,.profile-summary{grid-template-columns:1fr}.sidebar{--side:66px}.brand-text,.nav span,.user-mini{display:none}.sidebar{padding:10px 7px}.nav{text-align:center}.app main{margin-left:var(--side)}.content{padding:12px}.cards,.info-grid{grid-template-columns:1fr}.span2,.span3,.span4,.span6,.span12{grid-column:span 12}.toolbar{flex-direction:column;align-items:stretch}.toolbar input{width:100%}}@media print{body>*:not(#modal){display:none!important}#modal{position:static;background:#fff;padding:0;display:block!important}.modal-card{max-height:none;width:100%;padding:0}.modal-head,.modal-actions{display:none!important}.print-doc{padding:10mm}}
 
+/* ============================================================
+   ONLINE LEAVE APPLICATION / CS FORM NO. 6 (REVISED 2020)
+   Layout follows the uploaded school template.
+   ============================================================ */
+.leave-web-form{border:1px solid #cfe0ec;background:#fbfdff;border-radius:12px;padding:14px}
+.leave-web-form .section-label{grid-column:1/-1;font-size:11px;font-weight:800;color:var(--p);padding:8px 0 2px;border-bottom:1px solid #e6edf3;text-transform:uppercase;letter-spacing:.035em}
+.leave-detail-panel{grid-column:1/-1;border:1px solid var(--bd);border-radius:10px;padding:11px;background:#f8fafc;display:grid;grid-template-columns:repeat(12,1fr);gap:9px}
+.leave-form-note{font-size:10px;color:var(--mut);line-height:1.5;margin-top:7px}.leave-form-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.leave-process-editor{border:1px solid #bfd3e1;border-radius:11px;background:#f8fbfd;padding:12px;margin-bottom:14px}.leave-process-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:9px}.leave-process-editor h4{margin:0 0 9px;font-size:13px}.leave-process-editor .subhead{grid-column:1/-1;font-size:10px;font-weight:800;text-transform:uppercase;color:#475467;border-bottom:1px solid #dfe7ee;padding:7px 0 3px}.leave-disabled{background:#f2f4f7!important;color:#667085!important}
+.cs6-preview-wrap{overflow:auto;background:#e9edf1;padding:12px;border-radius:9px}
+.cs6-page{width:210mm;min-height:297mm;background:#fff;color:#000;margin:0 auto;padding:5mm 6mm 4mm;font-family:Arial,Helvetica,sans-serif;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.cs6-page *{box-sizing:border-box}.cs6-topline{display:flex;justify-content:space-between;align-items:flex-start;min-height:16mm}.cs6-form-no{font-size:8pt;font-style:italic;line-height:1.25}.cs6-receipt{border:1px dashed #999;padding:4mm 5mm;font-size:7.5pt;margin-top:3mm}.cs6-deped{text-align:center;line-height:1.05;margin-top:-8mm}.cs6-deped .rp{font-size:8.5pt;font-weight:700}.cs6-deped .dept{font-size:14pt;font-weight:800}.cs6-deped .region{font-size:8pt;font-weight:700}.cs6-main-title{text-align:center;font-size:15pt;font-weight:800;margin:3mm 0 2mm}
+.cs6-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:8pt}.cs6-table td,.cs6-table th{border:.7pt solid #000;padding:1.2mm 1.5mm;vertical-align:top;line-height:1.18}.cs6-table .no-border{border:0}.cs6-table .center{text-align:center}.cs6-table .right{text-align:right}.cs6-table .bold{font-weight:800}.cs6-table .italic{font-style:italic}.cs6-section-title{background:#fff;text-align:center;font-weight:800;font-size:11pt;border-top:2pt double #000!important;border-bottom:2pt double #000!important;padding:1.5mm!important}.cs6-subtitle{font-weight:700;font-size:8.3pt}.cs6-app-cell{padding:0!important}.cs6-inner{width:100%;border-collapse:collapse;table-layout:fixed}.cs6-inner td{border:0;border-bottom:.45pt solid #d4d4d4;padding:1mm 1.5mm;height:5.2mm;font-size:7.7pt}.cs6-inner tr:last-child td{border-bottom:0}.cs6-check{font-family:Arial,sans-serif;font-size:8.3pt;white-space:nowrap}.cs6-detail-label{font-style:italic;font-weight:700}.cs6-line{display:inline-block;border-bottom:.6pt solid #000;min-width:42mm;padding:0 1mm}.cs6-line.short{min-width:18mm}.cs6-line.long{min-width:66mm}.cs6-sign-line{border-bottom:.7pt solid #000;text-align:center;min-height:8mm;padding-top:4mm;font-weight:700}.cs6-sign-caption{text-align:center;font-size:7.5pt;padding-top:.5mm}.cs6-credit{width:88%;margin:1.5mm auto;border-collapse:collapse}.cs6-credit td,.cs6-credit th{border:.6pt solid #000;padding:.9mm;text-align:center;font-size:7.5pt}.cs6-credit th{font-weight:400}.cs6-officer{text-align:center;margin-top:4mm}.cs6-officer b{display:block;border-bottom:.6pt solid #000;padding-bottom:.7mm}.cs6-officer span{font-size:7.5pt}.cs6-bottom-space{min-height:23mm}.cs6-note{font-size:10px;color:var(--mut);margin-top:8px}.cs6-status-strip{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.cs6-status-strip span{font-size:10px}
+@media(max-width:900px){.leave-detail-panel,.leave-process-grid{grid-template-columns:repeat(6,1fr)}.cs6-page{width:210mm}}
+@media(max-width:600px){.leave-detail-panel,.leave-process-grid{grid-template-columns:repeat(12,1fr)}.leave-detail-panel>.f,.leave-process-grid>.f{grid-column:span 12!important}}
+
+.toast{position:fixed;right:18px;bottom:18px;background:#101828;color:#fff;padding:10px 13px;border-radius:9px;font-size:12px;z-index:120}
+@media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.span2,.span3,.span4,.span6,.span8{grid-column:span 6}}@media(max-width:700px){:root{--side:66px}.profile-form,.profile-summary{grid-template-columns:1fr}.brand-text,.nav span,.user-mini{display:none}.sidebar{padding:10px 7px}.nav{text-align:center}.app main{margin-left:var(--side)}.content{padding:12px}.cards,.info-grid{grid-template-columns:1fr}.span2,.span3,.span4,.span6,.span8,.span12{grid-column:span 12}.toolbar{flex-direction:column;align-items:stretch}.toolbar input{width:100%}}@media print{body>*:not(#modal){display:none!important}#modal{position:static;background:#fff;padding:0;display:block!important}.modal-card{max-height:none;width:100%;padding:0}.modal-head,.modal-actions{display:none!important}.print-doc{padding:10mm}}
+
+
+/* ===== SAMS ROLE-AWARE DASHBOARD + RELIABILITY ===== */
+.dashboard-hero{display:flex;justify-content:space-between;gap:18px;align-items:center;background:linear-gradient(135deg,#123b59,#1e6091);color:#fff;border-radius:16px;padding:19px 21px;box-shadow:0 8px 22px rgba(18,59,89,.14)}
+.dashboard-hero h2{margin:3px 0 5px;font-size:22px}.dashboard-hero p{margin:0;opacity:.82;font-size:12px;line-height:1.5}.dash-eyebrow{font-size:9px;text-transform:uppercase;letter-spacing:.11em;opacity:.72}.dash-hero-meta{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.dash-chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);padding:7px 9px;border-radius:999px;font-size:10px;white-space:nowrap}
+.dashboard-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:13px}.dash-kpi{border:1px solid var(--bd);background:#fff;border-radius:13px;padding:13px;text-align:left;cursor:pointer;box-shadow:0 2px 8px rgba(20,60,90,.035);transition:.15s transform,.15s box-shadow}.dash-kpi:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(20,60,90,.08)}.dash-kpi small{display:block;color:var(--mut);font-size:9px;text-transform:uppercase;letter-spacing:.04em}.dash-kpi b{display:block;font-size:23px;margin-top:5px;color:var(--txt)}.dash-kpi em{display:block;font-style:normal;font-size:9px;color:var(--mut);margin-top:4px}.dash-kpi.attention b{color:var(--bad)}
+.dashboard-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:13px}.quick-actions{display:flex;gap:7px;flex-wrap:wrap}.quick-action{border:1px solid var(--bd);background:#f8fafc;color:#344054;border-radius:9px;padding:9px 10px;font-size:11px;font-weight:700;cursor:pointer}.quick-action:hover{background:#eef6fb;border-color:#b7d3e4}.health-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.health-item{border:1px solid #edf1f5;border-radius:9px;padding:9px;background:#fbfcfd}.health-item small{display:block;color:var(--mut);font-size:9px;text-transform:uppercase}.health-item b{display:block;font-size:13px;margin-top:3px}.health-item .good{color:var(--ok)}.health-item .caution{color:var(--warn)}.health-item .issue{color:var(--bad)}
+.attention-list{display:grid;gap:7px}.attention-row{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;padding:9px;border:1px solid #edf1f5;border-radius:9px;background:#fff}.attention-icon{width:30px;height:30px;border-radius:8px;background:#fff4ed;display:grid;place-items:center}.attention-row b{font-size:11px}.attention-row small{display:block;color:var(--mut);font-size:9px;margin-top:2px}.attention-row button{border:0;background:#edf2f7;border-radius:7px;padding:6px 8px;font-size:9px;font-weight:700;cursor:pointer}
+.month-bars{display:grid;gap:10px}.month-bar-head{display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px}.bar-track{height:8px;border-radius:999px;background:#eef2f6;overflow:hidden}.bar-fill{height:100%;background:var(--p2);border-radius:999px;min-width:2px}.bar-fill.zero{min-width:0}
+.timeline{display:grid;gap:7px}.timeline-item{display:grid;grid-template-columns:9px 1fr auto;gap:8px;align-items:start}.timeline-dot{width:8px;height:8px;border-radius:50%;background:var(--p2);margin-top:5px}.timeline-item b{font-size:11px}.timeline-item small{display:block;color:var(--mut);font-size:9px;margin-top:2px}.timeline-item time{font-size:9px;color:var(--mut);white-space:nowrap}.progress-row{margin-top:10px}.progress-label{display:flex;justify-content:space-between;font-size:10px;margin-bottom:5px}.progress-track{height:8px;background:#edf1f5;border-radius:999px;overflow:hidden}.progress-fill{height:100%;background:var(--ok);border-radius:999px}
+.dashboard-table{min-width:620px}.dashboard-table th,.dashboard-table td{padding:8px 9px}.system-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.system-note{font-size:10px;color:var(--mut);margin-top:8px;line-height:1.5}
+@media(max-width:1100px){.dashboard-kpis{grid-template-columns:repeat(2,1fr)}.dashboard-grid{grid-template-columns:1fr}}@media(max-width:600px){.dashboard-hero{align-items:flex-start;flex-direction:column}.dash-hero-meta{justify-content:flex-start}.dashboard-kpis{grid-template-columns:1fr 1fr}.health-grid{grid-template-columns:1fr}.attention-row{grid-template-columns:auto 1fr}.attention-row button{grid-column:2}.dash-kpi b{font-size:20px}}
 
 /* ===== SAMS PHASE 3 FOUNDATION ===== */
 .nav-group{font-size:9px;text-transform:uppercase;letter-spacing:.08em;opacity:.55;padding:12px 11px 4px}.top-search{width:220px;border:1px solid var(--bd);border-radius:8px;padding:8px 10px;font-size:11px}.notif-btn{position:relative}.notif-count{position:absolute;top:-7px;right:-7px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--bad);color:#fff;display:grid;place-items:center;font-size:9px}.report-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.report-tile{border:1px solid var(--bd);border-radius:10px;padding:12px;background:#fff}.report-tile small{display:block;color:var(--mut);font-size:10px;text-transform:uppercase}.report-tile b{font-size:22px;display:block;margin-top:5px}.empty-state{padding:24px;text-align:center;color:var(--mut)}.phase3-note{border:1px dashed #9fc3dc;background:#f4f9fc;border-radius:10px;padding:12px;font-size:11px;color:#475467}.archive-meta{font-size:10px;color:var(--mut);margin-top:3px}@media(max-width:900px){.report-grid{grid-template-columns:1fr 1fr}.top-search{display:none}}@media(max-width:600px){.report-grid{grid-template-columns:1fr}}
+
+
+/* ===== SAMS v18 UNIFIED HR SUITE ===== */
+.hr-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:12px 0}
+.hr-kpi{border:1px solid var(--bd);border-radius:12px;padding:12px;background:#fff}
+.hr-kpi small{display:block;color:var(--mut);font-size:11px}
+.hr-kpi b{display:block;font-size:24px;margin-top:3px}
+.hr-subnav{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.hr-note{background:#f8fafc;border:1px solid var(--bd);border-radius:10px;padding:10px 12px;color:var(--mut);font-size:12px}
+.hr-ledger-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0}
+.hr-ledger-summary>div{border:1px solid var(--bd);border-radius:10px;padding:10px;background:#fff}
+.hr-ledger-summary small{color:var(--mut);display:block}
+.hr-ledger-summary b{font-size:18px}
+.modal-card.wide{max-width:1100px}
+.check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.check-item{display:flex;align-items:center;gap:8px;border:1px solid var(--bd);border-radius:8px;padding:9px;background:#fff}
+.mini-table{width:100%;border-collapse:collapse;font-size:12px}
+.mini-table th,.mini-table td{border:1px solid var(--bd);padding:7px}
+.mini-table th{background:#f8fafc;text-align:left}
+.report-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:end}
+.report-toolbar .f{min-width:180px}
+.att-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.att-card{border:1px solid var(--bd);border-radius:10px;padding:10px;background:#fff}
+.att-card small{color:var(--mut);display:block}
+.att-card b{font-size:18px}
+@media(max-width:900px){
+  .hr-kpis,.hr-ledger-summary,.att-grid{grid-template-columns:1fr 1fr}
+  .check-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .hr-kpis,.hr-ledger-summary,.att-grid,.check-grid{grid-template-columns:1fr}
+}
 
 </style>
 </head>
@@ -181,13 +241,17 @@
 
 <div id="app" class="app hidden">
   <aside class="sidebar">
-    <div class="brand"><div class="brand-mark">S</div><div class="brand-text"><b>SAMS</b><small>School Administration</small></div></div>
+    <div class="brand"><div class="brand-mark">S</div><div class="brand-text"><b>SAMS</b><small>Operational Workspace</small></div></div>
     <nav>
       <button class="nav active" data-section="dashboard" data-roles="ALL">🏠 <span>Dashboard</span></button>
       <button class="nav" data-section="supplies" data-roles="ALL">📦 <span>Supplies / RIS</span></button>
       <button class="nav" data-section="equipment" data-roles="Employee,Property Custodian,School Head,Administrator">💻 <span>Equipment</span></button>
       <button class="nav" data-section="dtr" data-roles="Employee,HR/Admin,School Head,Administrator">🕐 <span>DTR</span></button>
       <button class="nav" data-section="leave" data-roles="Employee,HR/Admin,School Head,Administrator">🗓️ <span>Leave</span></button>
+      <button class="nav" data-section="consolidatedHr" data-roles="HR/Admin,School Head,Administrator">📑 <span>Consolidated HR</span></button>
+      <button class="nav" data-section="files201" data-roles="HR/Admin,School Head,Administrator">🗂️ <span>201 Files</span></button>
+      <button class="nav" data-section="training" data-roles="Employee,HR/Admin,School Head,Administrator">🎓 <span>Training / L&D</span></button>
+      <button class="nav" data-section="performance" data-roles="Employee,HR/Admin,School Head,Administrator">⭐ <span>Performance</span></button>
       <div class="nav-group">Records</div>
       <button class="nav" data-section="masterlist" data-roles="Administrator,HR/Admin,Supply Officer,Property Custodian">📋 <span>Employee Masterlist</span></button>
       <button class="nav" data-section="notifications" data-roles="ALL">🔔 <span>Notifications</span></button>
@@ -209,35 +273,99 @@
 
     <div class="content">
       <section id="dashboard" class="section active">
-        <div class="cards">
-          <article class="card metric"><div>📦</div><span>Pending Supply Requests<b id="kpiSupply">0</b></span></article>
-          <article class="card metric"><div>💻</div><span>Open Equipment<b id="kpiBorrow">0</b></span></article>
-          <article class="card metric"><div>🕐</div><span>Pending DTR<b id="kpiDtr">0</b></span></article>
-          <article class="card metric"><div>🗓️</div><span>Pending Leave<b id="kpiLeave">0</b></span></article>
+        <div class="dashboard-hero">
+          <div>
+            <div id="dashboardEyebrow" class="dash-eyebrow">SAMS WORKSPACE</div>
+            <h2 id="dashboardWelcome">Welcome to SAMS</h2>
+            <p id="dashboardSubtitle">Your role-aware workspace for school administrative transactions and monitoring.</p>
+          </div>
+          <div class="dash-hero-meta">
+            <span id="dashboardDate" class="dash-chip">Today</span>
+            <span id="dashboardRefresh" class="dash-chip">Waiting for data…</span>
+          </div>
         </div>
-        <div class="two-col mt">
-          <article class="card">
-            <div class="card-head">
-              <h3>My Profile</h3>
-              <button id="editProfileBtn" class="btn light" type="button">✏️ Edit My Profile</button>
-            </div>
+
+        <div id="adminDashboard" class="hidden">
+          <div class="dashboard-kpis">
+            <button class="dash-kpi" type="button" onclick="dashboardGo('supplies')"><small>Supply Pending</small><b id="adminPendingSupply">0</b><em>Requests awaiting action</em></button>
+            <button class="dash-kpi" type="button" onclick="dashboardGo('supplies')"><small>Ready to Issue</small><b id="adminApprovedSupply">0</b><em>Approved supply requests</em></button>
+            <button class="dash-kpi" type="button" onclick="dashboardGo('equipment')"><small>Equipment Out</small><b id="adminBorrowedEquipment">0</b><em>Currently borrowed</em></button>
+            <button class="dash-kpi attention" type="button" onclick="dashboardGo('equipment')"><small>Overdue Equipment</small><b id="adminOverdueEquipment">0</b><em>Past expected return</em></button>
+            <button class="dash-kpi" type="button" onclick="dashboardGo('dtr')"><small>DTR Pending This Month</small><b id="adminPendingDtr">0</b><em>Needs HR follow-up</em></button>
+            <button class="dash-kpi" type="button" onclick="dashboardGo('leave')"><small>Leave Pending</small><b id="adminPendingLeave">0</b><em>Needs review / action</em></button>
+            <button class="dash-kpi" type="button" onclick="dashboardGo('masterlist')"><small>Active Employees</small><b id="adminEmployeeCount">0</b><em>Employee masterlist</em></button>
+            <button class="dash-kpi" type="button" onclick="dashboardGo('users')"><small>Active SAMS Users</small><b id="adminUserCount">0</b><em>Enabled user accounts</em></button>
+          </div>
+
+          <div class="dashboard-grid mt">
+            <article class="card">
+              <div class="card-head"><h3>Administrator Quick Actions</h3><span class="badge info">Command Center</span></div>
+              <div id="adminQuickActions" class="quick-actions"></div>
+              <div class="system-note">Use the module pages for complete records. Dashboard actions are shortcuts only and do not bypass role/security checks.</div>
+            </article>
+            <article class="card">
+              <div class="card-head"><h3>System & Data Health</h3><span id="healthOverallBadge" class="badge ok">Healthy</span></div>
+              <div id="adminHealthGrid" class="health-grid"></div>
+              <div class="system-actions">
+                <button id="backupJsonBtn" class="btn primary" type="button">⬇ Export Backup JSON</button>
+                <button class="btn light" type="button" onclick="dashboardGo('reports')">Open Reports</button>
+                <button class="btn light" type="button" onclick="dashboardGo('archives')">Open Archives</button>
+              </div>
+              <div id="backupStatus" class="system-note">Backup export creates a local JSON copy of core SAMS records visible to the Administrator.</div>
+            </article>
+          </div>
+
+          <div class="dashboard-grid mt">
+            <article class="card">
+              <div class="card-head"><h3>Attention Required</h3><span id="adminAttentionCount" class="badge warn">0</span></div>
+              <div id="adminAttention" class="attention-list"></div>
+            </article>
+            <article class="card">
+              <div class="card-head"><h3>This Month at a Glance</h3><span id="monthLabel" class="muted"></span></div>
+              <div id="adminMonthBars" class="month-bars"></div>
+            </article>
+          </div>
+
+          <article class="card mt"><div class="card-head"><h3>Recent Administrative Activity</h3><button class="btn light xs" type="button" onclick="dashboardGo('audit')">View Audit Log</button></div><div id="recentActivity" class="muted">Loading recent activity…</div></article>
+        </div>
+
+        <div id="userDashboard" class="hidden">
+          <div class="dashboard-kpis">
+            <button id="userSupplyKpi" class="dash-kpi" type="button" onclick="dashboardGo('supplies')"><small>My Pending Supplies</small><b id="userPendingSupply">0</b><em>Open requests</em></button>
+            <button id="userEquipmentKpi" class="dash-kpi" type="button" onclick="dashboardGo('equipment')"><small>My Equipment</small><b id="userActiveEquipment">0</b><em>Requested / borrowed</em></button>
+            <button id="userDtrKpi" class="dash-kpi" type="button" onclick="dashboardGo('dtr')"><small>My DTR This Month</small><b id="userDtrStatus" style="font-size:16px">—</b><em id="userDtrNote">Current month status</em></button>
+            <button id="userLeaveKpi" class="dash-kpi" type="button" onclick="dashboardGo('leave')"><small>My Leave Applications</small><b id="userPendingLeave">0</b><em>Applications awaiting action</em></button>
+          </div>
+
+          <div class="dashboard-grid mt">
+            <article class="card">
+              <div class="card-head"><h3>Quick Actions</h3><span class="badge info">My Workspace</span></div>
+              <div id="userQuickActions" class="quick-actions"></div>
+              <div class="progress-row">
+                <div class="progress-label"><span>Profile completeness</span><b id="profileCompletionText">0%</b></div>
+                <div class="progress-track"><div id="profileCompletionBar" class="progress-fill" style="width:0%"></div></div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-head"><h3>Needs My Attention</h3><span id="userAttentionCount" class="badge warn">0</span></div>
+              <div id="userAttention" class="attention-list"></div>
+            </article>
+          </div>
+
+          <div class="dashboard-grid mt">
+            <article class="card"><div class="card-head"><h3>My Latest Records</h3><span class="muted">Latest 8</span></div><div id="userTimeline" class="timeline"></div></article>
+            <article class="card"><div class="card-head"><h3>Recent Notifications</h3><button class="btn light xs" type="button" onclick="dashboardGo('notifications')">View All</button></div><div id="userNotificationPreview" class="timeline"></div></article>
+          </div>
+
+          <article class="card mt">
+            <div class="card-head"><h3>My Profile</h3><button id="editProfileBtn" class="btn light" type="button">✏️ Edit My Profile</button></div>
             <div class="info-grid">
-              <div><small>Name</small><b id="dashName">—</b></div>
-              <div><small>Role</small><b id="dashRole">—</b></div>
-              <div><small>Office / Unit</small><b id="dashOffice">—</b></div>
-              <div><small>Email</small><b id="dashEmail">—</b></div>
+              <div><small>Name</small><b id="dashName">—</b></div><div><small>Role</small><b id="dashRole">—</b></div><div><small>Office / Unit</small><b id="dashOffice">—</b></div><div><small>Email</small><b id="dashEmail">—</b></div>
             </div>
-            <div class="profile-summary">
-              <div><small>Position / Designation</small><b id="dashPosition">—</b></div>
-              <div><small>Contact No.</small><b id="dashContact">—</b></div>
-              <div><small>Preferred Name</small><b id="dashPreferred">—</b></div>
-            </div>
-            <div class="profile-note">You may update your personal profile information. Your email, SAMS role, account status, and Firebase UID remain controlled by the system/Administrator.</div>
+            <div class="profile-summary"><div><small>Position / Designation</small><b id="dashPosition">—</b></div><div><small>Contact No.</small><b id="dashContact">—</b></div><div><small>Preferred Name</small><b id="dashPreferred">—</b></div></div>
+            <div class="profile-note">You may update personal profile fields. Email, SAMS role, account status, and Firebase UID remain controlled by the system/Administrator.</div>
           </article>
-          <article class="card"><h3>Architecture</h3><p class="muted"><b>PCMS</b> remains the master property/equipment database. <b>SAMS</b> manages requests, approvals, issuance, borrowing/return, HR monitoring, users, and audit history.</p><div class="callout">PCMS → Asset Master &nbsp; | &nbsp; SAMS → Transactions & Workflow</div></article>
         </div>
-        
-        <article class="card mt"><h3>Recent Activity</h3><div id="recentActivity" class="muted">Detailed audit viewing is restricted to management roles.</div></article>
       </section>
 
       <section id="supplies" class="section">
@@ -333,31 +461,185 @@
 
       <section id="dtr" class="section">
         <div class="two-col">
-          <article id="dtrAdminCard" class="card"><h3>Add / Update DTR Monitoring</h3><p class="muted" style="margin:-4px 0 12px">Employee list is taken from the Employee Masterlist.</p><form id="dtrForm" class="form-grid"><div class="f span6"><label>Employee</label><select id="dtEmployee"></select></div><div class="f span3"><label>Month</label><input id="dtMonth" type="month" required></div><div class="f span3"><label>Status</label><select id="dtStatus"><option>Pending</option><option>Submitted</option><option>Verified</option><option>Forwarded to SDO</option></select></div><div class="f span12"><label>Remarks</label><input id="dtRemarks"></div><div class="span12"><button class="btn primary">Save DTR Record</button></div></form></article>
-          <article class="card"><h3>Control</h3><p class="muted">This module monitors submission and verification. It does not replace the official DTR/CS Form No. 48.</p></article>
+          <article id="dtrAdminCard" class="card">
+            <h3>DTR / Attendance Monitoring</h3>
+            <p class="muted" style="margin:-4px 0 12px">Monthly DTR monitoring is linked to the Employee Masterlist. HR can load all active employees for a month, then encode attendance details per employee.</p>
+            <form id="dtrForm" class="form-grid">
+              <div class="f span6"><label>Employee</label><select id="dtEmployee"></select></div>
+              <div class="f span3"><label>Month</label><input id="dtMonth" type="month" required></div>
+              <div class="f span3"><label>Status</label><select id="dtStatus"><option>Pending</option><option>Submitted</option><option>Verified</option><option>Forwarded to SDO</option></select></div>
+              <div class="f span12"><label>Remarks</label><input id="dtRemarks"></div>
+              <div class="span12"><button class="btn primary">Save DTR Record</button> <button id="loadDtrEmployeesBtn" class="btn light" type="button">Load All Active Employees for Month</button></div>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Attendance Policy Settings</h3>
+            <p class="muted">Teaching fixed-schedule calculations and monthly credit treatment are configurable under Settings. DTR computations are monitoring aids and should be validated by authorized HR personnel before payroll/report use.</p>
+            <div class="hr-note">The system can calculate late/undertime equivalents from encoded daily attendance entries. Non-teaching VL deductions and teaching payroll treatment remain reviewable by HR.</div>
+          </article>
         </div>
-        <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Month</th><th>Status</th><th>Remarks</th><th>Updated</th><th>Actions</th></tr></thead><tbody id="dtrBody"></tbody></table></div></article>
+        <article class="card mt">
+          <div class="toolbar"><div><h3>DTR Records</h3><p class="muted" style="margin:3px 0 0">Open <b>Attendance</b> to encode detailed monthly data.</p></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Employee</th><th>Month</th><th>Status</th><th>Attendance Eq.</th><th>Pay / Charge</th><th>Remarks</th><th>Updated</th><th>Actions</th></tr></thead><tbody id="dtrBody"></tbody></table></div>
+        </article>
       </section>
 
       <section id="leave" class="section">
         <div class="two-col">
-          <article class="card"><h3>Leave Monitoring</h3><p id="leaveEmployeeHint" class="muted" style="margin:-4px 0 12px"></p><form id="leaveForm" class="form-grid"><div class="f span6"><label>Employee</label><select id="lvEmployee" required></select></div><div class="f span6"><label>Leave Type</label><select id="lvType"><option>Vacation Leave</option><option>Sick Leave</option><option>Mandatory / Forced Leave</option><option>Special Privilege Leave</option><option>Maternity Leave</option><option>Paternity Leave</option><option>Other</option></select></div><div class="f span4"><label>From</label><input id="lvFrom" type="date" required></div><div class="f span4"><label>To</label><input id="lvTo" type="date" required></div><div class="f span4"><label>Remarks</label><input id="lvRemarks"></div><div class="span12"><button class="btn primary">Submit Leave for Monitoring</button></div></form></article>
-          <article class="card"><h3>Official Form</h3><p class="muted">SAMS is the monitoring layer. The official CS Form No. 6 should be generated/attached in the later document-management phase.</p></article>
+          <article class="card">
+            <div class="card-head"><div><h3>Online Application for Leave</h3><p class="muted" style="margin:4px 0 0">CS Form No. 6, Revised 2020 — employee information and Sections 1–6 are completed online.</p></div><span class="badge info">CS Form No. 6</span></div>
+            <form id="leaveForm" class="form-grid leave-web-form">
+              <div class="section-label">Applicant Information</div>
+              <div class="f span6"><label>Employee</label><select id="lvEmployee" required></select></div>
+              <div class="f span6"><label>Office / Department</label><input id="lvOffice" required></div>
+              <div class="f span4"><label>Last Name</label><input id="lvLastName" required></div>
+              <div class="f span4"><label>First Name</label><input id="lvFirstName" required></div>
+              <div class="f span4"><label>Middle Name</label><input id="lvMiddleName"></div>
+              <div class="f span4"><label>Date of Filing</label><input id="lvDateFiling" type="date" required></div>
+              <div class="f span4"><label>Position</label><input id="lvPosition" required></div>
+              <div class="f span4"><label>Salary</label><input id="lvSalary" placeholder="e.g. 35,000.00"></div>
+
+              <div class="section-label">6. Details of Application</div>
+              <div class="f span8"><label>6.A Type of Leave to be Availed Of</label><select id="lvType" required>
+                <option>Vacation Leave</option><option>Mandatory/Forced Leave</option><option>Sick Leave</option><option>Maternity Leave</option><option>Paternity Leave</option><option>Special Privilege Leave</option><option>Solo Parent Leave</option><option>Study Leave</option><option>10-Day VAWC Leave</option><option>Rehabilitation Privilege</option><option>Special Leave Benefits for Women</option><option>Special Emergency (Calamity) Leave</option><option>Adoption Leave</option><option>Others</option>
+              </select></div>
+              <div id="lvOtherTypeWrap" class="f span4 hidden"><label>Specify Other Leave</label><input id="lvOtherType"></div>
+
+              <div id="lvDetailPanel" class="leave-detail-panel">
+                <div class="f span5"><label id="lvDetailCategoryLabel">6.B Leave Details</label><select id="lvDetailCategory"></select></div>
+                <div class="f span7"><label id="lvDetailTextLabel">Specific Details</label><input id="lvDetailText"></div>
+              </div>
+
+              <div class="f span3"><label>From</label><input id="lvFrom" type="date" required></div>
+              <div class="f span3"><label>To</label><input id="lvTo" type="date" required></div>
+              <div class="f span3"><label>6.C Working Days Applied For</label><input id="lvWorkingDays" type="number" min="0" step="0.5" required></div>
+              <div class="f span3"><label>6.D Commutation</label><select id="lvCommutation"><option>Not Requested</option><option>Requested</option></select></div>
+              <div class="f span12"><label>Internal Remarks (optional — not part of the printed CS Form No. 6)</label><input id="lvRemarks"></div>
+              <div class="span12 leave-form-note">Working days are suggested from the date range with Saturdays and Sundays excluded. Review the value before submitting because holidays, school calendars, and other non-working days may require adjustment.</div>
+              <div class="span12 leave-form-actions">
+                <button id="leaveSubmitBtn" class="btn primary" type="submit">Submit Online Leave Application</button>
+                <button id="leaveCancelEditBtn" class="btn light hidden" type="button">Cancel Edit</button>
+                <span id="leaveFormStatus" class="msg" style="margin:0"></span>
+              </div>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Online Leave Workflow</h3>
+            <ol class="muted"><li>Employee completes the same information required in CS Form No. 6.</li><li>SAMS stores the application and generates the printable form.</li><li>HR/Admin records leave-credit certification in Section 7.A.</li><li>School Head records the recommendation in Section 7.B.</li><li>When the approving authority's action is received, HR/Admin records Section 7.C / 7.D and the final status.</li></ol>
+            <div class="callout"><b>Teaching and non-teaching personnel:</b> both may use this same online application. Leave-credit computation and entitlement rules remain separate from the form itself and can be connected to the Leave Ledger module later.</div>
+            <button class="btn light mt10" type="button" onclick="startLeaveApplication()">＋ Start New Leave Application</button>
+          </article>
         </div>
-        <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Type</th><th>Period</th><th>Status</th><th>Remarks</th><th>Actions</th></tr></thead><tbody id="leaveBody"></tbody></table></div></article>
+        <article class="card mt"><div class="toolbar"><div><h3>Leave Applications</h3><p class="muted" style="margin:3px 0 0">Open, process, print, edit pending applications, or archive records.</p></div></div><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Leave Type</th><th>Period / Days</th><th>Status</th><th>Source</th><th>Actions</th></tr></thead><tbody id="leaveBody"></tbody></table></div></article>
       </section>
 
-      <section id="masterlist" class="section">
+      
+      <section id="consolidatedHr" class="section">
+        <article class="card">
+          <div class="toolbar">
+            <div><h3>Consolidated DTR & Leave Reports</h3><p class="muted" style="margin:3px 0 0">Monthly HR summary, leave ledger, and downloadable CSV reports.</p></div>
+          </div>
+          <div class="report-toolbar">
+            <div class="f"><label>Month</label><input id="hrReportMonth" type="month"></div>
+            <button id="saveMonthlyHrBtn" class="btn primary" type="button">Save Monthly Snapshot</button>
+            <button id="exportDtrSummaryBtn" class="btn light" type="button">Export DTR Summary CSV</button>
+            <button id="exportLeaveRegisterBtn" class="btn light" type="button">Export Leave Register CSV</button>
+          </div>
+          <div id="hrSummaryKpis" class="hr-kpis"></div>
+          <div class="table-wrap mt"><table><thead><tr><th>Employee</th><th>Status</th><th>Late Eq.</th><th>Undertime Eq.</th><th>Total Eq.</th><th>Pay Status</th><th>Leave Charge</th><th>Remarks</th></tr></thead><tbody id="hrMonthlyBody"></tbody></table></div>
+        </article>
+
+        <article class="card mt">
+          <div class="toolbar"><div><h3>Employee Leave Card / Leave Ledger</h3><p class="muted" style="margin:3px 0 0">Verified opening balances + approved leave + monthly attendance deductions.</p></div></div>
+          <div class="form-grid">
+            <div class="f span4"><label>Employee</label><select id="ledgerEmployee"></select></div>
+            <div class="f span2"><label>Leave Basis</label><select id="ledgerBasis"><option value="AUTO">AUTO</option><option value="VL_SL">VL / SL</option><option value="VSC">Teacher VSC</option></select></div>
+            <div class="f span2"><label>Start Month</label><input id="ledgerStartMonth" type="month"></div>
+            <div class="f span2"><label>Generate Through</label><input id="ledgerThroughMonth" type="month"></div>
+            <div class="f span2"><label>Opening VL</label><input id="ledgerOpeningVL" type="number" step="0.001"></div>
+            <div class="f span2"><label>Opening SL</label><input id="ledgerOpeningSL" type="number" step="0.001"></div>
+            <div class="f span2"><label>Opening VSC</label><input id="ledgerOpeningVSC" type="number" step="0.001"></div>
+            <div class="span6"><button id="saveLedgerProfileBtn" class="btn primary" type="button">Save Opening Credits</button> <button id="previewLedgerBtn" class="btn light" type="button">Preview Ledger</button> <button id="exportLedgerBtn" class="btn light" type="button">Export CSV</button></div>
+          </div>
+          <div id="ledgerSummary" class="hr-ledger-summary"></div>
+          <div id="ledgerPreview" class="table-wrap mt"></div>
+        </article>
+      </section>
+
+      <section id="files201" class="section">
+        <article class="card">
+          <div class="toolbar"><div><h3>201 File Monitoring</h3><p class="muted" style="margin:3px 0 0">Track personnel-document completeness without replacing the official 201 file.</p></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Employee</th><th>PDS</th><th>SALN</th><th>Appointment</th><th>TOR / Diploma</th><th>Eligibility</th><th>NBI / Medical</th><th>Status</th><th>Action</th></tr></thead><tbody id="files201Body"></tbody></table></div>
+        </article>
+      </section>
+
+      <section id="training" class="section">
+        <div class="two-col">
+          <article id="trainingAdminCard" class="card">
+            <h3>Add Training / L&D Record</h3>
+            <form id="trainingForm" class="form-grid">
+              <div class="f span6"><label>Employee</label><select id="trainingEmployee"></select></div>
+              <div class="f span6"><label>Training Title</label><input id="trainingTitle" required></div>
+              <div class="f span6"><label>Provider</label><input id="trainingProvider"></div>
+              <div class="f span3"><label>From</label><input id="trainingFrom" type="date"></div>
+              <div class="f span3"><label>To</label><input id="trainingTo" type="date"></div>
+              <div class="f span2"><label>Hours</label><input id="trainingHours" type="number" step="0.5"></div>
+              <div class="f span3"><label>Level</label><select id="trainingLevel"><option>School</option><option>District</option><option>Division</option><option>Regional</option><option>National</option><option>International</option></select></div>
+              <div class="f span3"><label>Certificate</label><select id="trainingCertificate"><option>Available</option><option>Missing</option></select></div>
+              <div class="span12"><button class="btn primary">Save Training Record</button></div>
+            </form>
+          </article>
+          <article class="card"><h3>Training Summary</h3><div id="trainingSummary" class="hr-kpis"></div></article>
+        </div>
+        <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Training</th><th>Provider</th><th>Dates</th><th>Hours</th><th>Level</th><th>Certificate</th><th>Action</th></tr></thead><tbody id="trainingBody"></tbody></table></div></article>
+      </section>
+
+      <section id="performance" class="section">
+        <div class="two-col">
+          <article id="performanceAdminCard" class="card">
+            <h3>Add Performance Record</h3>
+            <form id="performanceForm" class="form-grid">
+              <div class="f span6"><label>Employee</label><select id="performanceEmployee"></select></div>
+              <div class="f span6"><label>Period</label><input id="performancePeriod" placeholder="e.g. SY 2026-2027" required></div>
+              <div class="f span4"><label>Type</label><select id="performanceType"><option>IPCRF</option><option>OPCRF</option></select></div>
+              <div class="f span4"><label>Rating</label><input id="performanceRating" type="number" step="0.001"></div>
+              <div class="f span4"><label>Adjectival Rating</label><select id="performanceAdjectival"><option>Outstanding</option><option>Very Satisfactory</option><option>Satisfactory</option><option>Unsatisfactory</option><option>Poor</option></select></div>
+              <div class="f span6"><label>Submission</label><select id="performanceSubmission"><option>Submitted</option><option>Pending</option></select></div>
+              <div class="f span6"><label>Remarks</label><input id="performanceRemarks"></div>
+              <div class="span12"><button class="btn primary">Save Performance Record</button></div>
+            </form>
+          </article>
+          <article class="card"><h3>Performance Summary</h3><div id="performanceSummary" class="hr-kpis"></div></article>
+        </div>
+        <article class="card mt"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Period</th><th>Type</th><th>Rating</th><th>Adjectival</th><th>Submission</th><th>Remarks</th><th>Action</th></tr></thead><tbody id="performanceBody"></tbody></table></div></article>
+      </section>
+
+<section id="masterlist" class="section">
         <div class="two-col">
           <article class="card" data-roles="Administrator,HR/Admin">
             <div class="card-head"><div><h3>Employee Masterlist</h3><p class="muted" style="margin:4px 0 0">Personnel may be listed here even without a SAMS login account.</p></div></div>
             <form id="masterForm" class="form-grid">
               <input id="masterEditId" type="hidden">
-              <div class="f span4"><label>Employee No. / ID (optional)</label><input id="masterEmployeeNo"></div>
-              <div class="f span8"><label>Full Name</label><input id="masterName" required maxlength="120" placeholder="Complete employee name"></div>
+              <div class="f span3"><label>Employee No. / ID</label><input id="masterEmployeeNo"></div>
+              <div class="f span9"><label>Full Name</label><input id="masterName" required maxlength="120" placeholder="Complete employee name"></div>
+
               <div class="f span4"><label>Office / Unit <span class="muted">(optional)</span></label><input id="masterOffice"></div>
               <div class="f span4"><label>Position / Designation</label><input id="masterPosition"></div>
-              <div class="f span4"><label>Email (optional)</label><input id="masterEmail" type="email"></div>
+              <div class="f span4"><label>Email</label><input id="masterEmail" type="email"></div>
+
+              <div class="f span3"><label>Personnel Type</label><select id="masterPersonnelType"><option>Teaching</option><option>Non-Teaching</option></select></div>
+              <div class="f span3"><label>Employment Status</label><select id="masterEmploymentStatus"><option>Permanent</option><option>Provisional</option><option>Substitute</option><option>Contractual</option><option>COS</option><option>JO</option><option>Others</option></select></div>
+              <div class="f span3"><label>Leave Basis</label><select id="masterLeaveBasis"><option value="AUTO">AUTO</option><option value="VL_SL">VL / SL</option><option value="VSC">Teacher VSC / Service Credits</option></select></div>
+              <div class="f span3"><label>Date Hired</label><input id="masterDateHired" type="date"></div>
+
+              <div class="f span3"><label>Plantilla Item</label><input id="masterPlantilla"></div>
+              <div class="f span2"><label>Salary Grade</label><input id="masterSalaryGrade"></div>
+              <div class="f span2"><label>Step</label><input id="masterStep"></div>
+              <div class="f span3"><label>Basic Salary</label><input id="masterBasicSalary" type="number" step="0.01"></div>
+              <div class="f span2"><label>PERA / ACA</label><input id="masterPera" type="number" step="0.01"></div>
+
+              <div class="f span3"><label>Station Code</label><input id="masterStationCode"></div>
+              <div class="f span3"><label>Mobile</label><input id="masterMobile"></div>
               <div class="span12"><button id="masterSaveBtn" class="btn primary" type="submit">Add Employee</button> <button id="masterCancelBtn" class="btn light hidden" type="button">Cancel Edit</button></div>
             </form>
             <div class="callout mt"><b>Tip:</b> Use <b>Sync SAMS Users</b> to add existing registered user profiles to the masterlist automatically without duplicating matching emails.</div>
@@ -365,7 +647,7 @@
           </article>
           <article class="card"><h3>How the Masterlist is Used</h3><ol class="muted"><li>Administrator/HR maintains employee names.</li><li>Supply Officer selects a walk-in employee from the list.</li><li>Office and position are filled automatically when available.</li><li>The request is recorded as Walk-In in the same Supplies/RIS monitoring table.</li><li>If the email matches a SAMS account, the transaction is linked to that user automatically.</li></ol></article>
         </div>
-        <article class="card mt"><div class="toolbar"><div><h3>Employee Records</h3><p class="muted" style="margin:3px 0 0"><span id="masterCount">0</span> active personnel</p></div><input id="masterSearch" placeholder="Search employee…"></div><div class="table-wrap"><table><thead><tr><th>Employee No.</th><th>Name</th><th>Office / Unit</th><th>Position</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead><tbody id="masterBody"></tbody></table></div></article>
+        <article class="card mt"><div class="toolbar"><div><h3>Employee Records</h3><p class="muted" style="margin:3px 0 0"><span id="masterCount">0</span> active personnel</p></div><input id="masterSearch" placeholder="Search employee…"></div><div class="table-wrap"><table><thead><tr><th>Employee No.</th><th>Name</th><th>Office / Unit</th><th>Position</th><th>Type</th><th>Leave Basis</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead><tbody id="masterBody"></tbody></table></div></article>
       </section>
 
       <section id="notifications" class="section">
@@ -379,7 +661,7 @@
         <article class="card">
           <div class="toolbar"><div><h3>Operational Reports</h3><p class="muted" style="margin:3px 0 0">Live summary from records currently available to your role.</p></div><button id="exportSummaryBtn" class="btn primary" type="button">Export CSV</button></div>
           <div id="reportTiles" class="report-grid"></div>
-          <div class="phase3-note mt">This is the Phase 3 reporting foundation. Detailed official report layouts can be added after the core workflows and forms are finalized.</div>
+          <div class="phase3-note mt">Operational summary reflects the records currently available to your role. Use the module tables for transaction-level verification.</div>
           <div class="table-wrap mt"><table><thead><tr><th>Module</th><th>Total</th><th>Pending / Open</th><th>Completed / Closed</th><th>Attention</th></tr></thead><tbody id="reportBody"></tbody></table></div>
         </article>
       </section>
@@ -393,9 +675,18 @@
 
       <section id="users" class="section"><article class="card"><div class="toolbar"><div><h3>Users & Roles</h3><p class="muted">Create Authentication accounts in Firebase Console. After first login, promote roles here.</p></div><button id="refreshUsers" class="btn light">Refresh</button></div><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Office</th><th>Role</th><th>Status</th><th>Action</th></tr></thead><tbody id="usersBody"></tbody></table></div></article></section>
 
-      <section id="audit" class="section"><article class="card"><h3>Audit Trail</h3><p class="muted">Phase 2 records authenticated client activity. Phase 3 should move critical audit events to Cloud Functions for stronger tamper resistance.</p><div class="table-wrap"><table><thead><tr><th>Date/Time</th><th>User</th><th>Role</th><th>Module</th><th>Action</th><th>Reference</th></tr></thead><tbody id="auditBody"></tbody></table></div></article></section>
+      <section id="audit" class="section"><article class="card"><h3>Audit Trail</h3><p class="muted">SAMS records authenticated client activity. For higher-assurance tamper resistance, critical audit events should eventually be written by a trusted server/Cloud Function.</p><div class="table-wrap"><table><thead><tr><th>Date/Time</th><th>User</th><th>Role</th><th>Module</th><th>Action</th><th>Reference</th></tr></thead><tbody id="auditBody"></tbody></table></div></article></section>
 
-      <section id="settings" class="section"><div class="two-col"><article class="card"><h3>School Settings</h3><form id="settingsForm"><label>School Name</label><input id="setSchool" required><label>School ID</label><input id="setSchoolId"><label>Region</label><input id="setRegion" placeholder="REGION I"><label>Schools Division</label><input id="setDivision" placeholder="DIVISION OF LA UNION"><label>School Address</label><input id="setAddress" placeholder="San Manuel Norte, Agoo, La Union"><label>School Logo URL / GitHub File Path</label><input id="setLogoUrl" placeholder="school-logo.png"><div class="small-note">Optional: upload a logo to GitHub and enter its filename, e.g. <b>school-logo.png</b>. If the path is blank or cannot be loaded, SAMS will use the embedded school logo automatically.</div><label>School Head</label><input id="setHead"><label>School Head Position</label><input id="setHeadPosition" placeholder="School Principal"><label>Supply Officer</label><input id="setSupply"><label>Property Custodian</label><input id="setProperty"><label>Property Custodian Position</label><input id="setPropertyPosition" placeholder="Property Custodian"><hr style="border:0;border-top:1px solid var(--bd);margin:14px 0"><h4 style="margin:0 0 6px">RIS Defaults (Appendix 63)</h4><label>Entity Name</label><input id="setRisEntity" placeholder="e.g. DepED RO I / School Name"><label>Fund Cluster</label><input id="setRisFundCluster" placeholder="01"><label>Responsibility Center Code</label><input id="setRisResponsibility" placeholder=""><label>Supply Officer Position</label><input id="setSupplyPosition" placeholder="Supply Officer"><button id="saveSettingsBtn" class="btn primary mt10" type="submit">Save Settings</button><div id="settingsStatus" class="msg" style="margin-top:8px"></div></form></article><article class="card"><h3>Phase 2 Security</h3><ul class="muted"><li>Email/password authentication</li><li>Role-based Firestore rules</li><li>Employee-scoped records</li><li>Admin-controlled roles/status</li><li>Cloud timestamps</li></ul></article></div></section>
+      <section id="settings" class="section"><div class="two-col"><article class="card"><h3>School Settings</h3><form id="settingsForm"><label>School Name</label><input id="setSchool" required><label>School ID</label><input id="setSchoolId"><label>Region</label><input id="setRegion" placeholder="REGION I"><label>Schools Division</label><input id="setDivision" placeholder="DIVISION OF LA UNION"><label>School Address</label><input id="setAddress" placeholder="San Manuel Norte, Agoo, La Union"><label>School Logo URL / GitHub File Path</label><input id="setLogoUrl" placeholder="school-logo.png"><div class="small-note">Optional: upload a logo to GitHub and enter its filename, e.g. <b>school-logo.png</b>. If the path is blank or cannot be loaded, SAMS will use the embedded school logo automatically.</div><label>School Head</label><input id="setHead"><label>School Head Position</label><input id="setHeadPosition" placeholder="School Principal"><label>Supply Officer</label><input id="setSupply"><label>Property Custodian</label><input id="setProperty"><label>Property Custodian Position</label><input id="setPropertyPosition" placeholder="Property Custodian"><hr style="border:0;border-top:1px solid var(--bd);margin:14px 0"><h4 style="margin:0 0 6px">RIS Defaults (Appendix 63)</h4><label>Entity Name</label><input id="setRisEntity" placeholder="e.g. DepED RO I / School Name"><label>Fund Cluster</label><input id="setRisFundCluster" placeholder="01"><label>Responsibility Center Code</label><input id="setRisResponsibility" placeholder=""><label>Supply Officer Position</label><input id="setSupplyPosition" placeholder="Supply Officer"><hr style="border:0;border-top:1px solid var(--bd);margin:14px 0"><h4 style="margin:0 0 6px">HR / DTR Settings</h4>
+<label>Teaching Morning Time In</label><input id="setTeachingMorningIn" type="time">
+<label>Teaching Afternoon Time In</label><input id="setTeachingAfternoonIn" type="time">
+<label>Teaching Duty End</label><input id="setTeachingDutyEnd" type="time">
+<label>Teaching Tardiness / Undertime Treatment</label><select id="setTeachingPayrollTreatment"><option value="FOR HR VALIDATION">For HR Validation</option><option value="WITHOUT PAY">Without Pay</option><option value="NO AUTOMATIC DEDUCTION">No Automatic Deduction</option></select>
+<label>Monthly VL Accrual (configurable)</label><input id="setMonthlyVLAccrual" type="number" step="0.001" value="1.25">
+<label>Monthly SL Accrual (configurable)</label><input id="setMonthlySLAccrual" type="number" step="0.001" value="1.25">
+<div class="small-note">These values are system settings for your local HR workflow. Authorized HR should validate the applicable policy before relying on automated balances.</div>
+<hr style="border:0;border-top:1px solid var(--bd);margin:14px 0">
+<h4 style="margin:0 0 6px">CS Form No. 6 Signatory Defaults</h4><label>Leave Certification Officer</label><input id="setLeaveCertOfficer" placeholder="Name of officer certifying leave credits"><label>Leave Certification Officer Position</label><input id="setLeaveCertPosition" placeholder="e.g. Administrative Officer V"><label>Leave Recommending Officer</label><input id="setLeaveRecommendOfficer" placeholder="e.g. School Head"><label>Leave Recommending Officer Position</label><input id="setLeaveRecommendPosition" placeholder="e.g. School Principal I"><label>Leave Approving Officer</label><input id="setLeaveApproveOfficer" placeholder="Approving authority"><label>Leave Approving Officer Position</label><input id="setLeaveApprovePosition" placeholder="e.g. OIC-Assistant Schools Division Superintendent"><button id="saveSettingsBtn" class="btn primary mt10" type="submit">Save Settings</button><div id="settingsStatus" class="msg" style="margin-top:8px"></div></form></article><article class="card"><h3>Security & Data Controls</h3><ul class="muted"><li>Email/password authentication</li><li>Role-based Firestore rules</li><li>Employee-scoped records</li><li>Admin-controlled roles/status</li><li>Cloud timestamps</li></ul></article></div></section>
     </div>
   </main>
 </div>
@@ -406,9 +697,13 @@
     <form id="profileForm">
       <div class="profile-form mt">
         <div class="f"><label>Display Name</label><input id="profileDisplayName" required maxlength="100"></div>
+        <div class="f"><label>First Name</label><input id="profileFirstName" maxlength="80"></div>
+        <div class="f"><label>Middle Name</label><input id="profileMiddleName" maxlength="80"></div>
+        <div class="f"><label>Last Name</label><input id="profileLastName" maxlength="80"></div>
         <div class="f"><label>Preferred Name / How You Want to Be Addressed</label><input id="profilePreferredName" maxlength="80" placeholder="e.g. Roridel"></div>
         <div class="f"><label>Office / Unit</label><input id="profileOffice" maxlength="120" placeholder="e.g. School Administration"></div>
         <div class="f"><label>Position / Designation</label><input id="profilePosition" maxlength="120" placeholder="e.g. Teacher III"></div>
+        <div class="f"><label>Salary (for CS Form No. 6, optional)</label><input id="profileSalary" maxlength="40" placeholder="e.g. 35,000.00"></div>
         <div class="f"><label>Contact Number (optional)</label><input id="profileContact" maxlength="30" placeholder="e.g. 09XXXXXXXXX"></div>
         <div class="f"><label>Email (locked)</label><input id="profileEmail" class="locked" readonly></div>
         <div class="f"><label>Role (locked)</label><input id="profileRole" class="locked" readonly></div>
@@ -423,6 +718,55 @@
   </div>
 </div>
 
+
+<div id="dtrDetailModal" class="modal hidden">
+  <div class="modal-card wide">
+    <div class="modal-head"><h3 id="dtrDetailTitle">DTR Attendance Details</h3><button id="dtrDetailX" type="button">✕</button></div>
+    <input id="dtrDetailId" type="hidden">
+    <div class="form-grid">
+      <div class="f span4"><label>Absence / Leave Dates</label><input id="dtrAbsenceDates" placeholder="e.g. 10/03/2026"></div>
+      <div class="f span2"><label>Vacation Leave Days</label><input id="dtrVacationDays" type="number" step="0.001"></div>
+      <div class="f span2"><label>Sick Leave Days</label><input id="dtrSickDays" type="number" step="0.001"></div>
+      <div class="f span4"><label>Cause / Remarks</label><input id="dtrCause"></div>
+
+      <div class="f span2"><label>Tardy Minutes</label><input id="dtrTardyMinutes" type="number" min="0"></div>
+      <div class="f span2"><label>Undertime Days</label><input id="dtrUnderDays" type="number" step="0.5" min="0"></div>
+      <div class="f span2"><label>Undertime Hours</label><input id="dtrUnderHours" type="number" min="0"></div>
+      <div class="f span2"><label>Undertime Minutes</label><input id="dtrUnderMinutes" type="number" min="0"></div>
+      <div class="f span2"><label>Pay Status</label><select id="dtrPayStatus"><option value=""></option><option>WITH PAY</option><option>WITHOUT PAY</option><option>FOR HR VALIDATION</option></select></div>
+      <div class="f span2"><label>Leave Charge</label><select id="dtrLeaveCharge"><option value=""></option><option value="VL">Vacation Leave</option><option value="SL">Sick Leave</option><option value="VSC">Teacher VSC</option><option value="NONE">None</option></select></div>
+
+      <div class="f span4"><label>Travel Dates</label><input id="dtrTravelDates"></div>
+      <div class="f span4"><label>Division Action</label><input id="dtrDivisionAction"></div>
+      <div class="f span4"><label>Deduction / Payroll Note</label><input id="dtrDeduction"></div>
+      <div class="f span12"><label>Detailed Remarks</label><input id="dtrDetailRemarks"></div>
+    </div>
+    <div class="att-grid mt">
+      <div class="att-card"><small>Tardiness Equivalent</small><b id="dtrLateEq">0.000</b></div>
+      <div class="att-card"><small>Undertime Equivalent</small><b id="dtrUnderEq">0.000</b></div>
+      <div class="att-card"><small>Total Equivalent</small><b id="dtrTotalEq">0.000</b></div>
+      <div class="att-card"><small>Suggested Treatment</small><b id="dtrSuggestedTreatment">—</b></div>
+    </div>
+    <div class="modal-actions"><button id="saveDtrDetailBtn" class="btn primary" type="button">Save Attendance Details</button><button id="dtrDetailClose" class="btn light" type="button">Close</button></div>
+  </div>
+</div>
+
+<div id="file201Modal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head"><h3>201 File Checklist</h3><button id="file201X" type="button">✕</button></div>
+    <input id="file201EmployeeId" type="hidden">
+    <h4 id="file201Name"></h4>
+    <div class="check-grid">
+      <label class="check-item"><input id="fPds" type="checkbox"> PDS</label>
+      <label class="check-item"><input id="fSaln" type="checkbox"> SALN</label>
+      <label class="check-item"><input id="fAppointment" type="checkbox"> Appointment</label>
+      <label class="check-item"><input id="fTor" type="checkbox"> TOR / Diploma</label>
+      <label class="check-item"><input id="fEligibility" type="checkbox"> Eligibility</label>
+      <label class="check-item"><input id="fNbi" type="checkbox"> NBI / Medical</label>
+    </div>
+    <div class="modal-actions"><button id="save201Btn" class="btn primary" type="button">Save Checklist</button><button id="file201Close" class="btn light" type="button">Close</button></div>
+  </div>
+</div>
 <div id="recordModal" class="modal hidden">
   <div class="modal-card" style="max-width:760px">
     <div class="modal-head"><h3 id="recordModalTitle">Edit Record</h3><button id="recordModalX" type="button">✕</button></div>
@@ -463,9 +807,10 @@ const firebaseConfig = {
 };
 
 const $=id=>document.getElementById(id);
-const state={user:null,profile:null,settings:{},users:[],masterlist:[],supplies:[],borrows:[],dtr:[],leaves:[],audit:[],notifications:[],unsubs:[]};
+const state={user:null,profile:null,settings:{},users:[],masterlist:[],supplies:[],borrows:[],dtr:[],leaves:[],files201:[],trainings:[],performances:[],leaveCredits:[],savedDtrReports:[],audit:[],notifications:[],unsubs:[],lastRefreshAt:null,syncErrors:0};
 let auth,db;
-const today=()=>new Date().toISOString().slice(0,10);
+const localISODate=(d=new Date())=>{const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`};
+const today=()=>localISODate();
 const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const refNo=p=>`${p}-${new Date().getFullYear()}-${String(Date.now()).slice(-7)}`;
 async function nextRefNo(prefix){
@@ -496,7 +841,150 @@ function clearSubs(){state.unsubs.forEach(fn=>{try{fn()}catch{}});state.unsubs=[
 function badge(s){const x=String(s||'').toLowerCase();let c='info';if(['approved','issued','returned','verified','forwarded','active'].some(k=>x.includes(k)))c='ok';if(['pending','requested','borrowed','verification','approval'].some(k=>x.includes(k)))c='warn';if(['rejected','disapproved','overdue','inactive'].some(k=>x.includes(k)))c='bad';return `<span class="badge ${c}">${safe(s)}</span>`}
 function byCreated(a,b){return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)}
 
-function setSection(id){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));$(id)?.classList.add('active');const b=document.querySelector(`.nav[data-section="${id}"]`);if(b&&!b.classList.contains('hidden')){b.classList.add('active');$('pageTitle').textContent=b.querySelector('span')?.textContent||'SAMS'}}
+const SAMS_VERSION='5.0-unified-hr-suite';
+function tsDate(v){
+  if(!v)return null;
+  try{
+    if(v?.toDate)return v.toDate();
+    if(v instanceof Date)return v;
+    const d=new Date(v);return Number.isNaN(d.getTime())?null:d;
+  }catch{return null}
+}
+function recordDate(r){return tsDate(r.updatedAt)||tsDate(r.createdAt)||tsDate(r.issuedAt)||tsDate(r.releasedAt)||tsDate(r.returnedAt)||tsDate(r.requestDate)||tsDate(r.date)||tsDate(r.from)}
+function dayDiff(dateString){if(!dateString)return null;const d=new Date(`${dateString}T00:00:00`);if(Number.isNaN(d.getTime()))return null;const t=new Date(`${today()}T00:00:00`);return Math.round((d-t)/86400000)}
+function daysOld(r){const d=recordDate(r);if(!d)return null;return Math.max(0,Math.floor((new Date()-d)/86400000))}
+function friendlyDate(d){const x=tsDate(d);return x?x.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}):'—'}
+function friendlyNow(){return new Date().toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})}
+function touchRefresh(){state.lastRefreshAt=new Date();if($('dashboardRefresh'))$('dashboardRefresh').textContent=`Data refreshed ${friendlyNow()}`}
+function ownRecord(r,uidField,emailField=''){const uid=state.user?.uid||'',email=String(state.user?.email||'').toLowerCase();return r?.[uidField]===uid||(emailField&&String(r?.[emailField]||'').toLowerCase()===email)}
+function ownSupplies(){return state.supplies.filter(isVisibleRecord).filter(r=>ownRecord(r,'requesterUid','requesterEmail'))}
+function ownBorrows(){return state.borrows.filter(isVisibleRecord).filter(r=>ownRecord(r,'borrowerUid'))}
+function ownDtr(){return state.dtr.filter(isVisibleRecord).filter(r=>ownRecord(r,'employeeUid','employeeEmail'))}
+function ownLeaves(){return state.leaves.filter(isVisibleRecord).filter(r=>ownRecord(r,'employeeUid','employeeEmail'))}
+function sectionAvailable(id){const nav=document.querySelector(`.nav[data-section="${id}"]`);return !!nav&&!nav.classList.contains('hidden')}
+window.dashboardGo=id=>{if(sectionAvailable(id)||id==='dashboard')setSection(id);else toast('That module is not available to your current role.')};
+function quickButton(label,section,icon=''){return sectionAvailable(section)?`<button class="quick-action" type="button" onclick="dashboardGo('${section}')">${icon?icon+' ':''}${safe(label)}</button>`:''}
+function statusClass(n){return n>0?'caution':'good'}
+function cleanExport(value){
+  if(value===null||value===undefined)return value;
+  if(value?.toDate)return value.toDate().toISOString();
+  if(Array.isArray(value))return value.map(cleanExport);
+  if(typeof value==='object'){const out={};Object.entries(value).forEach(([k,v])=>out[k]=cleanExport(v));return out}
+  return value;
+}
+async function exportSamsBackup(){
+  if(!hasRole('Administrator'))return toast('Administrator access is required for backup export.');
+  const payload={
+    metadata:{system:'SAMS',version:SAMS_VERSION,exportedAt:new Date().toISOString(),exportedBy:state.user?.email||'',school:state.settings.schoolName||''},
+    settings:cleanExport(state.settings),users:cleanExport(state.users),employeeMasterlist:cleanExport(state.masterlist),supplyRequests:cleanExport(state.supplies),borrowTransactions:cleanExport(state.borrows),dtrRecords:cleanExport(state.dtr),leaveApplications:cleanExport(state.leaves),hr201Files:cleanExport(state.files201),trainingRecords:cleanExport(state.trainings),performanceRecords:cleanExport(state.performances),leaveCreditProfiles:cleanExport(state.leaveCredits),savedDtrReports:cleanExport(state.savedDtrReports),auditLogs:cleanExport(state.audit)
+  };
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`SAMS-Backup-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  const stamp=new Date().toISOString();localStorage.setItem('samsLastBackupAt',stamp);
+  try{await audit('System','Exported SAMS JSON backup',today())}catch{}
+  renderAdminDashboard();toast('SAMS backup JSON exported.');
+}
+window.exportSamsBackup=exportSamsBackup;
+
+function renderAdminQuickActions(){
+  const el=$('adminQuickActions');if(!el)return;
+  el.innerHTML=[quickButton('Supplies / RIS','supplies','📦'),quickButton('Equipment','equipment','💻'),quickButton('DTR','dtr','🕐'),quickButton('Leave','leave','🗓️'),quickButton('Consolidated HR','consolidatedHr','📑'),quickButton('201 Files','files201','🗂️'),quickButton('Training','training','🎓'),quickButton('Performance','performance','⭐'),quickButton('Employee Masterlist','masterlist','📋'),quickButton('Reports','reports','📊'),quickButton('Archives','archives','🗄️'),quickButton('Users & Roles','users','👥'),quickButton('Settings','settings','⚙️')].join('');
+}
+
+function adminAttentionRows(){
+  const rows=[];
+  state.supplies.filter(isVisibleRecord).forEach(r=>{const age=daysOld(r);if(r.status==='Pending'&&(age===null||age>=2))rows.push({module:'supplies',icon:'📦',title:`Supply pending: ${r.requestNo||'No ref'}`,detail:`${r.requestor||'Unknown'} — ${r.item||''}${age!==null?` · ${age} day(s) open`:''}`,priority:age||1});if(r.status==='Approved')rows.push({module:'supplies',icon:'📦',title:`Ready to issue: ${r.requestNo||'No ref'}`,detail:`${r.requestor||'Unknown'} — ${r.item||''}`,priority:20})});
+  state.borrows.filter(isVisibleRecord).forEach(r=>{const due=dayDiff(r.due);if(r.status==='Borrowed'&&due!==null&&due<0)rows.push({module:'equipment',icon:'⚠️',title:`Overdue equipment: ${r.transactionNo||'No ref'}`,detail:`${r.borrowerName||'Unknown'} — ${r.requestedItem||''} · ${Math.abs(due)} day(s) overdue`,priority:100+Math.abs(due)});else if(r.status==='Borrowed'&&due!==null&&due<=2)rows.push({module:'equipment',icon:'💻',title:`Equipment due soon: ${r.transactionNo||'No ref'}`,detail:`${r.borrowerName||'Unknown'} — due ${r.due}`,priority:40-due})});
+  const month=today().slice(0,7);state.dtr.filter(isVisibleRecord).filter(r=>r.month===month&&r.status==='Pending').forEach(r=>rows.push({module:'dtr',icon:'🕐',title:`DTR pending: ${r.employeeName||'Employee'}`,detail:`${month}${r.remarks?` · ${r.remarks}`:''}`,priority:30}));
+  state.leaves.filter(isVisibleRecord).filter(r=>['Pending','For Verification','For Recommendation','For Approval'].includes(r.status)).forEach(r=>{const age=daysOld(r);rows.push({module:'leave',icon:'🗓️',title:`Leave ${r.status}: ${r.employeeName||'Employee'}`,detail:`${r.type||'Leave'} · ${r.from||''} to ${r.to||''}${age!==null?` · ${age} day(s) open`:''}`,priority:15+(age||0)})});
+  return rows.sort((a,b)=>b.priority-a.priority).slice(0,10);
+}
+
+function renderAdminAttention(){
+  const rows=adminAttentionRows();$('adminAttentionCount').textContent=rows.length;
+  $('adminAttention').innerHTML=rows.length?rows.map(r=>`<div class="attention-row"><div class="attention-icon">${r.icon}</div><div><b>${safe(r.title)}</b><small>${safe(r.detail)}</small></div><button type="button" onclick="dashboardGo('${r.module}')">Open</button></div>`).join(''):'<div class="empty-state">No urgent items found in the current records.</div>';
+}
+
+function monthlyCount(arr){const month=today().slice(0,7);return arr.filter(isVisibleRecord).filter(r=>{const d=recordDate(r);if(d)return localISODate(d).slice(0,7)===month;const raw=r.requestDate||r.date||r.from||r.month||'';return String(raw).slice(0,7)===month}).length}
+function renderAdminMonthBars(){
+  const data=[['Supplies',monthlyCount(state.supplies)],['Equipment',monthlyCount(state.borrows)],['DTR',state.dtr.filter(isVisibleRecord).filter(r=>r.month===today().slice(0,7)).length],['Leave',monthlyCount(state.leaves)]];
+  const max=Math.max(1,...data.map(x=>x[1]));$('monthLabel').textContent=new Date().toLocaleDateString(undefined,{month:'long',year:'numeric'});
+  $('adminMonthBars').innerHTML=data.map(([label,n])=>`<div><div class="month-bar-head"><b>${safe(label)}</b><span>${n}</span></div><div class="bar-track"><div class="bar-fill ${n===0?'zero':''}" style="width:${Math.round((n/max)*100)}%"></div></div></div>`).join('');
+}
+
+function healthMetrics(){
+  const activeMaster=state.masterlist.filter(x=>x.active!==false&&x.archived!==true);
+  const activeUsers=state.users.filter(x=>x.active!==false);
+  const duplicateEmails=Object.values(activeMaster.reduce((m,e)=>{const k=String(e.email||'').trim().toLowerCase();if(k)m[k]=(m[k]||0)+1;return m},{})).filter(n=>n>1).length;
+  const unlinked=activeMaster.filter(e=>e.email&&!matchingUserUid(e.email)&&!e.linkedUserUid).length;
+  const archived=archiveRows().length;
+  const settingsMissing=['schoolName','division','schoolHead'].filter(k=>!state.settings?.[k]).length;
+  const disabled=state.users.filter(x=>x.active===false).length;
+  return {activeMaster:activeMaster.length,activeUsers:activeUsers.length,duplicateEmails,unlinked,archived,settingsMissing,disabled};
+}
+function renderAdminHealth(){
+  const h=healthMetrics();const lastBackup=localStorage.getItem('samsLastBackupAt');
+  const items=[
+    ['School settings',h.settingsMissing?`${h.settingsMissing} key field(s) missing`:'Configured',h.settingsMissing?'caution':'good'],
+    ['Duplicate employee emails',String(h.duplicateEmails),h.duplicateEmails?'issue':'good'],
+    ['Masterlist without linked login',String(h.unlinked),h.unlinked?'caution':'good'],
+    ['Disabled user accounts',String(h.disabled),h.disabled?'caution':'good'],
+    ['Archived records',String(h.archived),'good'],
+    ['Last local backup',lastBackup?friendlyDate(lastBackup):'Not recorded',lastBackup?'good':'caution']
+  ];
+  $('adminHealthGrid').innerHTML=items.map(([label,value,cls])=>`<div class="health-item"><small>${safe(label)}</small><b class="${cls}">${safe(value)}</b></div>`).join('');
+  const issues=h.duplicateEmails+h.settingsMissing;const caution=h.unlinked+h.disabled+(lastBackup?0:1);const badge=$('healthOverallBadge');badge.textContent=issues?'Needs Review':caution?'Review Suggested':'Healthy';badge.className=`badge ${issues?'bad':caution?'warn':'ok'}`;
+  $('backupStatus').textContent=lastBackup?`Last backup exported ${new Date(lastBackup).toLocaleString()}. Backup files are downloaded to this device.`:'No local backup export has been recorded on this browser yet.';
+}
+
+function profileCompletion(){const p=state.profile||{};const vals=[p.displayName,p.office,p.position,p.preferredName,p.contactNumber];return Math.round(vals.filter(v=>String(v||'').trim()).length/vals.length*100)}
+function renderUserQuickActions(){
+  const el=$('userQuickActions');if(!el)return;const buttons=[];
+  if(sectionAvailable('supplies'))buttons.push(quickButton('Supply Request','supplies','📦'));
+  if(sectionAvailable('equipment'))buttons.push(quickButton('Borrow Equipment','equipment','💻'));
+  if(sectionAvailable('dtr'))buttons.push(quickButton('View DTR','dtr','🕐'));
+  if(sectionAvailable('leave'))buttons.push('<button class="quick-action" type="button" onclick="startLeaveApplication()">🗓️ Apply for Leave</button>');
+  buttons.push(quickButton('Notifications','notifications','🔔'));
+  if(sectionAvailable('reports'))buttons.push(quickButton('Reports','reports','📊'));
+  buttons.push('<button class="quick-action" type="button" onclick="openProfileEditor()">✏️ Edit Profile</button>');
+  el.innerHTML=buttons.join('');
+  const pct=profileCompletion();$('profileCompletionText').textContent=`${pct}%`;$('profileCompletionBar').style.width=`${pct}%`;
+}
+
+function userAttentionRows(){
+  const rows=[];ownSupplies().filter(r=>['Pending','Approved'].includes(r.status)).forEach(r=>rows.push({module:'supplies',icon:'📦',title:`Supply ${r.status}`,detail:`${r.requestNo||''} — ${r.item||''}`,priority:r.status==='Approved'?20:10}));
+  ownBorrows().forEach(r=>{const due=dayDiff(r.due);if(r.status==='Borrowed'&&due!==null&&due<0)rows.push({module:'equipment',icon:'⚠️',title:'Equipment overdue',detail:`${r.requestedItem||''} · ${Math.abs(due)} day(s) overdue`,priority:100});else if(r.status==='Borrowed'&&due!==null&&due<=3)rows.push({module:'equipment',icon:'💻',title:'Equipment return due soon',detail:`${r.requestedItem||''} · due ${r.due}`,priority:50});else if(r.status==='Requested')rows.push({module:'equipment',icon:'💻',title:'Equipment request pending',detail:`${r.transactionNo||''} — ${r.requestedItem||''}`,priority:10})});
+  ownLeaves().filter(r=>['Pending','For Verification','For Recommendation','For Approval'].includes(r.status)).forEach(r=>rows.push({module:'leave',icon:'🗓️',title:`Leave ${r.status}`,detail:`${r.type||''} · ${r.from||''} to ${r.to||''}`,priority:10}));
+  const currentDtr=ownDtr().find(r=>r.month===today().slice(0,7));if(!currentDtr||currentDtr.status==='Pending')rows.push({module:'dtr',icon:'🕐',title:currentDtr?'DTR still pending':'No DTR status yet this month',detail:today().slice(0,7),priority:15});
+  return rows.sort((a,b)=>b.priority-a.priority).slice(0,8);
+}
+function renderUserAttention(){const rows=userAttentionRows();$('userAttentionCount').textContent=rows.length;$('userAttention').innerHTML=rows.length?rows.map(r=>`<div class="attention-row"><div class="attention-icon">${r.icon}</div><div><b>${safe(r.title)}</b><small>${safe(r.detail)}</small></div><button type="button" onclick="dashboardGo('${r.module}')">Open</button></div>`).join(''):'<div class="empty-state">Nothing needs your attention right now.</div>'}
+
+function userTimelineRows(){
+  const rows=[];
+  ownSupplies().forEach(r=>rows.push({module:'Supplies',title:`${r.item||'Supply request'} — ${r.status||''}`,ref:r.requestNo||'',when:recordDate(r)}));
+  ownBorrows().forEach(r=>rows.push({module:'Equipment',title:`${r.requestedItem||'Equipment'} — ${r.status||''}`,ref:r.transactionNo||'',when:recordDate(r)}));
+  ownDtr().forEach(r=>rows.push({module:'DTR',title:`${r.month||''} — ${r.status||''}`,ref:r.month||'',when:recordDate(r)}));
+  ownLeaves().forEach(r=>rows.push({module:'Leave',title:`${r.type||'Leave'} — ${r.status||''}`,ref:r.leaveNo||'',when:recordDate(r)}));
+  return rows.sort((a,b)=>(b.when?.getTime?.()||0)-(a.when?.getTime?.()||0)).slice(0,8);
+}
+function renderUserTimeline(){const rows=userTimelineRows();$('userTimeline').innerHTML=rows.length?rows.map(r=>`<div class="timeline-item"><span class="timeline-dot"></span><div><b>${safe(r.module)} · ${safe(r.title)}</b><small>${safe(r.ref||'')}</small></div><time>${r.when?friendlyDate(r.when):'—'}</time></div>`).join(''):'<div class="empty-state">No personal transactions yet.</div>'}
+function renderUserNotificationPreview(){const rows=[...state.notifications].sort(byCreated).slice(0,5);$('userNotificationPreview').innerHTML=rows.length?rows.map(n=>`<div class="timeline-item"><span class="timeline-dot"></span><div><b>${safe(n.title||'Update')}</b><small>${safe(n.message||'')}</small></div><time>${fmtTs(n.createdAt)}</time></div>`).join(''):'<div class="empty-state">No notifications yet.</div>'}
+
+function renderAdminDashboard(){
+  const s=state.supplies.filter(isVisibleRecord),b=state.borrows.filter(isVisibleRecord),d=state.dtr.filter(isVisibleRecord),l=state.leaves.filter(isVisibleRecord),month=today().slice(0,7);
+  $('adminPendingSupply').textContent=s.filter(x=>x.status==='Pending').length;$('adminApprovedSupply').textContent=s.filter(x=>x.status==='Approved').length;$('adminBorrowedEquipment').textContent=b.filter(x=>x.status==='Borrowed').length;$('adminOverdueEquipment').textContent=b.filter(x=>x.status==='Borrowed'&&x.due&&x.due<today()).length;$('adminPendingDtr').textContent=d.filter(x=>x.month===month&&x.status==='Pending').length;$('adminPendingLeave').textContent=l.filter(x=>['Pending','For Verification','For Recommendation','For Approval'].includes(x.status)).length;$('adminEmployeeCount').textContent=state.masterlist.filter(x=>x.active!==false&&x.archived!==true).length;$('adminUserCount').textContent=state.users.filter(x=>x.active!==false).length;
+  renderAdminQuickActions();renderAdminAttention();renderAdminMonthBars();renderAdminHealth();renderRecent();
+}
+function renderUserDashboard(){
+  const s=ownSupplies(),b=ownBorrows(),l=ownLeaves(),month=today().slice(0,7),d=ownDtr().find(x=>x.month===month);
+  $('userSupplyKpi').classList.toggle('hidden',!sectionAvailable('supplies'));$('userEquipmentKpi').classList.toggle('hidden',!sectionAvailable('equipment'));$('userDtrKpi').classList.toggle('hidden',!sectionAvailable('dtr'));$('userLeaveKpi').classList.toggle('hidden',!sectionAvailable('leave'));
+  $('userPendingSupply').textContent=s.filter(x=>['Pending','Approved'].includes(x.status)).length;$('userActiveEquipment').textContent=b.filter(x=>['Requested','Borrowed'].includes(x.status)).length;$('userDtrStatus').textContent=d?.status||'Not recorded';$('userDtrNote').textContent=d?month:'No record for current month';$('userPendingLeave').textContent=l.filter(x=>['Pending','For Verification','For Recommendation','For Approval'].includes(x.status)).length;
+  renderUserQuickActions();renderUserAttention();renderUserTimeline();renderUserNotificationPreview();
+}
+
+
+function setSection(id){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));$(id)?.classList.add('active');const b=document.querySelector(`.nav[data-section="${id}"]`);if(b&&!b.classList.contains('hidden')){b.classList.add('active');$('pageTitle').textContent=b.querySelector('span')?.textContent||'SAMS'}if(id==='dashboard')renderDashboard();if(id==='consolidatedHr'){renderMonthlyHrSummary();fillHrSuiteEmployeeSelects();refreshLedgerProfileFields()}if(id==='files201')render201Files();if(id==='training')renderTraining();if(id==='performance')renderPerformance()}
 document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>!b.classList.contains('hidden')&&setSection(b.dataset.section));
 
 function applyRoleUI(){
@@ -515,6 +1003,10 @@ function applyRoleUI(){
   $('borrowBtn').textContent='Submit Borrowing Request';
 
   $('dtrAdminCard').classList.toggle('hidden',!hasRole('HR/Admin','Administrator'));
+  $('trainingAdminCard')?.classList.toggle('hidden',!hasRole('HR/Admin','Administrator'));
+  $('performanceAdminCard')?.classList.toggle('hidden',!hasRole('HR/Admin','Administrator'));
+  $('adminDashboard').classList.toggle('hidden',!hasRole('Administrator'));
+  $('userDashboard').classList.toggle('hidden',hasRole('Administrator'));
 }
 
 async function ensureProfile(user){
@@ -575,7 +1067,7 @@ function reportMetrics(){
     {module:'Supplies',total:s.length,open:s.filter(x=>['Pending','Approved'].includes(x.status)).length,closed:s.filter(x=>x.status==='Issued').length,attention:s.filter(x=>x.status==='Rejected').length},
     {module:'Equipment',total:b.length,open:b.filter(x=>['Requested','Borrowed'].includes(x.status)).length,closed:b.filter(x=>x.status==='Returned').length,attention:b.filter(x=>x.status==='Borrowed'&&x.due&&x.due<today()).length},
     {module:'DTR',total:d.length,open:d.filter(x=>['Pending','Submitted'].includes(x.status)).length,closed:d.filter(x=>['Verified','Forwarded to SDO'].includes(x.status)).length,attention:d.filter(x=>x.status==='Pending').length},
-    {module:'Leave',total:l.length,open:l.filter(x=>['Pending','For Verification','For Approval'].includes(x.status)).length,closed:l.filter(x=>x.status==='Approved').length,attention:l.filter(x=>x.status==='Disapproved').length}
+    {module:'Leave',total:l.length,open:l.filter(x=>['Pending','For Verification','For Recommendation','For Approval'].includes(x.status)).length,closed:l.filter(x=>x.status==='Approved').length,attention:l.filter(x=>x.status==='Disapproved').length}
   ];
 }
 function renderReports(){
@@ -592,7 +1084,7 @@ function exportSummaryCSV(){
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`SAMS-Summary-${today()}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 
-function updateConnectivityStatus(){const online=navigator.onLine;$('syncStatus').textContent=online?'● Online':'● Offline';$('syncStatus').style.color=online?'#027a48':'#b54708'}
+function updateConnectivityStatus(){const online=navigator.onLine;$('syncStatus').textContent=online?'● Online':'● Offline';$('syncStatus').style.color=online?'#027a48':'#b54708';if($('dashboardRefresh')&&!state.lastRefreshAt)$('dashboardRefresh').textContent=online?'Waiting for data…':'Offline — cached data may be shown'}
 window.addEventListener('online',updateConnectivityStatus);window.addEventListener('offline',updateConnectivityStatus);
 
 async function refreshOwnProfile(){
@@ -624,6 +1116,10 @@ function updateProfileUI(profile=state.profile){
   $('dashPosition').textContent=profile.position||'—';
   $('dashContact').textContent=profile.contactNumber||'—';
   $('dashPreferred').textContent=profile.preferredName||'—';
+  $('dashboardWelcome').textContent=`Welcome, ${profile.preferredName||profile.displayName||'User'}`;
+  $('dashboardEyebrow').textContent=`${profile.role||'Employee'} workspace · SAMS`;
+  $('dashboardSubtitle').textContent=profile.role==='Administrator'?'School-wide operational overview, exceptions, data health, and administrative shortcuts.':'Your requests, records, notifications, and items that need attention.';
+  $('dashboardDate').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'});
 
   $('srRequestor').value=profile.displayName||state.user?.email||'';
   $('srOffice').value=profile.office||'';
@@ -634,8 +1130,12 @@ function openProfileEditor(){
   if(!state.profile||!state.user) return;
   $('profileDisplayName').value=state.profile.displayName||'';
   $('profilePreferredName').value=state.profile.preferredName||'';
+  $('profileFirstName').value=state.profile.firstName||'';
+  $('profileMiddleName').value=state.profile.middleName||'';
+  $('profileLastName').value=state.profile.lastName||'';
   $('profileOffice').value=state.profile.office||'';
   $('profilePosition').value=state.profile.position||'';
+  $('profileSalary').value=state.profile.salary||'';
   $('profileContact').value=state.profile.contactNumber||'';
   $('profileEmail').value=state.profile.email||state.user.email||'';
   $('profileRole').value=state.profile.role||'Employee';
@@ -648,12 +1148,13 @@ function openProfileEditor(){
 function closeProfileEditor(){
   $('profileModal').classList.add('hidden');
 }
+window.openProfileEditor=openProfileEditor;
 
 async function loadSettings(){
   try{const s=await getDoc(doc(db,'settings','school'));state.settings=s.exists()?s.data():{}}catch{state.settings={}}
   $('schoolHeader').textContent=state.settings.schoolName||'School Administrative Monitoring System';
   if(hasRole('Administrator')){
-    $('setSchool').value=state.settings.schoolName||'';$('setSchoolId').value=state.settings.schoolId||'';$('setRegion').value=state.settings.region||'REGION I';$('setDivision').value=state.settings.division||'DIVISION OF LA UNION';$('setAddress').value=state.settings.schoolAddress||'';$('setLogoUrl').value=state.settings.schoolLogoUrl||'';$('setHead').value=state.settings.schoolHead||'';$('setHeadPosition').value=state.settings.schoolHeadPosition||'';$('setSupply').value=state.settings.supplyOfficer||'';$('setProperty').value=state.settings.propertyCustodian||'';$('setPropertyPosition').value=state.settings.propertyCustodianPosition||'';$('setRisEntity').value=state.settings.risEntityName||state.settings.schoolName||'';$('setRisFundCluster').value=state.settings.risFundCluster||'01';$('setRisResponsibility').value=state.settings.risResponsibilityCenterCode||'';$('setSupplyPosition').value=state.settings.supplyOfficerPosition||'';
+    $('setSchool').value=state.settings.schoolName||'';$('setSchoolId').value=state.settings.schoolId||'';$('setRegion').value=state.settings.region||'REGION I';$('setDivision').value=state.settings.division||'DIVISION OF LA UNION';$('setAddress').value=state.settings.schoolAddress||'';$('setLogoUrl').value=state.settings.schoolLogoUrl||'';$('setHead').value=state.settings.schoolHead||'';$('setHeadPosition').value=state.settings.schoolHeadPosition||'';$('setSupply').value=state.settings.supplyOfficer||'';$('setProperty').value=state.settings.propertyCustodian||'';$('setPropertyPosition').value=state.settings.propertyCustodianPosition||'';$('setTeachingMorningIn').value=state.settings.teachingMorningIn||'07:30';$('setTeachingAfternoonIn').value=state.settings.teachingAfternoonIn||'13:00';$('setTeachingDutyEnd').value=state.settings.teachingDutyEnd||'16:30';$('setTeachingPayrollTreatment').value=state.settings.teachingPayrollTreatment||'FOR HR VALIDATION';$('setMonthlyVLAccrual').value=state.settings.monthlyVLAccrual??1.25;$('setMonthlySLAccrual').value=state.settings.monthlySLAccrual??1.25;$('setRisEntity').value=state.settings.risEntityName||state.settings.schoolName||'';$('setRisFundCluster').value=state.settings.risFundCluster||'01';$('setRisResponsibility').value=state.settings.risResponsibilityCenterCode||'';$('setSupplyPosition').value=state.settings.supplyOfficerPosition||'';$('setLeaveCertOfficer').value=state.settings.leaveCertOfficer||'';$('setLeaveCertPosition').value=state.settings.leaveCertPosition||'';$('setLeaveRecommendOfficer').value=state.settings.leaveRecommendOfficer||state.settings.schoolHead||'';$('setLeaveRecommendPosition').value=state.settings.leaveRecommendPosition||state.settings.schoolHeadPosition||'';$('setLeaveApproveOfficer').value=state.settings.leaveApproveOfficer||'';$('setLeaveApprovePosition').value=state.settings.leaveApprovePosition||'';
   }
 }
 
@@ -697,7 +1198,7 @@ async function startSession(user){
   clearSubs();state.user=user;state.profile=await ensureProfile(user);
   if(state.profile.active===false){loginMsg('Your SAMS access is disabled. Contact the Administrator.');await signOut(auth);return}
   updateProfileUI(state.profile);
-  applyRoleUI();await loadSettings();await loadUsers();listenData();listenToOwnProfile();setSection('dashboard');
+  applyRoleUI();await loadSettings();await loadUsers();listenData();listenToOwnProfile();renderDashboard();setSection('dashboard');
   $('loginScreen').classList.add('hidden');$('app').classList.remove('hidden');updateConnectivityStatus();renderPhase3Panels();showLoading(false);
 }
 
@@ -716,16 +1217,30 @@ function listenData(clearExisting=true){
     state.unsubs.push(onSnapshot(dq,s=>{state.dtr=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderDtr();renderDashboard()},syncError));
     state.unsubs.push(onSnapshot(lq,s=>{state.leaves=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderLeave();renderDashboard()},syncError));
   }
+
+  if(hasRole('Employee','HR/Admin','School Head','Administrator')){
+    const tq=hasRole('HR/Admin','School Head','Administrator')?collection(db,'trainingRecords'):query(collection(db,'trainingRecords'),where('employeeUid','==',uid));
+    const pq=hasRole('HR/Admin','School Head','Administrator')?collection(db,'performanceRecords'):query(collection(db,'performanceRecords'),where('employeeUid','==',uid));
+    state.unsubs.push(onSnapshot(tq,s=>{state.trainings=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderTraining();renderDashboard()},syncError));
+    state.unsubs.push(onSnapshot(pq,s=>{state.performances=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderPerformance();renderDashboard()},syncError));
+  }
+
+  if(hasRole('HR/Admin','School Head','Administrator')){
+    state.unsubs.push(onSnapshot(collection(db,'hr201Files'),s=>{state.files201=s.docs.map(d=>({id:d.id,...d.data()}));render201Files()},syncError));
+    state.unsubs.push(onSnapshot(collection(db,'leaveCreditProfiles'),s=>{state.leaveCredits=s.docs.map(d=>({id:d.id,...d.data()}));refreshLedgerProfileFields()},syncError));
+    state.unsubs.push(onSnapshot(collection(db,'savedDtrReports'),s=>{state.savedDtrReports=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);},syncError));
+  }
+
   if(hasRole('Administrator','HR/Admin','Supply Officer','Property Custodian','School Head')){
     const mq=collection(db,'employeeMasterlist');
     state.unsubs.push(onSnapshot(mq,s=>{
       state.masterlist=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(a.displayName||'').localeCompare(String(b.displayName||'')));
-      renderMasterlist();fillWalkInEmployeeSelect();fillHrEmployeeSelectors();
+      renderMasterlist();fillWalkInEmployeeSelect();fillHrEmployeeSelectors();fillHrSuiteEmployeeSelects();render201Files();refreshLedgerProfileFields();
     },syncError));
-  }else{state.masterlist=[];renderMasterlist();fillWalkInEmployeeSelect()}
+  }else{state.masterlist=[];renderMasterlist();fillWalkInEmployeeSelect();fillHrEmployeeSelectors();renderDashboard()}
 
   const nq=query(collection(db,'notifications'),where('targetUid','==',uid));
-  state.unsubs.push(onSnapshot(nq,s=>{state.notifications=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderNotifications()},e=>{console.warn('Notification listener:',e);state.notifications=[];renderNotifications()}));
+  state.unsubs.push(onSnapshot(nq,s=>{state.notifications=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderNotifications();touchRefresh();renderDashboard()},e=>{console.warn('Notification listener:',e);state.notifications=[];renderNotifications();renderDashboard()}));
 
   if(hasRole('School Head','Administrator')){
     const aq=query(collection(db,'auditLogs'),orderBy('createdAt','desc'),limit(100));
@@ -751,7 +1266,7 @@ function upper(value,fallback=''){
   return safe(String(value||fallback).toUpperCase());
 }
 
-function syncError(e){console.error(e);$('syncStatus').textContent='● Sync / access issue';$('syncStatus').style.color='#b42318'}
+function syncError(e){console.error(e);state.syncErrors=(state.syncErrors||0)+1;$('syncStatus').textContent='● Sync / access issue';$('syncStatus').style.color='#b42318';if($('dashboardRefresh'))$('dashboardRefresh').textContent='A data listener reported an access/sync issue'}
 
 $('loginForm').onsubmit=async e=>{e.preventDefault();loginMsg('');if(placeholder())return loginMsg('Configure Firebase first in index.html.');try{await signInWithEmailAndPassword(auth,$('loginEmail').value.trim(),$('loginPassword').value)}catch(e){console.error(e);loginMsg('Unable to sign in. Check the account, password, and Firebase Authentication settings.')}};
 $('forgotBtn').onclick=async()=>{const email=$('loginEmail').value.trim();if(!email)return loginMsg('Enter your email first.');try{await sendPasswordResetEmail(auth,email);loginMsg('Password reset email sent if the account exists.')}catch{loginMsg('Unable to send password reset email.')}};
@@ -772,6 +1287,7 @@ function employeeDirectoryRows(){
       masterEmployeeId:e.id,
       linkedUserUid:e.linkedUserUid||matchingUserUid(e.email)||'',
       displayName:e.displayName||e.email||'Employee',
+      firstName:e.firstName||'',middleName:e.middleName||'',lastName:e.lastName||'',salary:e.salary||'',
       office:e.office||'',
       position:e.position||'',
       email:e.email||''
@@ -786,6 +1302,7 @@ function employeeDirectoryRows(){
       masterEmployeeId:'',
       linkedUserUid:u.id||u.uid||'',
       displayName:u.displayName||u.email||'Employee',
+      firstName:u.firstName||'',middleName:u.middleName||'',lastName:u.lastName||'',salary:u.salary||'',
       office:u.office||'',
       position:u.position||'',
       email:u.email||''
@@ -806,6 +1323,7 @@ function currentEmployeeDirectoryRow(){
         masterEmployeeId:'',
         linkedUserUid:uid,
         displayName:state.profile?.displayName||state.user?.email||'Employee',
+        firstName:state.profile?.firstName||'',middleName:state.profile?.middleName||'',lastName:state.profile?.lastName||'',salary:state.profile?.salary||'',
         office:state.profile?.office||'',
         position:state.profile?.position||'',
         email:state.user?.email||''
@@ -846,6 +1364,7 @@ function fillHrEmployeeSelectors(){
       lv.value=self.key;
       if(hint)hint.textContent='Your own name is used for leave monitoring.';
     }
+    if(!leaveEditId)fillLeaveApplicantFields();
   }
 }
 
@@ -899,8 +1418,7 @@ function updateWalkInEmployeeDetails(){
 $('walkEmployee').onchange=updateWalkInEmployeeDetails;
 
 function renderMasterlist(){
-  const body=$('masterBody');
-  if(!body)return;
+  const body=$('masterBody');if(!body)return;
   const q=String($('masterSearch')?.value||'').toLowerCase();
   const rows=activeMasterEmployees().filter(e=>JSON.stringify(e).toLowerCase().includes(q));
   $('masterCount').textContent=activeMasterEmployees().length;
@@ -910,18 +1428,20 @@ function renderMasterlist(){
     <td><b>${safe(e.displayName||'')}</b></td>
     <td>${safe(e.office||'—')}</td>
     <td>${safe(e.position||'')}</td>
+    <td>${safe(e.personnelType||'—')}</td>
+    <td>${safe(e.leaveBasis||'AUTO')}</td>
     <td>${safe(e.email||'—')}</td>
     <td>${badge(e.active===false?'Inactive':'Active')}</td>
     <td><div class="actions">
       ${canManage?`<button class="btn light xs" onclick="editMasterEmployee('${e.id}')">✏️ Edit</button><button class="btn danger xs" onclick="archiveMasterEmployee('${e.id}')">🗑 Archive</button>`:''}
     </div></td>
-  </tr>`).join('')||'<tr><td colspan="7" class="muted">No employee records found.</td></tr>';
+  </tr>`).join('')||'<tr><td colspan="9" class="muted">No employee records found.</td></tr>';
 }
 $('masterSearch').oninput=renderMasterlist;
 
 function resetMasterForm(){
   masterEditId=null;$('masterEditId').value='';$('masterForm').reset();
-  $('masterSaveBtn').textContent='Add Employee';$('masterCancelBtn').classList.add('hidden');
+  $('masterSaveBtn').textContent='Add Employee';$('masterCancelBtn').classList.add('hidden');$('masterPersonnelType').value='Teaching';$('masterEmploymentStatus').value='Permanent';$('masterLeaveBasis').value='AUTO';
 }
 $('masterCancelBtn').onclick=resetMasterForm;
 
@@ -934,6 +1454,17 @@ $('masterForm').onsubmit=async e=>{
     office:$('masterOffice').value.trim(),
     position:$('masterPosition').value.trim(),
     email:$('masterEmail').value.trim().toLowerCase(),
+    personnelType:$('masterPersonnelType').value,
+    employmentStatus:$('masterEmploymentStatus').value,
+    leaveBasis:$('masterLeaveBasis').value,
+    dateHired:$('masterDateHired').value,
+    plantillaItem:$('masterPlantilla').value.trim(),
+    salaryGrade:$('masterSalaryGrade').value.trim(),
+    step:$('masterStep').value.trim(),
+    basicSalary:Number($('masterBasicSalary').value)||0,
+    pera:Number($('masterPera').value)||0,
+    stationCode:$('masterStationCode').value.trim(),
+    mobile:$('masterMobile').value.trim(),
     active:true,
     archived:false,
     updatedAt:serverTimestamp(),
@@ -960,6 +1491,7 @@ window.editMasterEmployee=id=>{
   const e=state.masterlist.find(x=>x.id===id);if(!e)return;
   masterEditId=id;$('masterEditId').value=id;
   $('masterEmployeeNo').value=e.employeeNo||'';$('masterName').value=e.displayName||'';$('masterOffice').value=e.office||'';$('masterPosition').value=e.position||'';$('masterEmail').value=e.email||'';
+  $('masterPersonnelType').value=e.personnelType||'Teaching';$('masterEmploymentStatus').value=e.employmentStatus||'Permanent';$('masterLeaveBasis').value=e.leaveBasis||'AUTO';$('masterDateHired').value=e.dateHired||'';$('masterPlantilla').value=e.plantillaItem||'';$('masterSalaryGrade').value=e.salaryGrade||'';$('masterStep').value=e.step||'';$('masterBasicSalary').value=e.basicSalary||'';$('masterPera').value=e.pera||'';$('masterStationCode').value=e.stationCode||'';$('masterMobile').value=e.mobile||'';
   $('masterSaveBtn').textContent='Save Employee Changes';$('masterCancelBtn').classList.remove('hidden');
   setSection('masterlist');
 };
@@ -984,7 +1516,7 @@ $('syncMasterUsersBtn').onclick=async()=>{
   try{
     for(const u of candidates){
       await addDoc(collection(db,'employeeMasterlist'),{
-        employeeNo:'',displayName:u.displayName||u.email,office:u.office||'',position:u.position||'',email:String(u.email||'').toLowerCase(),active:true,archived:false,linkedUserUid:u.id||u.uid||'',createdAt:serverTimestamp(),createdByUid:state.user.uid,updatedAt:serverTimestamp(),updatedByUid:state.user.uid
+        employeeNo:'',displayName:u.displayName||u.email,office:u.office||'',position:u.position||'',email:String(u.email||'').toLowerCase(),personnelType:'Teaching',employmentStatus:'Permanent',leaveBasis:'AUTO',active:true,archived:false,linkedUserUid:u.id||u.uid||'',createdAt:serverTimestamp(),createdByUid:state.user.uid,updatedAt:serverTimestamp(),updatedByUid:state.user.uid
       });
       added++;
     }
@@ -1804,6 +2336,187 @@ window.showBorrow=id=>{
   `);
 };
 
+
+/* ============================================================
+   SAMS v18 UNIFIED HR SUITE
+   ============================================================ */
+function masterEmployeeById(id){return state.masterlist.find(e=>e.id===id)||null}
+function masterEmployeeForRecord(r){
+  return masterEmployeeById(r.masterEmployeeId)
+    || state.masterlist.find(e=>e.linkedUserUid&&e.linkedUserUid===r.employeeUid)
+    || state.masterlist.find(e=>String(e.email||'').toLowerCase()===String(r.employeeEmail||'').toLowerCase())
+    || null;
+}
+function suggestedLeaveBasis(emp){
+  const explicit=String(emp?.leaveBasis||'AUTO').toUpperCase();
+  if(explicit==='VL_SL'||explicit==='VSC')return explicit;
+  const type=String(emp?.personnelType||'').toLowerCase();
+  const pos=String(emp?.position||'').toUpperCase();
+  if(type==='non-teaching'||/PRINCIPAL|SCHOOL HEAD/.test(pos))return 'VL_SL';
+  return 'VSC';
+}
+const CSC_MINUTE_FRACTIONS=[0,.002,.004,.006,.008,.010,.012,.015,.017,.019,.021,.023,.025,.027,.029,.031,.033,.035,.037,.040,.042,.044,.046,.048,.050,.052,.054,.056,.058,.060,.062,.065,.067,.069,.071,.073,.075,.077,.079,.081,.083,.085,.087,.090,.092,.094,.096,.098,.100,.102,.104,.106,.108,.110,.112,.115,.117,.119,.121,.123,.125];
+function cscFractionFromMinutes(totalMinutes){const mins=Math.max(0,Math.round(Number(totalMinutes)||0));const h=Math.floor(mins/60),r=mins%60;return (h*.125)+(CSC_MINUTE_FRACTIONS[r]||0)}
+function round3(n){return Math.round((Number(n)||0)*1000)/1000}
+function dtrEquivalentsFromFields(){
+  const late=cscFractionFromMinutes(Number($('dtrTardyMinutes').value)||0);
+  const underMinutes=(Number($('dtrUnderDays').value)||0)*480+(Number($('dtrUnderHours').value)||0)*60+(Number($('dtrUnderMinutes').value)||0);
+  const under=cscFractionFromMinutes(underMinutes);
+  return {late:round3(late),under:round3(under),total:round3(late+under)};
+}
+function updateDtrDetailCalculations(){
+  const x=dtrEquivalentsFromFields();
+  $('dtrLateEq').textContent=x.late.toFixed(3);$('dtrUnderEq').textContent=x.under.toFixed(3);$('dtrTotalEq').textContent=x.total.toFixed(3);
+  const rec=state.dtr.find(r=>r.id===$('dtrDetailId').value),emp=rec?masterEmployeeForRecord(rec):null,basis=suggestedLeaveBasis(emp);
+  let treatment='HR validation';
+  if(x.total>0){
+    if(basis==='VL_SL')treatment='Review VL charge';
+    else treatment=state.settings.teachingPayrollTreatment||'FOR HR VALIDATION';
+  }
+  $('dtrSuggestedTreatment').textContent=treatment;
+}
+['dtrTardyMinutes','dtrUnderDays','dtrUnderHours','dtrUnderMinutes'].forEach(id=>$(id).addEventListener('input',updateDtrDetailCalculations));
+
+function openDtrDetails(id){
+  if(!hasRole('HR/Admin','Administrator'))return toast('HR/Admin access is required.');
+  const r=state.dtr.find(x=>x.id===id);if(!r)return;
+  $('dtrDetailId').value=id;$('dtrDetailTitle').textContent=`DTR Attendance — ${r.employeeName||''} — ${r.month||''}`;
+  $('dtrAbsenceDates').value=r.absenceDates||'';$('dtrVacationDays').value=r.vacationLeaveDays||'';$('dtrSickDays').value=r.sickLeaveDays||'';$('dtrCause').value=r.cause||'';
+  $('dtrTardyMinutes').value=r.tardyMinutes||'';$('dtrUnderDays').value=r.underDays||'';$('dtrUnderHours').value=r.underHours||'';$('dtrUnderMinutes').value=r.underMinutes||'';
+  $('dtrPayStatus').value=r.payStatus||'';$('dtrLeaveCharge').value=r.leaveChargeType||'';$('dtrTravelDates').value=r.travelDates||'';$('dtrDivisionAction').value=r.divisionAction||'';$('dtrDeduction').value=r.deduction||'';$('dtrDetailRemarks').value=r.remarks||'';
+  updateDtrDetailCalculations();$('dtrDetailModal').classList.remove('hidden');
+}
+window.openDtrDetails=openDtrDetails;
+function closeDtrDetails(){$('dtrDetailModal').classList.add('hidden')}
+$('dtrDetailX').onclick=closeDtrDetails;$('dtrDetailClose').onclick=closeDtrDetails;$('dtrDetailModal').onclick=e=>{if(e.target===$('dtrDetailModal'))closeDtrDetails()};
+
+$('saveDtrDetailBtn').onclick=async()=>{
+  const id=$('dtrDetailId').value,r=state.dtr.find(x=>x.id===id);if(!r)return;
+  const eq=dtrEquivalentsFromFields(),emp=masterEmployeeForRecord(r),basis=suggestedLeaveBasis(emp);
+  let payStatus=$('dtrPayStatus').value,charge=$('dtrLeaveCharge').value;
+  if(eq.total>0&&!payStatus){
+    if(basis==='VL_SL'){payStatus='WITH PAY';if(!charge)charge='VL'}
+    else payStatus=state.settings.teachingPayrollTreatment||'FOR HR VALIDATION';
+  }
+  const payload={
+    absenceDates:$('dtrAbsenceDates').value.trim(),vacationLeaveDays:Number($('dtrVacationDays').value)||0,sickLeaveDays:Number($('dtrSickDays').value)||0,cause:$('dtrCause').value.trim(),
+    tardyMinutes:Number($('dtrTardyMinutes').value)||0,underDays:Number($('dtrUnderDays').value)||0,underHours:Number($('dtrUnderHours').value)||0,underMinutes:Number($('dtrUnderMinutes').value)||0,
+    tardinessEquivalent:eq.late,undertimeEquivalent:eq.under,totalAttendanceEquivalent:eq.total,payStatus,leaveChargeType:charge,travelDates:$('dtrTravelDates').value.trim(),divisionAction:$('dtrDivisionAction').value.trim(),deduction:$('dtrDeduction').value.trim(),remarks:$('dtrDetailRemarks').value.trim(),updatedAt:serverTimestamp(),updatedByUid:state.user.uid
+  };
+  try{await updateDoc(doc(db,'dtrRecords',id),payload);await audit('DTR','Updated detailed attendance',`${r.employeeName||''} ${r.month||''}`);toast('DTR attendance details saved.');closeDtrDetails()}catch(err){console.error(err);toast('Could not save DTR details.')}
+};
+
+$('loadDtrEmployeesBtn').onclick=async()=>{
+  if(!hasRole('HR/Admin','Administrator'))return;
+  const month=$('dtMonth').value||today().slice(0,7),active=activeMasterEmployees();
+  if(!active.length)return toast('Employee Masterlist is empty.');
+  const existing=new Set(state.dtr.filter(r=>r.month===month).map(r=>r.masterEmployeeId).filter(Boolean));
+  const missing=active.filter(e=>!existing.has(e.id));
+  if(!missing.length)return toast('All active employees are already loaded for this month.');
+  if(!confirm(`Load ${missing.length} active employee(s) for ${month}?`))return;
+  let added=0;
+  for(const e of missing){
+    const linked=e.linkedUserUid||matchingUserUid(e.email)||'',id=`${e.id}_${month}`;
+    await setDoc(doc(db,'dtrRecords',id),{employeeUid:linked,masterEmployeeId:e.id,employeeName:e.displayName||'',employeeOffice:e.office||'',employeePosition:e.position||'',employeeEmail:e.email||'',month,status:'Pending',remarks:'',source:'HR Monthly Load',createdAt:serverTimestamp(),updatedAt:serverTimestamp()},{merge:true});added++;
+  }
+  await audit('DTR','Loaded active employees for month',`${month} (${added})`);toast(`${added} employee(s) loaded for ${month}.`);
+};
+
+function render201Files(){
+  const body=$('files201Body');if(!body)return;
+  const rows=activeMasterEmployees().map(e=>{const f=state.files201.find(x=>x.employeeId===e.id)||{};const complete=!!(f.pds&&f.saln&&f.appointment&&f.tor&&f.eligibility&&f.nbi);const mark=v=>v?'✅':'❌';return `<tr><td><b>${safe(e.displayName)}</b></td><td>${mark(f.pds)}</td><td>${mark(f.saln)}</td><td>${mark(f.appointment)}</td><td>${mark(f.tor)}</td><td>${mark(f.eligibility)}</td><td>${mark(f.nbi)}</td><td>${badge(complete?'Complete':'Incomplete')}</td><td><button class="btn light xs" onclick="open201File('${e.id}')">✏️ Edit</button></td></tr>`});
+  body.innerHTML=rows.join('')||'<tr><td colspan="9" class="muted">No active employees.</td></tr>';
+}
+window.open201File=id=>{
+  if(!hasRole('HR/Admin','Administrator'))return toast('HR/Admin access is required.');
+  const e=masterEmployeeById(id),f=state.files201.find(x=>x.employeeId===id)||{};if(!e)return;
+  $('file201EmployeeId').value=id;$('file201Name').textContent=e.displayName||'';
+  $('fPds').checked=!!f.pds;$('fSaln').checked=!!f.saln;$('fAppointment').checked=!!f.appointment;$('fTor').checked=!!f.tor;$('fEligibility').checked=!!f.eligibility;$('fNbi').checked=!!f.nbi;$('file201Modal').classList.remove('hidden');
+};
+function close201(){$('file201Modal').classList.add('hidden')}
+$('file201X').onclick=close201;$('file201Close').onclick=close201;$('file201Modal').onclick=e=>{if(e.target===$('file201Modal'))close201()};
+$('save201Btn').onclick=async()=>{const id=$('file201EmployeeId').value,e=masterEmployeeById(id);if(!e)return;const data={employeeId:id,employeeName:e.displayName||'',pds:$('fPds').checked,saln:$('fSaln').checked,appointment:$('fAppointment').checked,tor:$('fTor').checked,eligibility:$('fEligibility').checked,nbi:$('fNbi').checked,updatedAt:serverTimestamp(),updatedByUid:state.user.uid};await setDoc(doc(db,'hr201Files',id),data,{merge:true});await audit('201 Files','Updated checklist',e.displayName||id);toast('201 File checklist saved.');close201()};
+
+function fillHrSuiteEmployeeSelects(){
+  const opts=activeMasterEmployees().map(e=>`<option value="${safe(e.id)}">${safe(e.displayName||'')}${e.office?` — ${safe(e.office)}`:''}</option>`).join('');
+  ['trainingEmployee','performanceEmployee','ledgerEmployee'].forEach(id=>{if($(id))$(id).innerHTML=opts});
+}
+function ownHrRecord(r){return r.employeeUid===state.user?.uid||String(r.employeeEmail||'').toLowerCase()===String(state.user?.email||'').toLowerCase()}
+function renderTraining(){
+  const body=$('trainingBody');if(!body)return;
+  const rows=hasRole('HR/Admin','School Head','Administrator')?state.trainings:state.trainings.filter(ownHrRecord);
+  body.innerHTML=rows.map(r=>`<tr><td>${safe(r.employeeName)}</td><td>${safe(r.title)}</td><td>${safe(r.provider||'')}</td><td>${safe(r.from||'')} to ${safe(r.to||'')}</td><td>${safe(r.hours||'')}</td><td>${safe(r.level||'')}</td><td>${safe(r.certificate||'')}</td><td>${hasRole('HR/Admin','Administrator')?`<button class="btn danger xs" onclick="archiveHrRecord('trainingRecords','${r.id}','Training')">🗑 Archive</button>`:''}</td></tr>`).join('')||'<tr><td colspan="8" class="muted">No training records.</td></tr>';
+  const total=rows.length,hours=rows.reduce((s,r)=>s+(Number(r.hours)||0),0),cert=rows.filter(r=>r.certificate==='Available').length;
+  $('trainingSummary').innerHTML=`<div class="hr-kpi"><small>Records</small><b>${total}</b></div><div class="hr-kpi"><small>Total Hours</small><b>${hours}</b></div><div class="hr-kpi"><small>Certificates Available</small><b>${cert}</b></div><div class="hr-kpi"><small>Missing Certificates</small><b>${Math.max(0,total-cert)}</b></div>`;
+}
+$('trainingForm').onsubmit=async e=>{e.preventDefault();if(!hasRole('HR/Admin','Administrator'))return;const emp=masterEmployeeById($('trainingEmployee').value);if(!emp)return toast('Select an employee.');const linked=emp.linkedUserUid||matchingUserUid(emp.email)||'';const data={employeeUid:linked,masterEmployeeId:emp.id,employeeName:emp.displayName||'',employeeEmail:emp.email||'',title:$('trainingTitle').value.trim(),provider:$('trainingProvider').value.trim(),from:$('trainingFrom').value,to:$('trainingTo').value,hours:Number($('trainingHours').value)||0,level:$('trainingLevel').value,certificate:$('trainingCertificate').value,createdAt:serverTimestamp(),updatedAt:serverTimestamp(),createdByUid:state.user.uid};await addDoc(collection(db,'trainingRecords'),data);await audit('Training','Added L&D record',emp.displayName||emp.id);e.target.reset();fillHrSuiteEmployeeSelects();toast('Training record saved.')};
+
+function renderPerformance(){
+  const body=$('performanceBody');if(!body)return;
+  const rows=hasRole('HR/Admin','School Head','Administrator')?state.performances:state.performances.filter(ownHrRecord);
+  body.innerHTML=rows.map(r=>`<tr><td>${safe(r.employeeName)}</td><td>${safe(r.period)}</td><td>${safe(r.type)}</td><td>${safe(r.rating||'')}</td><td>${safe(r.adjectival||'')}</td><td>${badge(r.submission||'')}</td><td>${safe(r.remarks||'')}</td><td>${hasRole('HR/Admin','Administrator')?`<button class="btn danger xs" onclick="archiveHrRecord('performanceRecords','${r.id}','Performance')">🗑 Archive</button>`:''}</td></tr>`).join('')||'<tr><td colspan="8" class="muted">No performance records.</td></tr>';
+  const total=rows.length,submitted=rows.filter(r=>r.submission==='Submitted').length,avg=rows.length?(rows.reduce((s,r)=>s+(Number(r.rating)||0),0)/rows.filter(r=>Number(r.rating)).length||0):0;
+  $('performanceSummary').innerHTML=`<div class="hr-kpi"><small>Records</small><b>${total}</b></div><div class="hr-kpi"><small>Submitted</small><b>${submitted}</b></div><div class="hr-kpi"><small>Pending</small><b>${Math.max(0,total-submitted)}</b></div><div class="hr-kpi"><small>Average Rating</small><b>${avg?avg.toFixed(3):'—'}</b></div>`;
+}
+$('performanceForm').onsubmit=async e=>{e.preventDefault();if(!hasRole('HR/Admin','Administrator'))return;const emp=masterEmployeeById($('performanceEmployee').value);if(!emp)return toast('Select an employee.');const linked=emp.linkedUserUid||matchingUserUid(emp.email)||'';const data={employeeUid:linked,masterEmployeeId:emp.id,employeeName:emp.displayName||'',employeeEmail:emp.email||'',period:$('performancePeriod').value.trim(),type:$('performanceType').value,rating:Number($('performanceRating').value)||0,adjectival:$('performanceAdjectival').value,submission:$('performanceSubmission').value,remarks:$('performanceRemarks').value.trim(),createdAt:serverTimestamp(),updatedAt:serverTimestamp(),createdByUid:state.user.uid};await addDoc(collection(db,'performanceRecords'),data);await audit('Performance','Added performance record',emp.displayName||emp.id);e.target.reset();fillHrSuiteEmployeeSelects();toast('Performance record saved.')};
+
+window.archiveHrRecord=async(collectionName,id,module)=>{if(!hasRole('HR/Admin','Administrator'))return;if(!confirm(`Archive this ${module} record?`))return;await updateDoc(doc(db,collectionName,id),{deleted:true,deletedAt:serverTimestamp(),deletedByUid:state.user.uid,updatedAt:serverTimestamp()});await audit(module,'Archived record',id);toast(`${module} record archived.`)};
+
+function monthRangeInclusive(start,end){if(!start||!end||start>end)return[];const [sy,sm]=start.split('-').map(Number),[ey,em]=end.split('-').map(Number),out=[];let y=sy,m=sm;while(y<ey||(y===ey&&m<=em)){out.push(`${y}-${String(m).padStart(2,'0')}`);m++;if(m===13){m=1;y++}}return out}
+function ledgerProfileFor(id){return state.leaveCredits.find(p=>p.employeeId===id||p.id===id)||null}
+function leaveMonth(l){const d=String(l.from||l.filingDate||'');return /^\d{4}-\d{2}/.test(d)?d.slice(0,7):''}
+function resolveApprovedLeaveCharge(l,basis){
+  const t=String(l.leaveType||l.type||'').toUpperCase(),explicit=String(l.chargeSource||'AUTO').toUpperCase();
+  if(explicit!=='AUTO'&&explicit)return explicit;
+  if(/MATERNITY|PATERNITY|SOLO PARENT|SPECIAL PRIVILEGE|STUDY|ADOPTION|VAWC|REHABILITATION|CALAMITY/.test(t))return 'NONE';
+  if(basis==='VSC')return /VACATION|SICK|FORCED|MANDATORY/.test(t)?'VSC':'NONE';
+  if(/SICK/.test(t))return 'SL';
+  if(/VACATION|FORCED|MANDATORY/.test(t))return 'VL';
+  return 'NONE';
+}
+async function computeLedger(emp,profile,through){
+  const basis=(profile?.leaveBasis&&profile.leaveBasis!=='AUTO')?profile.leaveBasis:suggestedLeaveBasis(emp),start=profile?.startMonth||through,months=monthRangeInclusive(start,through);
+  let vl=Number(profile?.openingVL)||0,sl=Number(profile?.openingSL)||0,vsc=Number(profile?.openingVSC)||0;const rows=[];
+  const vlAcc=Number(state.settings.monthlyVLAccrual??1.25),slAcc=Number(state.settings.monthlySLAccrual??1.25);
+  for(const month of months){
+    const approved=state.leaves.filter(l=>l.masterEmployeeId===emp.id&&String(l.status).toUpperCase()==='APPROVED'&&leaveMonth(l)===month);
+    const dtr=state.dtr.find(r=>r.masterEmployeeId===emp.id&&r.month===month);
+    let vlUsed=0,slUsed=0,vscUsed=0;const particulars=[];
+    approved.forEach(l=>{const days=Number(l.workingDays||l.days)||0,charge=resolveApprovedLeaveCharge(l,basis);if(charge==='VL')vlUsed+=days;else if(charge==='SL')slUsed+=days;else if(charge==='VSC')vscUsed+=days;particulars.push(`${l.leaveType||l.type}: ${days} day(s)`)});
+    const attendanceEq=Number(dtr?.totalAttendanceEquivalent)||0;
+    if(basis==='VL_SL'){
+      const earnedVL=vlAcc,earnedSL=slAcc;vl=round3(vl+earnedVL-vlUsed-attendanceEq);sl=round3(sl+earnedSL-slUsed);
+      rows.push({month,particulars:particulars.join('; ')||'Monthly credit',tardiness:Number(dtr?.tardinessEquivalent)||0,undertime:Number(dtr?.undertimeEquivalent)||0,vlEarned:earnedVL,vlUsed:round3(vlUsed+attendanceEq),vlBalance:vl,slEarned:earnedSL,slUsed:round3(slUsed),slBalance:sl,vscUsed:0,vscBalance:vsc,remarks:dtr?.remarks||''});
+    }else{
+      vsc=round3(vsc-vscUsed);rows.push({month,particulars:particulars.join('; ')||'Teacher VSC basis',tardiness:Number(dtr?.tardinessEquivalent)||0,undertime:Number(dtr?.undertimeEquivalent)||0,vlEarned:0,vlUsed:0,vlBalance:vl,slEarned:0,slUsed:0,slBalance:sl,vscUsed:round3(vscUsed),vscBalance:vsc,remarks:dtr?.remarks||''});
+    }
+  }
+  return {basis,rows,ending:{vl:round3(vl),sl:round3(sl),vsc:round3(vsc)}};
+}
+function refreshLedgerProfileFields(){
+  fillHrSuiteEmployeeSelects();
+  const emp=masterEmployeeById($('ledgerEmployee')?.value);if(!emp)return;
+  const p=ledgerProfileFor(emp.id)||{};$('ledgerBasis').value=p.leaveBasis||emp.leaveBasis||'AUTO';$('ledgerStartMonth').value=p.startMonth||today().slice(0,7);$('ledgerOpeningVL').value=p.openingVL??'';$('ledgerOpeningSL').value=p.openingSL??'';$('ledgerOpeningVSC').value=p.openingVSC??'';if(!$('ledgerThroughMonth').value)$('ledgerThroughMonth').value=today().slice(0,7);
+}
+$('ledgerEmployee').onchange=refreshLedgerProfileFields;
+$('saveLedgerProfileBtn').onclick=async()=>{const emp=masterEmployeeById($('ledgerEmployee').value);if(!emp)return toast('Select an employee.');const data={employeeId:emp.id,employeeName:emp.displayName||'',leaveBasis:$('ledgerBasis').value,startMonth:$('ledgerStartMonth').value,openingVL:Number($('ledgerOpeningVL').value)||0,openingSL:Number($('ledgerOpeningSL').value)||0,openingVSC:Number($('ledgerOpeningVSC').value)||0,updatedAt:serverTimestamp(),updatedByUid:state.user.uid};await setDoc(doc(db,'leaveCreditProfiles',emp.id),data,{merge:true});await audit('Leave Ledger','Saved opening credits',emp.displayName||emp.id);toast('Opening credits saved.')};
+let lastLedger=null;
+$('previewLedgerBtn').onclick=async()=>{const emp=masterEmployeeById($('ledgerEmployee').value);if(!emp)return toast('Select an employee.');const profile={leaveBasis:$('ledgerBasis').value,startMonth:$('ledgerStartMonth').value,openingVL:Number($('ledgerOpeningVL').value)||0,openingSL:Number($('ledgerOpeningSL').value)||0,openingVSC:Number($('ledgerOpeningVSC').value)||0},through=$('ledgerThroughMonth').value;if(!through)return toast('Select Generate Through month.');const result=await computeLedger(emp,profile,through);lastLedger={emp,profile,through,result};$('ledgerSummary').innerHTML=`<div><small>Basis</small><b>${safe(result.basis)}</b></div><div><small>Ending VL</small><b>${result.ending.vl.toFixed(3)}</b></div><div><small>Ending SL</small><b>${result.ending.sl.toFixed(3)}</b></div><div><small>Ending VSC</small><b>${result.ending.vsc.toFixed(3)}</b></div>`;$('ledgerPreview').innerHTML=`<table class="mini-table"><thead><tr><th>Month</th><th>Particulars</th><th>Tardy Eq.</th><th>Undertime Eq.</th><th>VL Earned</th><th>VL Charged</th><th>VL Balance</th><th>SL Earned</th><th>SL Charged</th><th>SL Balance</th><th>VSC Used</th><th>VSC Balance</th><th>Remarks</th></tr></thead><tbody>${result.rows.map(r=>`<tr><td>${safe(r.month)}</td><td>${safe(r.particulars)}</td><td>${Number(r.tardiness||0).toFixed(3)}</td><td>${Number(r.undertime||0).toFixed(3)}</td><td>${Number(r.vlEarned||0).toFixed(3)}</td><td>${Number(r.vlUsed||0).toFixed(3)}</td><td>${Number(r.vlBalance||0).toFixed(3)}</td><td>${Number(r.slEarned||0).toFixed(3)}</td><td>${Number(r.slUsed||0).toFixed(3)}</td><td>${Number(r.slBalance||0).toFixed(3)}</td><td>${Number(r.vscUsed||0).toFixed(3)}</td><td>${Number(r.vscBalance||0).toFixed(3)}</td><td>${safe(r.remarks||'')}</td></tr>`).join('')}</tbody></table>`};
+$('exportLedgerBtn').onclick=()=>{if(!lastLedger)return toast('Preview the ledger first.');const rows=lastLedger.result.rows.map(r=>({Month:r.month,Particulars:r.particulars,'Tardiness Eq':r.tardiness,'Undertime Eq':r.undertime,'VL Earned':r.vlEarned,'VL Charged':r.vlUsed,'VL Balance':r.vlBalance,'SL Earned':r.slEarned,'SL Charged':r.slUsed,'SL Balance':r.slBalance,'VSC Used':r.vscUsed,'VSC Balance':r.vscBalance,Remarks:r.remarks}));downloadCsv(`Leave-Ledger-${lastLedger.emp.displayName||'Employee'}-${lastLedger.through}.csv`,rows)};
+
+function renderMonthlyHrSummary(){
+  const month=$('hrReportMonth')?.value||today().slice(0,7),rows=state.dtr.filter(isVisibleRecord).filter(r=>r.month===month);
+  const pending=rows.filter(r=>r.status==='Pending').length,verified=rows.filter(r=>['Verified','Forwarded to SDO'].includes(r.status)).length,withPay=rows.filter(r=>r.payStatus==='WITH PAY').length,withoutPay=rows.filter(r=>r.payStatus==='WITHOUT PAY').length;
+  $('hrSummaryKpis').innerHTML=`<div class="hr-kpi"><small>DTR Records</small><b>${rows.length}</b></div><div class="hr-kpi"><small>Pending</small><b>${pending}</b></div><div class="hr-kpi"><small>Verified / Forwarded</small><b>${verified}</b></div><div class="hr-kpi"><small>Without Pay</small><b>${withoutPay}</b></div>`;
+  $('hrMonthlyBody').innerHTML=rows.map(r=>`<tr><td>${safe(r.employeeName)}</td><td>${badge(r.status)}</td><td>${Number(r.tardinessEquivalent||0).toFixed(3)}</td><td>${Number(r.undertimeEquivalent||0).toFixed(3)}</td><td>${Number(r.totalAttendanceEquivalent||0).toFixed(3)}</td><td>${safe(r.payStatus||'')}</td><td>${safe(r.leaveChargeType||'')}</td><td>${safe(r.remarks||'')}</td></tr>`).join('')||'<tr><td colspan="8" class="muted">No DTR records for this month.</td></tr>';
+}
+$('hrReportMonth').onchange=renderMonthlyHrSummary;
+$('saveMonthlyHrBtn').onclick=async()=>{const month=$('hrReportMonth').value||today().slice(0,7),rows=state.dtr.filter(isVisibleRecord).filter(r=>r.month===month);await setDoc(doc(db,'savedDtrReports',month),{month,count:rows.length,savedAt:serverTimestamp(),savedByUid:state.user.uid},{merge:true});await audit('Consolidated HR','Saved monthly snapshot',month);toast('Monthly HR snapshot saved.')};
+function csvEscape(v){const s=String(v??'');return /[",\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s}
+function downloadCsv(name,rows){if(!rows.length)return toast('No data to export.');const headers=Object.keys(rows[0]),csv=[headers.join(','),...rows.map(r=>headers.map(h=>csvEscape(r[h])).join(','))].join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+$('exportDtrSummaryBtn').onclick=()=>{const month=$('hrReportMonth').value||today().slice(0,7),rows=state.dtr.filter(isVisibleRecord).filter(r=>r.month===month).map(r=>({Employee:r.employeeName,Month:r.month,Status:r.status,'Tardy Eq':r.tardinessEquivalent||0,'Undertime Eq':r.undertimeEquivalent||0,'Total Eq':r.totalAttendanceEquivalent||0,'Pay Status':r.payStatus||'','Leave Charge':r.leaveChargeType||'',Remarks:r.remarks||''}));downloadCsv(`DTR-Summary-${month}.csv`,rows)};
+$('exportLeaveRegisterBtn').onclick=()=>{const month=$('hrReportMonth').value||today().slice(0,7),rows=state.leaves.filter(isVisibleRecord).filter(r=>String(r.from||r.filingDate||'').slice(0,7)===month).map(r=>({Employee:r.employeeName,'Leave Type':r.leaveType||r.type,From:r.from,To:r.to,'Working Days':r.workingDays||'',Status:r.status,Source:r.source||'',Remarks:r.remarks||''}));downloadCsv(`Leave-Register-${month}.csv`,rows)};
+
 $('dtrForm').onsubmit=async e=>{
   e.preventDefault();
   if(!hasRole('HR/Admin','Administrator'))return;
@@ -1844,54 +2557,215 @@ $('dtrForm').onsubmit=async e=>{
     toast('Could not save DTR record.');
   }
 };
-function renderDtr(){const rows=state.dtr.filter(isVisibleRecord);$('dtrBody').innerHTML=rows.map(r=>{const edit=canEditDtr(r),del=canDeleteDtr(r);return `<tr><td>${safe(r.employeeName)}</td><td>${safe(r.month)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td>${fmtTs(r.updatedAt)}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('dtr','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('dtr','${r.id}')">🗑 Delete</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="6" class="muted">No DTR records found.</td></tr>'}
+function renderDtr(){
+  const rows=state.dtr.filter(isVisibleRecord);
+  $('dtrBody').innerHTML=rows.map(r=>{
+    const edit=canEditDtr(r),del=canDeleteDtr(r),eq=Number(r.totalAttendanceEquivalent||0);
+    return `<tr>
+      <td>${safe(r.employeeName)}</td><td>${safe(r.month)}</td><td>${badge(r.status)}</td>
+      <td>${eq?eq.toFixed(3):'0.000'}</td><td>${safe(r.payStatus||'')}${r.leaveChargeType?`<br><span class="muted">${safe(r.leaveChargeType)}</span>`:''}</td>
+      <td>${safe(r.remarks||'')}</td><td>${fmtTs(r.updatedAt)}</td>
+      <td><div class="actions">
+        ${hasRole('HR/Admin','Administrator')?`<button class="btn light xs" onclick="openDtrDetails('${r.id}')">🕐 Attendance</button>`:''}
+        ${edit?`<button class="btn light xs" onclick="openRecordEditor('dtr','${r.id}')">✏️ Edit</button>`:''}
+        ${del?`<button class="btn danger xs" onclick="softDeleteRecord('dtr','${r.id}')">🗑 Delete</button>`:''}
+      </div></td>
+    </tr>`;
+  }).join('')||'<tr><td colspan="8" class="muted">No DTR records found.</td></tr>';
+  renderMonthlyHrSummary();
+}
+function employeeNameParts(emp){
+  const fallback=splitDisplayName(emp?.displayName||'');
+  return {firstName:emp?.firstName||fallback.firstName,middleName:emp?.middleName||fallback.middleName,lastName:emp?.lastName||fallback.lastName};
+}
+function workingWeekdays(from,to){
+  if(!from||!to)return '';
+  const a=new Date(from+'T12:00:00'),b=new Date(to+'T12:00:00');
+  if(Number.isNaN(a.getTime())||Number.isNaN(b.getTime())||b<a)return '';
+  let n=0,d=new Date(a);while(d<=b){const day=d.getDay();if(day!==0&&day!==6)n++;d.setDate(d.getDate()+1)}return n;
+}
+function formatFormDate(v){
+  if(!v)return '';
+  const d=new Date(String(v).slice(0,10)+'T12:00:00');
+  return Number.isNaN(d.getTime())?String(v):d.toLocaleDateString(undefined,{month:'short',day:'2-digit',year:'numeric'});
+}
+function updateLeaveDetailFields(){
+  const type=$('lvType').value;
+  $('lvOtherTypeWrap').classList.toggle('hidden',type!=='Others');
+  const category=$('lvDetailCategory');
+  const label=$('lvDetailCategoryLabel');
+  const textLabel=$('lvDetailTextLabel');
+  let opts=[];
+  if(['Vacation Leave','Special Privilege Leave','Mandatory/Forced Leave','Special Emergency (Calamity) Leave'].includes(type)){
+    label.textContent='6.B Location / Details';textLabel.textContent='Destination / Specific Details';opts=['Within the Philippines','Abroad (Specify)','Other / Not Applicable'];
+  }else if(type==='Sick Leave'){
+    label.textContent='6.B Sick Leave Details';textLabel.textContent='Specify Illness';opts=['In Hospital','Out Patient','Other / Not Applicable'];
+  }else if(type==='Special Leave Benefits for Women'){
+    label.textContent='6.B Special Leave Benefits for Women';textLabel.textContent='Specify Illness';opts=['Specify Illness'];
+  }else if(type==='Study Leave'){
+    label.textContent='6.B Study Leave Details';textLabel.textContent='Additional Details (optional)';opts=["Completion of Master's Degree",'BAR/Board Examination Review','Other'];
+  }else if(type==='Others'){
+    label.textContent='6.B Other Purpose';textLabel.textContent='Specific Details';opts=['Monetization of Leave Credits','Terminal Leave','Other'];
+  }else{
+    label.textContent='6.B Details of Leave';textLabel.textContent='Specific Details (optional)';opts=['Not Applicable','Other'];
+  }
+  const current=category.value;category.innerHTML=opts.map(o=>`<option>${safe(o)}</option>`).join('');if(opts.includes(current))category.value=current;
+}
+function fillLeaveApplicantFields(force=false){
+  const manager=hasRole('HR/Admin','Administrator');
+  const emp=manager?selectedDirectoryEmployee('lvEmployee'):currentEmployeeDirectoryRow();
+  if(!emp)return;
+  const p=employeeNameParts(emp);
+  const set=(id,val)=>{const el=$(id);if(el&&(force||!el.value))el.value=val||''};
+  set('lvOffice',emp.office||state.profile?.office||'');set('lvLastName',p.lastName);set('lvFirstName',p.firstName);set('lvMiddleName',p.middleName);set('lvPosition',emp.position||state.profile?.position||'');set('lvSalary',emp.salary||state.profile?.salary||'');set('lvDateFiling',today());
+}
+function resetLeaveForm(){
+  leaveEditId=null;$('leaveForm').reset();$('lvDateFiling').value=today();$('leaveSubmitBtn').textContent='Submit Online Leave Application';$('leaveCancelEditBtn').classList.add('hidden');$('leaveFormStatus').textContent='';fillHrEmployeeSelectors();updateLeaveDetailFields();fillLeaveApplicantFields(true);$('lvWorkingDays').value='';
+}
+window.startLeaveApplication=()=>{setSection('leave');resetLeaveForm();setTimeout(()=>$('lvType')?.focus(),80)};
+$('leaveCancelEditBtn').onclick=resetLeaveForm;
+$('lvEmployee').onchange=()=>{if(!leaveEditId)fillLeaveApplicantFields(true)};
+$('lvType').onchange=updateLeaveDetailFields;
+const recalcLeaveDays=()=>{const n=workingWeekdays($('lvFrom').value,$('lvTo').value);if(n!==''&&Number.isFinite(Number(n)))$('lvWorkingDays').value=n};
+$('lvFrom').onchange=recalcLeaveDays;$('lvTo').onchange=recalcLeaveDays;
 
 $('leaveForm').onsubmit=async e=>{
   e.preventDefault();
-
   const manager=hasRole('HR/Admin','Administrator');
   const emp=manager?selectedDirectoryEmployee('lvEmployee'):currentEmployeeDirectoryRow();
   if(!emp)return toast('Select an employee.');
-
+  const existing=leaveEditId?state.leaves.find(x=>x.id===leaveEditId):null;
+  if(existing&&!canEditLeave(existing))return toast('You are not allowed to edit this leave application.');
+  const leaveType=$('lvType').value;const otherLeaveType=$('lvOtherType').value.trim();
+  if(leaveType==='Others'&&!otherLeaveType)return toast('Specify the other type of leave.');
+  const filingDate=$('lvDateFiling').value||today(),from=$('lvFrom').value,to=$('lvTo').value;
+  if(!from||!to)return toast('Complete the inclusive leave dates.');
+  if(to<from)return toast('The To date cannot be earlier than the From date.');
+  const workingDays=Number($('lvWorkingDays').value);
+  if(!Number.isFinite(workingDays)||workingDays<0)return toast('Enter the number of working days applied for.');
+  const no=existing?.leaveNo||await nextRefNo('LV');
+  const payload={
+    leaveNo:no,
+    employeeUid:existing?.employeeUid||emp.linkedUserUid||state.user.uid,
+    masterEmployeeId:existing?.masterEmployeeId||emp.masterEmployeeId||'',
+    employeeName:`${$('lvFirstName').value.trim()} ${$('lvMiddleName').value.trim()} ${$('lvLastName').value.trim()}`.replace(/\s+/g,' ').trim()||emp.displayName,
+    employeeOffice:$('lvOffice').value.trim(),employeePosition:$('lvPosition').value.trim(),employeeEmail:existing?.employeeEmail||emp.email||'',
+    lastName:$('lvLastName').value.trim(),firstName:$('lvFirstName').value.trim(),middleName:$('lvMiddleName').value.trim(),filingDate,position:$('lvPosition').value.trim(),salary:$('lvSalary').value.trim(),
+    leaveType,otherLeaveType,type:leaveType==='Others'?otherLeaveType:leaveType,
+    detailCategory:$('lvDetailCategory').value,detailText:$('lvDetailText').value.trim(),
+    from,to,workingDays,inclusiveDates:`${from} to ${to}`,commutation:$('lvCommutation').value,remarks:$('lvRemarks').value.trim(),
+    formVersion:'CS Form No. 6, Revised 2020',source:existing?.source||(manager?'Manual Encoding':'Online CS Form 6'),
+    updatedAt:serverTimestamp()
+  };
   try{
-    const no=await nextRefNo('LV');
-    const payload={
-      leaveNo:no,
-      employeeUid:emp.linkedUserUid||state.user.uid,
-      masterEmployeeId:emp.masterEmployeeId||'',
-      employeeName:emp.displayName,
-      employeeOffice:emp.office||'',
-      employeePosition:emp.position||'',
-      employeeEmail:emp.email||'',
-      type:$('lvType').value,
-      from:$('lvFrom').value,
-      to:$('lvTo').value,
-      remarks:$('lvRemarks').value.trim(),
-      status:'Pending',
-      source:manager?'Manual Encoding':'Online',
-      createdByUid:state.user.uid,
-      createdByName:state.profile.displayName||state.user.email||'',
-      createdAt:serverTimestamp(),
-      updatedAt:serverTimestamp()
-    };
-
-    if(!payload.from||!payload.to)return toast('Complete the leave period.');
-
-    await addDoc(collection(db,'leaveApplications'),payload);
-    await audit('Leave',manager?'Encoded leave monitoring record':'Submitted leave monitoring record',no);
-
-    e.target.reset();
-    fillHrEmployeeSelectors();
-    toast(manager?'Leave monitoring record added.':'Leave record submitted.');
+    if(existing){
+      const updatePayload={...payload};delete updatePayload.leaveNo;delete updatePayload.employeeUid;delete updatePayload.masterEmployeeId;delete updatePayload.employeeEmail;delete updatePayload.source;
+      await updateDoc(doc(db,'leaveApplications',existing.id),updatePayload);await audit('Leave','Edited online CS Form No. 6 application',no);toast('Leave application updated.');
+    }else{
+      payload.status='Pending';payload.createdByUid=state.user.uid;payload.createdByName=state.profile.displayName||state.user.email||'';payload.createdAt=serverTimestamp();
+      await addDoc(collection(db,'leaveApplications'),payload);await audit('Leave',manager?'Encoded CS Form No. 6 leave application':'Submitted online CS Form No. 6 leave application',no);
+      if(manager&&payload.employeeUid&&payload.employeeUid!==state.user.uid)await notifyUser(payload.employeeUid,'Leave','Leave application recorded',`A leave application ${no} was recorded in SAMS.`,no,'');
+      toast(manager?'Leave application recorded.':'Online leave application submitted.');
+    }
+    resetLeaveForm();
   }catch(err){
-    console.error(err);
-    toast(err?.code==='permission-denied'
-      ?'Firestore denied this entry. Publish the updated v14 Firestore rules.'
-      :'Could not submit leave record.');
+    console.error('LEAVE FORM ERROR:',err);$('leaveFormStatus').textContent=err?.code==='permission-denied'?'Firestore denied this leave update. Publish the v17 firestore.rules.':(err?.message||'Could not save leave application.');$('leaveFormStatus').style.color='#b42318';
   }
 };
-window.leaveAction=async(id,status)=>{const r=state.leaves.find(x=>x.id===id);if(!r)return;try{await updateDoc(doc(db,'leaveApplications',id),{status,actionByUid:state.user.uid,actionByName:state.profile.displayName,updatedAt:serverTimestamp()});await audit('Leave',`${status} leave record`,r.leaveNo);await notifyUser(r.employeeUid,'Leave',`Leave ${status}`,`Your leave application ${r.leaveNo||''} is now ${status}.`,r.leaveNo,r.id);toast('Leave status updated.')}catch(e){console.error(e);toast('You are not allowed to update that leave record.')}};
-function renderLeave(){const act=hasRole('HR/Admin','School Head','Administrator');const rows=state.leaves.filter(isVisibleRecord);$('leaveBody').innerHTML=rows.map(r=>{const edit=canEditLeave(r),del=canDeleteLeave(r);return `<tr><td>${safe(r.employeeName)}</td><td>${safe(r.type)}</td><td>${safe(r.from)} to ${safe(r.to)}</td><td>${badge(r.status)}</td><td>${safe(r.remarks||'')}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="openRecordEditor('leave','${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('leave','${r.id}')">🗑 Delete</button>`:''}${act&&r.status!=='Approved'?`<button class="btn success xs" onclick="leaveAction('${r.id}','Approved')">Approve</button>`:''}${act&&r.status!=='Disapproved'?`<button class="btn danger xs" onclick="leaveAction('${r.id}','Disapproved')">Disapprove</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="6" class="muted">No leave records found.</td></tr>'}
+
+window.editLeaveApplication=id=>{
+  const r=state.leaves.find(x=>x.id===id);if(!r||!canEditLeave(r))return toast('You are not allowed to edit this leave application.');
+  leaveEditId=id;setSection('leave');
+  const key=r.masterEmployeeId?`master:${r.masterEmployeeId}`:r.employeeUid?`user:${r.employeeUid}`:'';if([...$('lvEmployee').options].some(o=>o.value===key))$('lvEmployee').value=key;
+  $('lvOffice').value=r.employeeOffice||'';$('lvLastName').value=r.lastName||'';$('lvFirstName').value=r.firstName||'';$('lvMiddleName').value=r.middleName||'';$('lvDateFiling').value=(r.filingDate||r.createdAt?.toDate?.()?.toISOString?.().slice(0,10)||today()).slice(0,10);$('lvPosition').value=r.position||r.employeePosition||'';$('lvSalary').value=r.salary||'';
+  const known=CS6_LEAVE_OPTIONS.some(([v])=>v===(r.leaveType||r.type));$('lvType').value=known?(r.leaveType||r.type):'Others';$('lvOtherType').value=r.otherLeaveType||(!known?r.type||'':'');updateLeaveDetailFields();if([...$('lvDetailCategory').options].some(o=>o.value===r.detailCategory))$('lvDetailCategory').value=r.detailCategory;$('lvDetailText').value=r.detailText||'';$('lvFrom').value=r.from||'';$('lvTo').value=r.to||'';$('lvWorkingDays').value=r.workingDays??workingWeekdays(r.from,r.to);$('lvCommutation').value=r.commutation||'Not Requested';$('lvRemarks').value=r.remarks||'';
+  $('leaveSubmitBtn').textContent='Save Leave Application Changes';$('leaveCancelEditBtn').classList.remove('hidden');$('leaveFormStatus').textContent=`Editing ${r.leaveNo||''}`;$('leaveFormStatus').style.color='#175cd3';window.scrollTo({top:0,behavior:'smooth'});
+};
+
+function markBox(condition){return condition?'☒':'☐'}
+function leaveDetailsPrint(r){
+  const cat=r.detailCategory||'',text=safe(r.detailText||'');
+  const vacation=`<div class="cs6-detail-label">In case of Vacation/Special Privilege Leave:</div><div>${markBox(cat==='Within the Philippines')} Within the Philippines <span class="cs6-line long">${cat==='Within the Philippines'?text:''}</span></div><div>${markBox(cat==='Abroad (Specify)')} Abroad (Specify) <span class="cs6-line long">${cat==='Abroad (Specify)'?text:''}</span></div>`;
+  const sick=`<div class="cs6-detail-label">In case of Sick Leave:</div><div>${markBox(cat==='In Hospital')} In Hospital (Specify Illness) <span class="cs6-line long">${cat==='In Hospital'?text:''}</span></div><div>${markBox(cat==='Out Patient')} Out Patient (Specify Illness) <span class="cs6-line long">${cat==='Out Patient'?text:''}</span></div>`;
+  const women=`<div class="cs6-detail-label">In case of Special Leave Benefits for Women:</div><div>(Specify Illness) <span class="cs6-line long">${r.leaveType==='Special Leave Benefits for Women'?text:''}</span></div>`;
+  const study=`<div class="cs6-detail-label">In case of Study Leave:</div><div>${markBox(cat==="Completion of Master's Degree")} Completion of Master's Degree</div><div>${markBox(cat==='BAR/Board Examination Review')} BAR/Board Examination Review</div>`;
+  const other=`<div class="cs6-detail-label">Other purpose:</div><div>${markBox(cat==='Monetization of Leave Credits')} Monetization of Leave Credits</div><div>${markBox(cat==='Terminal Leave')} Terminal Leave</div>${(r.leaveType==='Others'||cat==='Other'||cat==='Other / Not Applicable')?`<div>Other: <span class="cs6-line long">${text}</span></div>`:''}`;
+  return `${vacation}<br>${sick}<br>${women}<br>${study}<br>${other}`;
+}
+function cs6LeaveOptionHtml(r){
+  const selected=r.leaveType||r.type||'';return CS6_LEAVE_OPTIONS.map(([value,label])=>`<tr><td class="cs6-check">${markBox(selected===value)} ${safe(label)}</td></tr>`).join('')+`<tr><td class="cs6-check">${markBox(selected==='Others')} Others: <span class="cs6-line long">${selected==='Others'?safe(r.otherLeaveType||''):''}</span></td></tr>`;
+}
+function leaveActionDefaults(r){
+  const a=r.actionDetails||{};return {
+    certAsOf:a.certAsOf||'',vacTotal:a.vacTotal||'',sickTotal:a.sickTotal||'',vacLess:a.vacLess||'',sickLess:a.sickLess||'',vacBalance:a.vacBalance||'',sickBalance:a.sickBalance||'',
+    certOfficer:a.certOfficer||state.settings.leaveCertOfficer||'',certPosition:a.certPosition||state.settings.leaveCertPosition||'',
+    recommendation:a.recommendation||'',recommendationReason:a.recommendationReason||'',recommendOfficer:a.recommendOfficer||state.settings.leaveRecommendOfficer||state.settings.schoolHead||'',recommendPosition:a.recommendPosition||state.settings.leaveRecommendPosition||state.settings.schoolHeadPosition||'',
+    daysWithPay:a.daysWithPay||'',daysWithoutPay:a.daysWithoutPay||'',approvedOthers:a.approvedOthers||'',finalDecision:a.finalDecision||'',disapprovalReason:a.disapprovalReason||'',approveOfficer:a.approveOfficer||state.settings.leaveApproveOfficer||'',approvePosition:a.approvePosition||state.settings.leaveApprovePosition||''
+  }
+}
+function cs6FormHtml(r){
+  const a=leaveActionDefaults(r);const fullName=[r.lastName||'',r.firstName||'',r.middleName||''].filter(Boolean).join('     ')||r.employeeName||'';
+  return `<div class="cs6-page" id="cs6PrintPage">
+    <div class="cs6-topline"><div class="cs6-form-no">Civil Service Form No. 6<br><b>Revised 2020</b></div><div class="cs6-receipt">Stamp of Date of Receipt</div></div>
+    <div class="cs6-deped"><div class="rp">Republic of the Philippines</div><div class="dept">Department of Education</div><div class="region">${upper(state.settings.region,'REGION I')}</div></div>
+    <div class="cs6-main-title">APPLICATION FOR LEAVE</div>
+    <table class="cs6-table">
+      <tr><td style="width:42%"><b>1. &nbsp; OFFICE/DEPARTMENT</b><br><div class="center bold" style="padding:2mm 0">${upper(r.employeeOffice,'')}</div></td><td><b>2. &nbsp; NAME :</b> &nbsp; ${upper(fullName,'')}</td></tr>
+      <tr><td><b>3. &nbsp; DATE OF FILING</b> &nbsp; <span class="cs6-line">${safe(formatFormDate(r.filingDate||''))}</span></td><td><b>4. &nbsp; POSITION</b> &nbsp; <u>${safe(r.position||r.employeePosition||'')}</u> &nbsp;&nbsp; <b>5. &nbsp; SALARY</b> &nbsp; <span class="cs6-line short">${safe(r.salary||'')}</span></td></tr>
+      <tr><td colspan="2" class="cs6-section-title">6. &nbsp; DETAILS OF APPLICATION</td></tr>
+      <tr><td class="cs6-subtitle">6.A &nbsp; TYPE OF LEAVE TO BE AVAILED OF</td><td class="cs6-subtitle">6.B &nbsp; DETAILS OF LEAVE</td></tr>
+      <tr><td class="cs6-app-cell"><table class="cs6-inner">${cs6LeaveOptionHtml(r)}</table></td><td style="font-size:7.6pt;line-height:1.65">${leaveDetailsPrint(r)}</td></tr>
+      <tr><td class="cs6-subtitle">6.C &nbsp; NUMBER OF WORKING DAYS APPLIED FOR</td><td class="cs6-subtitle">6.D &nbsp; COMMUTATION</td></tr>
+      <tr><td style="text-align:center"><div><span class="cs6-line short">${safe(r.workingDays??'')}</span> working day(s)</div><div style="margin-top:2mm"><b>INCLUSIVE DATES</b></div><div><span class="cs6-line long">${safe(formatFormDate(r.from))} - ${safe(formatFormDate(r.to))}</span></div></td><td><div>${markBox((r.commutation||'Not Requested')==='Not Requested')} Not Requested</div><div style="margin-top:2mm">${markBox(r.commutation==='Requested')} Requested</div><div class="cs6-sign-line">${upper(r.employeeName,'')}</div><div class="cs6-sign-caption">(Signature of Applicant)</div></td></tr>
+      <tr><td colspan="2" class="cs6-section-title">7. &nbsp; DETAILS OF ACTION ON APPLICATION</td></tr>
+      <tr><td class="cs6-subtitle">7.A &nbsp; CERTIFICATION OF LEAVE CREDITS</td><td class="cs6-subtitle">7.B &nbsp; RECOMMENDATION</td></tr>
+      <tr><td><div class="center">As of <span class="cs6-line">${safe(formatFormDate(a.certAsOf))}</span></div><table class="cs6-credit"><tr><th></th><th>Vacation Leave</th><th>Sick Leave</th></tr><tr><td><i>Total Earned</i></td><td>${safe(a.vacTotal)}</td><td>${safe(a.sickTotal)}</td></tr><tr><td><i>Less this application</i></td><td>${safe(a.vacLess)}</td><td>${safe(a.sickLess)}</td></tr><tr><td><i>Balance</i></td><td>${safe(a.vacBalance)}</td><td>${safe(a.sickBalance)}</td></tr></table><div class="cs6-officer"><b>${upper(a.certOfficer,'')}</b><span>${safe(a.certPosition||'')}</span></div></td><td><div>${markBox(a.recommendation==='For approval')} For approval</div><div style="margin-top:1mm">${markBox(a.recommendation==='For disapproval')} For disapproval due to <span class="cs6-line long">${safe(a.recommendationReason||'')}</span></div><div class="cs6-officer" style="margin-top:10mm"><b>${upper(a.recommendOfficer,'')}</b><span>${safe(a.recommendPosition||'')}</span></div></td></tr>
+      <tr><td class="cs6-subtitle">7.C &nbsp; APPROVED FOR:</td><td class="cs6-subtitle">7.D &nbsp; DISAPPROVED DUE TO:</td></tr>
+      <tr><td class="cs6-bottom-space"><div><span class="cs6-line short">${safe(a.daysWithPay)}</span> day(s) with pay</div><div><span class="cs6-line short">${safe(a.daysWithoutPay)}</span> day(s) without pay</div><div><span class="cs6-line short">${safe(a.approvedOthers)}</span> others (Specify)</div></td><td class="cs6-bottom-space"><div class="cs6-line long" style="min-width:100%">${safe(a.disapprovalReason||'')}</div></td></tr>
+      <tr><td colspan="2"><div class="cs6-officer" style="width:58%;margin:3mm auto 0"><b>${upper(a.approveOfficer,'')}</b><span>${safe(a.approvePosition||'')}</span></div></td></tr>
+    </table>
+  </div>`;
+}
+function processField(id,label,value='',span='span4',disabled=false,type='text'){
+  return `<div class="f ${span}"><label>${safe(label)}</label><input id="${id}" type="${type}" value="${safe(value)}" ${disabled?'disabled class="leave-disabled"':''}></div>`;
+}
+function leaveProcessingEditor(r){
+  const a=leaveActionDefaults(r);const canCert=hasRole('HR/Admin','Administrator'),canRecommend=hasRole('School Head','Administrator'),canFinal=hasRole('HR/Admin','Administrator');
+  return `<div class="leave-process-editor no-print"><div class="card-head"><div><h4>Process CS Form No. 6</h4><span class="muted">Complete only the official action fields assigned to your role.</span></div>${badge(r.status||'Pending')}</div><div class="leave-process-grid">
+    <div class="subhead">7.A Certification of Leave Credits — HR/Admin</div>
+    ${processField('lpCertAsOf','As of',a.certAsOf,'span3',!canCert,'date')}${processField('lpVacTotal','Vacation Leave — Total Earned',a.vacTotal,'span3',!canCert)}${processField('lpVacLess','Vacation Leave — Less this Application',a.vacLess,'span3',!canCert)}${processField('lpVacBalance','Vacation Leave — Balance',a.vacBalance,'span3',!canCert)}${processField('lpSickTotal','Sick Leave — Total Earned',a.sickTotal,'span3',!canCert)}${processField('lpSickLess','Sick Leave — Less this Application',a.sickLess,'span3',!canCert)}${processField('lpSickBalance','Sick Leave — Balance',a.sickBalance,'span3',!canCert)}${processField('lpCertOfficer','Certification Officer',a.certOfficer,'span6',!canCert)}${processField('lpCertPosition','Certification Officer Position',a.certPosition,'span6',!canCert)}
+    <div class="subhead">7.B Recommendation — School Head</div>
+    <div class="f span4"><label>Recommendation</label><select id="lpRecommendation" ${!canRecommend?'disabled class="leave-disabled"':''}><option value=""></option><option ${a.recommendation==='For approval'?'selected':''}>For approval</option><option ${a.recommendation==='For disapproval'?'selected':''}>For disapproval</option></select></div>${processField('lpRecommendationReason','Reason if for disapproval',a.recommendationReason,'span8',!canRecommend)}${processField('lpRecommendOfficer','Recommending Officer',a.recommendOfficer,'span6',!canRecommend)}${processField('lpRecommendPosition','Recommending Officer Position',a.recommendPosition,'span6',!canRecommend)}
+    <div class="subhead">7.C / 7.D Final Action — encode action of approving authority</div>
+    ${processField('lpWithPay','Days with Pay',a.daysWithPay,'span3',!canFinal)}${processField('lpWithoutPay','Days without Pay',a.daysWithoutPay,'span3',!canFinal)}${processField('lpApprovedOthers','Others (Specify)',a.approvedOthers,'span6',!canFinal)}<div class="f span4"><label>Final Decision</label><select id="lpFinalDecision" ${!canFinal?'disabled class="leave-disabled"':''}><option value=""></option><option ${a.finalDecision==='Approved'?'selected':''}>Approved</option><option ${a.finalDecision==='Disapproved'?'selected':''}>Disapproved</option></select></div>${processField('lpDisapprovalReason','Disapproved Due To',a.disapprovalReason,'span8',!canFinal)}${processField('lpApproveOfficer','Approving Officer',a.approveOfficer,'span6',!canFinal)}${processField('lpApprovePosition','Approving Officer Position',a.approvePosition,'span6',!canFinal)}
+    <div class="span12 leave-form-actions"><button id="saveLeaveProcessingBtn" class="btn primary" type="button" onclick="saveLeaveProcessing()">Save Processing Details</button><span id="leaveProcessingStatus" class="msg" style="margin:0"></span></div>
+  </div></div>`;
+}
+let activeLeaveFormId=null;
+window.showLeaveForm=(id,process=false)=>{
+  const r=state.leaves.find(x=>x.id===id);if(!r)return;activeLeaveFormId=id;
+  const canProcess=hasRole('HR/Admin','School Head','Administrator');
+  openModal('CS Form No. 6 — Application for Leave',`${process&&canProcess?leaveProcessingEditor(r):''}<div class="cs6-status-strip no-print"><span>${badge(r.status||'Pending')}</span><span class="muted">${safe(r.leaveNo||'')} · ${safe(r.formVersion||'Legacy leave record')}</span></div><div class="cs6-preview-wrap">${cs6FormHtml(r)}</div><div class="cs6-note no-print">Print / Save PDF produces an A4 portrait CS Form No. 6. The applicant information comes from the online leave application; Section 7 is completed by authorized staff.</div>`);
+};
+window.saveLeaveProcessing=async()=>{
+  if(!activeLeaveFormId)return;const r=state.leaves.find(x=>x.id===activeLeaveFormId);if(!r)return;
+  const canCert=hasRole('HR/Admin','Administrator'),canRecommend=hasRole('School Head','Administrator'),canFinal=hasRole('HR/Admin','Administrator');if(!canCert&&!canRecommend&&!canFinal)return toast('You are not authorized to process leave applications.');
+  const old=leaveActionDefaults(r);const val=id=>$(id)?.value?.trim?.()||'';
+  const d={
+    certAsOf:canCert?val('lpCertAsOf'):old.certAsOf,vacTotal:canCert?val('lpVacTotal'):old.vacTotal,vacLess:canCert?val('lpVacLess'):old.vacLess,vacBalance:canCert?val('lpVacBalance'):old.vacBalance,sickTotal:canCert?val('lpSickTotal'):old.sickTotal,sickLess:canCert?val('lpSickLess'):old.sickLess,sickBalance:canCert?val('lpSickBalance'):old.sickBalance,certOfficer:canCert?val('lpCertOfficer'):old.certOfficer,certPosition:canCert?val('lpCertPosition'):old.certPosition,
+    recommendation:canRecommend?val('lpRecommendation'):old.recommendation,recommendationReason:canRecommend?val('lpRecommendationReason'):old.recommendationReason,recommendOfficer:canRecommend?val('lpRecommendOfficer'):old.recommendOfficer,recommendPosition:canRecommend?val('lpRecommendPosition'):old.recommendPosition,
+    daysWithPay:canFinal?val('lpWithPay'):old.daysWithPay,daysWithoutPay:canFinal?val('lpWithoutPay'):old.daysWithoutPay,approvedOthers:canFinal?val('lpApprovedOthers'):old.approvedOthers,finalDecision:canFinal?val('lpFinalDecision'):old.finalDecision,disapprovalReason:canFinal?val('lpDisapprovalReason'):old.disapprovalReason,approveOfficer:canFinal?val('lpApproveOfficer'):old.approveOfficer,approvePosition:canFinal?val('lpApprovePosition'):old.approvePosition
+  };
+  let status=r.status||'Pending';if(d.finalDecision==='Approved')status='Approved';else if(d.finalDecision==='Disapproved')status='Disapproved';else if(d.recommendation)status='For Approval';else if(d.certAsOf||d.vacTotal||d.sickTotal)status='For Recommendation';
+  try{
+    await updateDoc(doc(db,'leaveApplications',r.id),{actionDetails:d,status,actionByUid:state.user.uid,actionByName:state.profile.displayName||state.user.email||'',updatedAt:serverTimestamp()});await audit('Leave',`Updated CS Form No. 6 processing — ${status}`,r.leaveNo||r.id);if(status!==r.status)await notifyUser(r.employeeUid,'Leave',`Leave ${status}`,`Your leave application ${r.leaveNo||''} is now ${status}.`,r.leaveNo,r.id);$('leaveProcessingStatus').textContent='Processing details saved.';$('leaveProcessingStatus').style.color='#027a48';toast('Leave processing details saved.');setTimeout(()=>showLeaveForm(r.id,true),350);
+  }catch(err){console.error(err);$('leaveProcessingStatus').textContent=err?.message||'Could not save processing details.';$('leaveProcessingStatus').style.color='#b42318'}
+};
+window.leaveAction=async()=>toast('Use Process CS Form No. 6 so Section 7 is completed together with the status.');
+function renderLeave(){
+  const canProcess=hasRole('HR/Admin','School Head','Administrator');const rows=state.leaves.filter(isVisibleRecord);
+  $('leaveBody').innerHTML=rows.map(r=>{const edit=canEditLeave(r),del=canDeleteLeave(r);const days=r.workingDays!==undefined&&r.workingDays!==null?`${r.workingDays} day(s)`:'—';return `<tr><td><b>${safe(r.employeeName)}</b><br><span class="muted">${safe(r.employeeOffice||'')}</span></td><td>${safe(r.type||r.leaveType||'')}</td><td>${safe(r.from||'')} to ${safe(r.to||'')}<br><span class="muted">${safe(days)}</span></td><td>${badge(r.status)}</td><td>${safe(r.source||'Online')}</td><td><div class="actions">${edit?`<button class="btn light xs" onclick="editLeaveApplication('${r.id}')">✏️ Edit</button>`:''}${del?`<button class="btn danger xs" onclick="softDeleteRecord('leave','${r.id}')">🗑 Delete</button>`:''}<button class="btn light xs" onclick="showLeaveForm('${r.id}',false)">📄 CS Form 6</button>${canProcess?`<button class="btn primary xs" onclick="showLeaveForm('${r.id}',true)">Process</button>`:''}</div></td></tr>`}).join('')||'<tr><td colspan="6" class="muted">No leave applications found.</td></tr>';
+}
 
 function renderUsers(){if(!hasRole('Administrator'))return;const roles=['Employee','Supply Officer','Property Custodian','HR/Admin','School Head','Administrator'];$('usersBody').innerHTML=state.users.map(u=>`<tr><td>${safe(u.displayName||'')}${u.position?`<br><span class="muted">${safe(u.position)}</span>`:''}</td><td>${safe(u.email||'')}</td><td><input id="office_${u.id}" class="role-input" value="${safe(u.office||'')}"></td><td><select id="role_${u.id}" class="role-input">${roles.map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}</select></td><td>${badge(u.active===false?'Inactive':'Active')}</td><td><div class="actions"><button class="btn primary xs" onclick="saveUser('${u.id}')">Save</button><button class="btn ${u.active===false?'success':'danger'} xs" onclick="toggleUser('${u.id}',${u.active!==false})">${u.active===false?'Activate':'Disable'}</button></div></td></tr>`).join('')}
 window.saveUser=async id=>{const u=state.users.find(x=>x.id===id);if(!u)return;const role=$(`role_${id}`).value,office=$(`office_${id}`).value.trim();if(id===state.user.uid&&role!=='Administrator'&&!confirm('Changing your own Administrator role can remove access to User Management. Continue?'))return;try{await updateDoc(doc(db,'users',id),{role,office,updatedAt:serverTimestamp()});await audit('Users',`Changed user role to ${role}`,u.email||id);await loadUsers();toast('User updated.')}catch(e){console.error(e);toast('Could not update user.')}};
@@ -1901,11 +2775,12 @@ $('notifTopBtn').onclick=()=>setSection('notifications');
 $('markAllNotifBtn').onclick=async()=>{const unread=state.notifications.filter(n=>!n.read);try{await Promise.all(unread.map(n=>updateDoc(doc(db,'notifications',n.id),{read:true,readAt:serverTimestamp()})));toast('Notifications marked as read.')}catch(e){console.error(e);toast('Could not update all notifications.')}};
 $('archiveSearch').oninput=renderArchives;
 $('exportSummaryBtn').onclick=exportSummaryCSV;
-$('globalSearch').addEventListener('keydown',e=>{if(e.key!=='Enter')return;const q=e.target.value.trim().toLowerCase();if(!q)return;const hits=[];const add=(module,arr,label,ref)=>arr.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q)).slice(0,8).forEach(r=>hits.push({module,label:label(r),ref:ref(r)}));add('Supplies',state.supplies,r=>`${r.requestor||''} — ${r.item||''}`,r=>r.requestNo||r.id);add('Equipment',state.borrows,r=>`${r.borrowerName||''} — ${r.requestedItem||''}`,r=>r.transactionNo||r.id);add('DTR',state.dtr,r=>`${r.employeeName||''} — ${r.month||''}`,r=>r.month||r.id);add('Leave',state.leaves,r=>`${r.employeeName||''} — ${r.type||''}`,r=>r.leaveNo||r.id);add('Employees',state.masterlist,r=>`${r.displayName||''} — ${r.position||''}`,r=>r.employeeNo||r.id);openModal('SAMS Search Results',hits.length?`<div class="table-wrap"><table><thead><tr><th>Module</th><th>Record</th><th>Reference</th></tr></thead><tbody>${hits.map(h=>`<tr><td>${safe(h.module)}</td><td>${safe(h.label)}</td><td>${safe(h.ref)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty-state">No matching records found.</div>');});
+$('backupJsonBtn').onclick=exportSamsBackup;
+$('globalSearch').addEventListener('keydown',e=>{if(e.key!=='Enter')return;const q=e.target.value.trim().toLowerCase();if(!q)return;const hits=[];const add=(module,arr,label,ref)=>arr.filter(isVisibleRecord).filter(r=>JSON.stringify(r).toLowerCase().includes(q)).slice(0,8).forEach(r=>hits.push({module,label:label(r),ref:ref(r)}));add('Supplies',state.supplies,r=>`${r.requestor||''} — ${r.item||''}`,r=>r.requestNo||r.id);add('Equipment',state.borrows,r=>`${r.borrowerName||''} — ${r.requestedItem||''}`,r=>r.transactionNo||r.id);add('DTR',state.dtr,r=>`${r.employeeName||''} — ${r.month||''}`,r=>r.month||r.id);add('Leave',state.leaves,r=>`${r.employeeName||''} — ${r.type||''}`,r=>r.leaveNo||r.id);add('Employees',state.masterlist,r=>`${r.displayName||''} — ${r.position||''}`,r=>r.employeeNo||r.id);openModal('SAMS Search Results',hits.length?`<div class="table-wrap"><table><thead><tr><th>Module</th><th>Record</th><th>Reference</th><th>Open</th></tr></thead><tbody>${hits.map(h=>{const section={Supplies:'supplies',Equipment:'equipment',DTR:'dtr',Leave:'leave',Employees:'masterlist'}[h.module]||'dashboard';return `<tr><td>${safe(h.module)}</td><td>${safe(h.label)}</td><td>${safe(h.ref)}</td><td><button class="btn light xs" onclick="closeModal();dashboardGo('${section}')">Open</button></td></tr>`}).join('')}</tbody></table></div>`:'<div class="empty-state">No matching records found.</div>');});
 
 function renderAudit(){$('auditBody').innerHTML=state.audit.map(r=>`<tr><td>${fmtTs(r.createdAt)}</td><td>${safe(r.actorName||r.actorEmail)}</td><td>${safe(r.actorRole)}</td><td>${safe(r.module)}</td><td>${safe(r.action)}</td><td>${safe(r.reference||'')}</td></tr>`).join('')||'<tr><td colspan="6" class="muted">No audit records.</td></tr>'}
 function renderRecent(){if(!hasRole('School Head','Administrator'))return $('recentActivity').textContent='Your records are synchronized with Firestore. Detailed audit viewing is restricted to management roles.';$('recentActivity').innerHTML=state.audit.slice(0,6).map(r=>`<div style="padding:7px 0;border-bottom:1px solid #edf1f5"><b>${safe(r.module)}</b> — ${safe(r.action)} <span class="muted">(${safe(r.actorName||r.actorEmail)} · ${fmtTs(r.createdAt)})</span></div>`).join('')||'No recent activity.'}
-function renderDashboard(){$('kpiSupply').textContent=state.supplies.filter(x=>isVisibleRecord(x)&&x.status==='Pending').length;$('kpiBorrow').textContent=state.borrows.filter(x=>isVisibleRecord(x)&&['Requested','Borrowed'].includes(x.status)).length;$('kpiDtr').textContent=state.dtr.filter(x=>isVisibleRecord(x)&&x.status==='Pending').length;$('kpiLeave').textContent=state.leaves.filter(x=>isVisibleRecord(x)&&['Pending','For Verification','For Approval'].includes(x.status)).length;renderPhase3Panels()}
+function renderDashboard(){touchRefresh();if(hasRole('Administrator'))renderAdminDashboard();else renderUserDashboard();renderPhase3Panels()}
 
 $('editProfileBtn').onclick=openProfileEditor;
 $('profileModalX').onclick=closeProfileEditor;
@@ -1926,9 +2801,13 @@ $('profileForm').onsubmit=async e=>{
 
     const displayName=$('profileDisplayName').value.trim();
     const preferredName=$('profilePreferredName').value.trim();
+    const firstName=$('profileFirstName').value.trim();
+    const middleName=$('profileMiddleName').value.trim();
+    const lastName=$('profileLastName').value.trim();
     const office=$('profileOffice').value.trim();
     const position=$('profilePosition').value.trim();
     const contactNumber=$('profileContact').value.trim();
+    const salary=$('profileSalary').value.trim();
 
     if(!displayName) throw new Error('Display Name is required.');
 
@@ -1936,9 +2815,13 @@ $('profileForm').onsubmit=async e=>{
     await updateDoc(doc(db,'users',state.user.uid),{
       displayName,
       preferredName,
+      firstName,
+      middleName,
+      lastName,
       office,
       position,
       contactNumber,
+      salary,
       updatedAt:serverTimestamp()
     });
 
@@ -1995,10 +2878,17 @@ $('settingsForm').onsubmit=async e=>{
       supplyOfficer:$('setSupply').value.trim(),
       propertyCustodian:$('setProperty').value.trim(),
       propertyCustodianPosition:$('setPropertyPosition').value.trim(),
+      teachingMorningIn:$('setTeachingMorningIn').value||'07:30',teachingAfternoonIn:$('setTeachingAfternoonIn').value||'13:00',teachingDutyEnd:$('setTeachingDutyEnd').value||'16:30',teachingPayrollTreatment:$('setTeachingPayrollTreatment').value,monthlyVLAccrual:Number($('setMonthlyVLAccrual').value)||0,monthlySLAccrual:Number($('setMonthlySLAccrual').value)||0,
       risEntityName:$('setRisEntity').value.trim(),
       risFundCluster:$('setRisFundCluster').value.trim()||'01',
       risResponsibilityCenterCode:$('setRisResponsibility').value.trim(),
       supplyOfficerPosition:$('setSupplyPosition').value.trim(),
+      leaveCertOfficer:$('setLeaveCertOfficer').value.trim(),
+      leaveCertPosition:$('setLeaveCertPosition').value.trim(),
+      leaveRecommendOfficer:$('setLeaveRecommendOfficer').value.trim(),
+      leaveRecommendPosition:$('setLeaveRecommendPosition').value.trim(),
+      leaveApproveOfficer:$('setLeaveApproveOfficer').value.trim(),
+      leaveApprovePosition:$('setLeaveApprovePosition').value.trim(),
       updatedByUid:state.user.uid,
       updatedByEmail:state.user.email||'',
       updatedAt:serverTimestamp()
@@ -2031,7 +2921,21 @@ $('settingsForm').onsubmit=async e=>{
 
 function openModal(title,html){$('modalTitle').textContent=title;$('modalBody').innerHTML=html;$('modal').classList.remove('hidden')}
 function closeModal(){$('modal').classList.add('hidden')}
+window.closeModal=closeModal;
 $('modalX').onclick=closeModal;$('modalClose').onclick=closeModal;function printCurrentDocument(){
+  const cs6=$('modalBody').querySelector('.cs6-page');
+  if(cs6){
+    const popup=window.open('','_blank','width=1050,height=900');
+    if(!popup){toast('Pop-up blocked. Allow pop-ups for this site, then try Print again.');return}
+    const css=`
+      @page{size:A4 portrait;margin:0}
+      *{box-sizing:border-box}html,body{margin:0;padding:0;background:#fff;color:#000}body{font-family:Arial,Helvetica,sans-serif}
+      .cs6-page{width:210mm;min-height:297mm;background:#fff;color:#000;margin:0;padding:5mm 6mm 4mm;font-family:Arial,Helvetica,sans-serif;box-shadow:none}
+      .cs6-topline{display:flex;justify-content:space-between;align-items:flex-start;min-height:16mm}.cs6-form-no{font-size:8pt;font-style:italic;line-height:1.25}.cs6-receipt{border:1px dashed #999;padding:4mm 5mm;font-size:7.5pt;margin-top:3mm}.cs6-deped{text-align:center;line-height:1.05;margin-top:-8mm}.cs6-deped .rp{font-size:8.5pt;font-weight:700}.cs6-deped .dept{font-size:14pt;font-weight:800}.cs6-deped .region{font-size:8pt;font-weight:700}.cs6-main-title{text-align:center;font-size:15pt;font-weight:800;margin:3mm 0 2mm}
+      .cs6-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:8pt}.cs6-table td,.cs6-table th{border:.7pt solid #000;padding:1.2mm 1.5mm;vertical-align:top;line-height:1.18}.cs6-table .center{text-align:center}.cs6-table .bold{font-weight:800}.cs6-section-title{text-align:center;font-weight:800;font-size:11pt;border-top:2pt double #000!important;border-bottom:2pt double #000!important;padding:1.5mm!important}.cs6-subtitle{font-weight:700;font-size:8.3pt}.cs6-app-cell{padding:0!important}.cs6-inner{width:100%;border-collapse:collapse;table-layout:fixed}.cs6-inner td{border:0;border-bottom:.45pt solid #d4d4d4;padding:1mm 1.5mm;height:5.2mm;font-size:7.7pt}.cs6-inner tr:last-child td{border-bottom:0}.cs6-check{font-family:Arial,sans-serif;font-size:8.3pt;white-space:nowrap}.cs6-detail-label{font-style:italic;font-weight:700}.cs6-line{display:inline-block;border-bottom:.6pt solid #000;min-width:42mm;padding:0 1mm}.cs6-line.short{min-width:18mm}.cs6-line.long{min-width:66mm}.cs6-sign-line{border-bottom:.7pt solid #000;text-align:center;min-height:8mm;padding-top:4mm;font-weight:700}.cs6-sign-caption{text-align:center;font-size:7.5pt;padding-top:.5mm}.cs6-credit{width:88%;margin:1.5mm auto;border-collapse:collapse}.cs6-credit td,.cs6-credit th{border:.6pt solid #000;padding:.9mm;text-align:center;font-size:7.5pt}.cs6-credit th{font-weight:400}.cs6-officer{text-align:center;margin-top:4mm}.cs6-officer b{display:block;border-bottom:.6pt solid #000;padding-bottom:.7mm}.cs6-officer span{font-size:7.5pt}.cs6-bottom-space{min-height:23mm}
+    `;
+    popup.document.open();popup.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>CS Form No. 6 - Application for Leave</title><style>'+css+'</style></head><body>'+cs6.outerHTML+'</body></html>');popup.document.close();popup.onload=()=>setTimeout(()=>{popup.focus();popup.print()},300);return;
+  }
   const risPage=$('modalBody').querySelector('.ris-print-page');
   if(risPage){
     const popup=window.open('','_blank','width=1000,height=900');
@@ -2122,7 +3026,7 @@ $('modalX').onclick=closeModal;$('modalClose').onclick=closeModal;function print
 $('printBtn').onclick=printCurrentDocument;$('modal').onclick=e=>{if(e.target===$('modal'))closeModal()};
 
 function init(){
-  $('brDate').value=today();$('dtMonth').value=today().slice(0,7);$('walkDate').value=today();$('walkEquipDate').value=today();
+  $('brDate').value=today();$('dtMonth').value=today().slice(0,7);$('walkDate').value=today();$('walkEquipDate').value=today();$('hrReportMonth').value=today().slice(0,7);$('ledgerThroughMonth').value=today().slice(0,7);$('lvDateFiling').value=today();updateLeaveDetailFields();
   if(placeholder()){showLoading(false);$('loginScreen').classList.remove('hidden');$('configWarning').classList.remove('hidden');return}
   try{const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);onAuthStateChanged(auth,async user=>{showLoading(true);if(!user){clearSubs();state.user=null;state.profile=null;$('app').classList.add('hidden');$('loginScreen').classList.remove('hidden');showLoading(false);return}try{await startSession(user)}catch(e){console.error(e);loginMsg(e.message||'Unable to start SAMS.');$('app').classList.add('hidden');$('loginScreen').classList.remove('hidden');showLoading(false)}})}catch(e){console.error(e);showLoading(false);$('loginScreen').classList.remove('hidden');loginMsg('Firebase initialization failed. Check the Firebase configuration in index.html.')}
 }
