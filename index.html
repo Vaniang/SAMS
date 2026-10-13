@@ -508,6 +508,55 @@ body{
 .dtr-input-table .row-saved input,.dtr-input-table .row-saved select{border-color:#86efac}
 @media(max-width:1366px){.dtr-input-table{min-width:1700px}.dtr-input-table input,.dtr-input-table select{font-size:11px;padding:4px 6px}}
 
+
+/* ============================================================
+   SAMS v18.9 — FIXED HRMO FORM 6 ON-SCREEN PREVIEW
+   ============================================================ */
+.report-preview-card{
+  width:min(1500px,calc(100vw - 24px)) !important;
+  max-width:calc(100vw - 24px) !important;
+  height:calc(100vh - 24px);
+  max-height:calc(100vh - 24px) !important;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden !important;
+  padding:14px !important;
+}
+.report-preview-card .modal-head{
+  flex:0 0 auto;
+  padding-bottom:10px;
+}
+.report-preview-card .modal-actions{
+  flex:0 0 auto;
+  margin-top:10px;
+}
+.report-preview-frame-wrap{
+  flex:1 1 auto;
+  min-height:0;
+  overflow:auto;
+  border:1px solid var(--bd);
+  border-radius:10px;
+  background:#dfe5ec;
+}
+#hrmo6PreviewFrame{
+  width:100%;
+  height:100%;
+  min-height:680px;
+  border:0;
+  background:#dfe5ec;
+  display:block;
+}
+@media(max-width:900px){
+  .report-preview-card{
+    width:calc(100vw - 12px) !important;
+    max-width:calc(100vw - 12px) !important;
+    height:calc(100vh - 12px);
+    max-height:calc(100vh - 12px) !important;
+    padding:9px !important;
+  }
+  #hrmo6PreviewFrame{min-height:600px}
+}
+
 </style>
 </head>
 <body>
@@ -889,7 +938,7 @@ body{
               <div>
                 <h5 style="margin:0 0 8px">HRMO Form No. 6 — All Personnel</h5>
                 <p class="muted" style="margin:0 0 8px">One combined Monthly Report of Absences and Undertimes.</p>
-                <button class="btn light" type="button" onclick="printRequiredDtrReport('hrmo6','all')">📄 Print HRMO Form 6</button>
+                <button class="btn light" type="button" onclick="printRequiredDtrReport('hrmo6','all')">👁 Preview HRMO Form 6</button>
               </div>
             </div>
             <div class="two-col mt">
@@ -1166,6 +1215,26 @@ body{
   </div>
 </div>
 
+
+<div id="hrmo6PreviewModal" class="modal hidden">
+  <div class="modal-card report-preview-card">
+    <div class="modal-head">
+      <div>
+        <h3 id="hrmo6PreviewTitle">HRMO Form No. 6 Preview</h3>
+        <div class="muted" style="margin-top:3px">This preview uses the same fixed A4-landscape layout as the printed report.</div>
+      </div>
+      <button id="hrmo6PreviewX" type="button">✕</button>
+    </div>
+    <div class="report-preview-frame-wrap">
+      <iframe id="hrmo6PreviewFrame" title="HRMO Form No. 6 Preview"></iframe>
+    </div>
+    <div class="modal-actions">
+      <button id="hrmo6PreviewPrintBtn" class="btn primary" type="button">🖨 Print / Save PDF</button>
+      <button id="hrmo6PreviewCloseBtn" class="btn light" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
 <div id="modal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h3 id="modalTitle"></h3><button id="modalX">✕</button></div><div id="modalBody"></div><div class="modal-actions"><button id="printBtn" class="btn primary">Print / Save PDF</button><button id="modalClose" class="btn light">Close</button></div></div></div>
 <div id="toast" class="toast hidden"></div>
 <script type="module">
@@ -1226,7 +1295,7 @@ function clearSubs(){state.unsubs.forEach(fn=>{try{fn()}catch{}});state.unsubs=[
 function badge(s){const x=String(s||'').toLowerCase();let c='info';if(['approved','issued','returned','verified','forwarded','active'].some(k=>x.includes(k)))c='ok';if(['pending','requested','borrowed','verification','approval'].some(k=>x.includes(k)))c='warn';if(['rejected','disapproved','overdue','inactive'].some(k=>x.includes(k)))c='bad';return `<span class="badge ${c}">${safe(s)}</span>`}
 function byCreated(a,b){return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)}
 
-const SAMS_VERSION='5.0.8-fixed-hrmo-form6-print';
+const SAMS_VERSION='5.0.9-fixed-hrmo-form6-preview';
 function tsDate(v){
   if(!v)return null;
   try{
@@ -3118,15 +3187,24 @@ function withoutPayReportHtml(month,kind){
     </div>
   </div>`;
 }
-function openOfficialReportWindow(title,content,landscape=true){
-  const w=window.open('','_blank','width=1200,height=850');
-  if(!w){toast('Pop-up blocked. Allow pop-ups, then try again.');return}
-  const css=`
+function officialReportCss(landscape=true,preview=false){
+  return `
     @page{size:A4 ${landscape?'landscape':'portrait'};margin:6mm}
 
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;color:#000;background:#fff;font-family:Arial,Helvetica,sans-serif}
-    body{font-size:8pt}
+    html,body{margin:0;padding:0;color:#000;font-family:Arial,Helvetica,sans-serif}
+    body{font-size:8pt;background:${preview?'#dfe5ec':'#fff'}}
+
+    .preview-sheet{
+      ${preview ? `
+        width:297mm;
+        min-height:210mm;
+        margin:12px auto 24px;
+        padding:6mm;
+        background:#fff;
+        box-shadow:0 4px 18px rgba(0,0,0,.18);
+      ` : ''}
+    }
 
     .official-report{width:100%;max-width:100%;margin:0 auto}
     .report-head{text-align:center;margin-bottom:6px}
@@ -3195,7 +3273,7 @@ function openOfficialReportWindow(title,content,landscape=true){
       overflow-wrap:anywhere;
     }
 
-    /* HRMO FORM NO. 6 — fixed A4 landscape print geometry */
+    /* HRMO FORM NO. 6 — same geometry for preview and print */
     .hrmo6-report{
       width:100%;
       font-family:Arial,Helvetica,sans-serif;
@@ -3266,21 +3344,77 @@ function openOfficialReportWindow(title,content,landscape=true){
     }
 
     @media print{
+      html,body{background:#fff!important}
       body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .preview-sheet{
+        width:auto!important;
+        min-height:0!important;
+        margin:0!important;
+        padding:0!important;
+        box-shadow:none!important;
+        background:#fff!important;
+      }
       .hrmo6-report{page-break-after:auto}
       .hrmo6-main thead{display:table-header-group}
       .hrmo6-main tr{page-break-inside:avoid!important;break-inside:avoid!important}
       .hrmo6-signatures{page-break-inside:avoid!important;break-inside:avoid!important}
     }
   `;
-  w.document.open();w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${safe(title)}</title><style>${css}</style></head><body>${content}</body></html>`);w.document.close();
+}
+
+function officialReportDocument(title,content,landscape=true,preview=false){
+  const wrapped=preview?`<div class="preview-sheet">${content}</div>`:content;
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${safe(title)}</title><style>${officialReportCss(landscape,preview)}</style></head><body>${wrapped}</body></html>`;
+}
+
+function openOfficialReportWindow(title,content,landscape=true){
+  const w=window.open('','_blank','width=1200,height=850');
+  if(!w){toast('Pop-up blocked. Allow pop-ups, then try again.');return}
+  w.document.open();
+  w.document.write(officialReportDocument(title,content,landscape,false));
+  w.document.close();
   w.onload=()=>setTimeout(()=>{w.focus();w.print()},250);
 }
+
+let hrmo6PreviewState={month:'',scope:'all',title:'',content:''};
+
+function openHrmo6Preview(month,scope='all'){
+  const rows=reportScopeRows(month,scope);
+  const content=hrmo6ReportHtml(month,rows,scope);
+  const title=`HRMO Form 6 - ${dtrMonthText(month)}`;
+
+  hrmo6PreviewState={month,scope,title,content};
+  $('hrmo6PreviewTitle').textContent=`HRMO Form No. 6 Preview — ${dtrMonthText(month)}`;
+  $('hrmo6PreviewFrame').srcdoc=officialReportDocument(title,content,true,true);
+  $('hrmo6PreviewModal').classList.remove('hidden');
+}
+
+function closeHrmo6Preview(){
+  $('hrmo6PreviewModal').classList.add('hidden');
+}
+
+$('hrmo6PreviewX').onclick=closeHrmo6Preview;
+$('hrmo6PreviewCloseBtn').onclick=closeHrmo6Preview;
+$('hrmo6PreviewModal').onclick=e=>{
+  if(e.target===$('hrmo6PreviewModal'))closeHrmo6Preview();
+};
+$('hrmo6PreviewPrintBtn').onclick=()=>{
+  const frame=$('hrmo6PreviewFrame');
+  if(!frame?.contentWindow)return toast('Form 6 preview is not ready yet.');
+  frame.contentWindow.focus();
+  frame.contentWindow.print();
+};
+
 window.printRequiredDtrReport=(type,scope='all',monthOverride='')=>{
   const month=monthOverride||$('hrReportMonth').value||today().slice(0,7);
+
+  if(type==='hrmo6'){
+    openHrmo6Preview(month,scope);
+    return;
+  }
+
   let content='',title='';
   if(type==='form7'){content=form7ReportHtml(month,reportScopeRows(month,scope),scope);title=`Form 7 - ${dtrMonthText(month)}`}
-  if(type==='hrmo6'){content=hrmo6ReportHtml(month,reportScopeRows(month,scope),scope);title=`HRMO Form 6 - ${dtrMonthText(month)}`}
   if(type==='withoutpay-nonteaching'){content=withoutPayReportHtml(month,'nonteaching');title=`Without Pay - Non-Teaching School Head - ${dtrMonthText(month)}`}
   if(type==='withoutpay-teaching'){content=withoutPayReportHtml(month,'teaching');title=`Without Pay - Teaching Personnel - ${dtrMonthText(month)}`}
   if(!content)return toast('Unable to generate report.');
@@ -3293,7 +3427,7 @@ function renderSavedRequiredReports(){
     const when=r.savedAt?.toDate?r.savedAt.toDate().toLocaleString('en-PH'):'';
     return `<tr>
       <td><b>${safe(dtrMonthText(r.month))}</b></td><td>${safe(when)}</td>
-      <td><div class="actions"><button class="btn light xs" onclick="printRequiredDtrReport('form7','all','${r.month}')">Form 7</button><button class="btn light xs" onclick="printRequiredDtrReport('hrmo6','all','${r.month}')">HRMO Form 6</button></div></td>
+      <td><div class="actions"><button class="btn light xs" onclick="printRequiredDtrReport('form7','all','${r.month}')">Form 7</button><button class="btn light xs" onclick="printRequiredDtrReport('hrmo6','all','${r.month}')">Preview Form 6</button></div></td>
       <td><div class="actions"><button class="btn danger xs" onclick="printRequiredDtrReport('withoutpay-nonteaching','all','${r.month}')">Non-Teaching / School Head</button><button class="btn danger xs" onclick="printRequiredDtrReport('withoutpay-teaching','all','${r.month}')">Teaching Personnel</button></div></td>
     </tr>`;
   }).join('')||'<tr><td colspan="4" class="muted">No saved monthly DTR reports yet. Save a monthly snapshot first.</td></tr>';
