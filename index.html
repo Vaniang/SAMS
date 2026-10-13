@@ -1226,7 +1226,7 @@ function clearSubs(){state.unsubs.forEach(fn=>{try{fn()}catch{}});state.unsubs=[
 function badge(s){const x=String(s||'').toLowerCase();let c='info';if(['approved','issued','returned','verified','forwarded','active'].some(k=>x.includes(k)))c='ok';if(['pending','requested','borrowed','verification','approval'].some(k=>x.includes(k)))c='warn';if(['rejected','disapproved','overdue','inactive'].some(k=>x.includes(k)))c='bad';return `<span class="badge ${c}">${safe(s)}</span>`}
 function byCreated(a,b){return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)}
 
-const SAMS_VERSION='5.0.7-restored-dtr-input-table';
+const SAMS_VERSION='5.0.8-fixed-hrmo-form6-print';
 function tsDate(v){
   if(!v)return null;
   try{
@@ -3003,25 +3003,79 @@ function hrmo6ReportHtml(month,rows,scope){
   const body=rows.map((r,i)=>{
     const e=reportEmployee(r);
     return `<tr>
-      <td>${i+1}</td><td class="left">${safe(r.employeeName||e.displayName||'')}</td><td>${safe(e.employeeNo||'')}</td>
-      <td>${safe(reportAbsenceCount(r))}</td><td>${safe(reportNone(r.absenceDates))}</td>
-      <td>${safe(reportUnderCount(r))}</td><td>${safe(reportNone(r.underDates))}</td><td>${safe(reportUnderDisplay(r))}</td>
-      <td>${safe(r.vacationLeaveDays||'')}</td><td>${safe(r.sickLeaveDays||'')}</td><td>${safe(reportPayRemark(r))}</td>
+      <td>${i+1}</td>
+      <td class="left employee-name">${safe(r.employeeName||e.displayName||'')}</td>
+      <td>${safe(e.employeeNo||'')}</td>
+      <td>${safe(reportAbsenceCount(r))}</td>
+      <td>${safe(reportNone(r.absenceDates))}</td>
+      <td>${safe(reportUnderCount(r))}</td>
+      <td>${safe(reportNone(r.underDates))}</td>
+      <td>${safe(reportUnderDisplay(r))}</td>
+      <td>${safe(r.vacationLeaveDays||'')}</td>
+      <td>${safe(r.sickLeaveDays||'')}</td>
+      <td class="left remarks-cell">${safe(reportPayRemark(r))}</td>
     </tr>`;
   }).join('');
-  return `<div class="official-report">
-    <table class="head-table"><tr>
-      <td class="left" style="width:23%"><b>HRMO Form No. 6</b><br>Revised 2005<br>Department of Education<br>${safe(s.region)}</td>
-      <td style="width:30%"><b>${safe(s.division)}</b></td>
-      <td><b>MONTHLY REPORT OF ABSENCES AND UNDERTIMES</b><br>For the Month of: <b>${safe(dtrMonthText(month))}</b>${scope==='all'?'':`<br>${scope==='head'?'<b>SCHOOL HEAD</b>':'REGULAR PERSONNEL'}`}</td>
-    </tr></table>
-    <table><thead>
-      <tr><th rowspan="2">#</th><th rowspan="2">Name</th><th rowspan="2">Employee No.</th><th rowspan="2">No. of Times Absent</th>
-      <th rowspan="2">Dates Absent</th><th rowspan="2">No. of Times Undertime</th><th rowspan="2">Date Undertimes</th>
-      <th rowspan="2">Total Undertimes (Hrs./Mins.)</th><th colspan="2">Total No. of Days</th><th rowspan="2">Remarks</th></tr>
-      <tr><th>Vacation Leave</th><th>Sick Leave</th></tr>
-    </thead><tbody>${body||'<tr><td colspan="11">No records for this scope.</td></tr>'}</tbody></table>
-    <div class="rpt-signatures four">
+
+  return `<div class="official-report hrmo6-report">
+    <table class="head-table hrmo6-head">
+      <colgroup>
+        <col style="width:25%">
+        <col style="width:30%">
+        <col style="width:45%">
+      </colgroup>
+      <tr>
+        <td class="left">
+          <b>HRMO Form No. 6</b><br>
+          Revised 2005<br>
+          Department of Education<br>
+          ${safe(s.region)}
+        </td>
+        <td><b>${safe(s.division)}</b></td>
+        <td>
+          <b>MONTHLY REPORT OF ABSENCES AND UNDERTIMES</b><br>
+          For the Month of: <b>${safe(dtrMonthText(month))}</b>
+          ${scope==='all'?'':`<br>${scope==='head'?'<b>SCHOOL HEAD</b>':'REGULAR PERSONNEL'}`}
+        </td>
+      </tr>
+    </table>
+
+    <table class="hrmo6-main">
+      <colgroup>
+        <col class="c-no">
+        <col class="c-name">
+        <col class="c-empno">
+        <col class="c-abs-count">
+        <col class="c-abs-dates">
+        <col class="c-under-count">
+        <col class="c-under-dates">
+        <col class="c-under-total">
+        <col class="c-vl">
+        <col class="c-sl">
+        <col class="c-remarks">
+      </colgroup>
+      <thead>
+        <tr>
+          <th rowspan="2">#</th>
+          <th rowspan="2">NAME</th>
+          <th rowspan="2">EMPLOYEE<br>NO.</th>
+          <th rowspan="2">NO. OF<br>TIMES<br>ABSENT</th>
+          <th rowspan="2">DATES<br>ABSENT</th>
+          <th rowspan="2">NO. OF<br>TIMES<br>UNDERTIME</th>
+          <th rowspan="2">DATE<br>UNDERTIMES</th>
+          <th rowspan="2">TOTAL UNDERTIMES<br>(HRS./MINS.)</th>
+          <th colspan="2">TOTAL NO. OF DAYS</th>
+          <th rowspan="2">REMARKS</th>
+        </tr>
+        <tr>
+          <th>VACATION<br>LEAVE</th>
+          <th>SICK<br>LEAVE</th>
+        </tr>
+      </thead>
+      <tbody>${body||'<tr><td colspan="11">No records for this month.</td></tr>'}</tbody>
+    </table>
+
+    <div class="rpt-signatures four hrmo6-signatures">
       ${reportSignature('Prepared by:',s.preparedBy,s.preparedTitle)}
       ${reportSignature('Certified Correct by:',s.certifiedBy,s.certifiedTitle)}
       ${reportSignature('',s.adminBy,s.adminTitle)}
@@ -3068,14 +3122,156 @@ function openOfficialReportWindow(title,content,landscape=true){
   const w=window.open('','_blank','width=1200,height=850');
   if(!w){toast('Pop-up blocked. Allow pop-ups, then try again.');return}
   const css=`
-    @page{size:A4 ${landscape?'landscape':'portrait'};margin:8mm}
-    *{box-sizing:border-box}body{margin:0;color:#000;background:#fff;font-family:Arial,sans-serif;font-size:9pt}
-    .official-report{width:100%}.report-head{text-align:center;margin-bottom:8px}.report-head h3,.report-head h4{margin:2px 0}
-    .report-head h3{font-size:13pt}.report-head h4{font-size:10pt}.scope-label{font-size:8pt;margin-top:3px}
-    table{width:100%;border-collapse:collapse;table-layout:auto}th,td{border:.6pt solid #000;padding:4px;text-align:center;vertical-align:middle;font-size:8pt;word-break:break-word}
-    th{font-weight:700}.left{text-align:left!important}.head-table td{border:0;font-size:9pt}
-    .rpt-signatures{display:grid;gap:12mm;margin-top:15mm;text-align:center}.rpt-signatures.two{grid-template-columns:1fr 1fr}.rpt-signatures.three{grid-template-columns:1fr 1fr 1fr}.rpt-signatures.four{grid-template-columns:repeat(4,1fr)}
-    .rpt-sig-name{font-weight:700;text-transform:uppercase;text-decoration:underline;margin-top:10mm}
+    @page{size:A4 ${landscape?'landscape':'portrait'};margin:6mm}
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;color:#000;background:#fff;font-family:Arial,Helvetica,sans-serif}
+    body{font-size:8pt}
+
+    .official-report{width:100%;max-width:100%;margin:0 auto}
+    .report-head{text-align:center;margin-bottom:6px}
+    .report-head h3,.report-head h4{margin:1px 0;line-height:1.12}
+    .report-head h3{font-size:12pt}
+    .report-head h4{font-size:9pt}
+    .scope-label{font-size:7pt;margin-top:2px}
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      border-spacing:0;
+    }
+    th,td{
+      border:.6pt solid #000;
+      padding:2.5px 3px;
+      text-align:center;
+      vertical-align:middle;
+      font-size:7pt;
+      line-height:1.12;
+      overflow-wrap:anywhere;
+      word-break:normal;
+    }
+    th{font-weight:700}
+    .left{text-align:left!important}
+
+    .head-table{
+      table-layout:fixed;
+      margin-bottom:4px;
+    }
+    .head-table td{
+      border:0;
+      font-size:8pt;
+      line-height:1.15;
+      padding:1px 3px 4px;
+      overflow-wrap:anywhere;
+    }
+
+    thead{display:table-header-group}
+    tfoot{display:table-footer-group}
+    tr{page-break-inside:avoid;break-inside:avoid}
+
+    .rpt-signatures{
+      display:grid;
+      margin-top:10mm;
+      text-align:center;
+      page-break-inside:avoid;
+      break-inside:avoid;
+      align-items:start;
+    }
+    .rpt-signatures.two{grid-template-columns:repeat(2,minmax(0,1fr));gap:12mm}
+    .rpt-signatures.three{grid-template-columns:repeat(3,minmax(0,1fr));gap:8mm}
+    .rpt-signatures.four{grid-template-columns:repeat(4,minmax(0,1fr));gap:4mm}
+    .rpt-sig{
+      min-width:0;
+      font-size:7pt;
+      line-height:1.12;
+      overflow-wrap:anywhere;
+    }
+    .rpt-sig-name{
+      font-weight:700;
+      text-transform:uppercase;
+      text-decoration:underline;
+      margin-top:8mm;
+      line-height:1.1;
+      overflow-wrap:anywhere;
+    }
+
+    /* HRMO FORM NO. 6 — fixed A4 landscape print geometry */
+    .hrmo6-report{
+      width:100%;
+      font-family:Arial,Helvetica,sans-serif;
+    }
+    .hrmo6-head{
+      width:100%;
+      table-layout:fixed!important;
+      margin-bottom:3mm;
+    }
+    .hrmo6-head td{
+      font-size:7.2pt!important;
+      line-height:1.12!important;
+      padding:1.5mm 1.2mm!important;
+    }
+
+    .hrmo6-main{
+      width:100%;
+      table-layout:fixed!important;
+    }
+    .hrmo6-main .c-no{width:3%}
+    .hrmo6-main .c-name{width:18%}
+    .hrmo6-main .c-empno{width:8%}
+    .hrmo6-main .c-abs-count{width:7%}
+    .hrmo6-main .c-abs-dates{width:12%}
+    .hrmo6-main .c-under-count{width:8%}
+    .hrmo6-main .c-under-dates{width:12%}
+    .hrmo6-main .c-under-total{width:9%}
+    .hrmo6-main .c-vl{width:6%}
+    .hrmo6-main .c-sl{width:6%}
+    .hrmo6-main .c-remarks{width:11%}
+
+    .hrmo6-main th{
+      font-size:6.2pt!important;
+      line-height:1.02!important;
+      padding:1.2mm .8mm!important;
+      white-space:normal!important;
+      word-break:normal!important;
+      overflow-wrap:anywhere!important;
+    }
+    .hrmo6-main td{
+      font-size:6.5pt!important;
+      line-height:1.08!important;
+      padding:1.1mm .8mm!important;
+      white-space:normal!important;
+      word-break:normal!important;
+      overflow-wrap:anywhere!important;
+    }
+    .hrmo6-main .employee-name{
+      font-size:6.6pt!important;
+      font-weight:600;
+    }
+    .hrmo6-main .remarks-cell{
+      font-size:6.1pt!important;
+    }
+
+    .hrmo6-signatures{
+      margin-top:7mm!important;
+      gap:3mm!important;
+    }
+    .hrmo6-signatures .rpt-sig{
+      font-size:6.2pt!important;
+      line-height:1.05!important;
+    }
+    .hrmo6-signatures .rpt-sig-name{
+      margin-top:7mm!important;
+      font-size:6.4pt!important;
+      min-height:7mm;
+    }
+
+    @media print{
+      body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .hrmo6-report{page-break-after:auto}
+      .hrmo6-main thead{display:table-header-group}
+      .hrmo6-main tr{page-break-inside:avoid!important;break-inside:avoid!important}
+      .hrmo6-signatures{page-break-inside:avoid!important;break-inside:avoid!important}
+    }
   `;
   w.document.open();w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${safe(title)}</title><style>${css}</style></head><body>${content}</body></html>`);w.document.close();
   w.onload=()=>setTimeout(()=>{w.focus();w.print()},250);
