@@ -395,6 +395,54 @@ input,select,textarea{
   .hr-kpis,.hr-ledger-summary,.att-grid{grid-template-columns:1fr}
 }
 
+
+/* ============================================================
+   SAMS v18.5 — SCROLLABLE SIDEBAR
+   Sidebar scrolls independently when menu items exceed screen height.
+   ============================================================ */
+.sidebar{
+  height:100vh !important;
+  max-height:100vh !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  overscroll-behavior:contain;
+  scrollbar-gutter:stable;
+  padding-bottom:24px;
+}
+
+/* Keep sidebar content comfortably reachable at the bottom. */
+.sidebar nav,
+.sidebar .nav-wrap,
+.sidebar .sidebar-nav{
+  padding-bottom:18px;
+}
+
+/* Firefox */
+.sidebar{
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.35) transparent;
+}
+
+/* Chromium / Edge / Chrome */
+.sidebar::-webkit-scrollbar{
+  width:8px;
+}
+.sidebar::-webkit-scrollbar-track{
+  background:transparent;
+}
+.sidebar::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,.28);
+  border-radius:999px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover{
+  background:rgba(255,255,255,.45);
+}
+
+/* Prevent body/page scrolling sideways because of the fixed sidebar. */
+body{
+  overflow-x:hidden;
+}
+
 </style>
 </head>
 <body>
@@ -1076,7 +1124,7 @@ function clearSubs(){state.unsubs.forEach(fn=>{try{fn()}catch{}});state.unsubs=[
 function badge(s){const x=String(s||'').toLowerCase();let c='info';if(['approved','issued','returned','verified','forwarded','active'].some(k=>x.includes(k)))c='ok';if(['pending','requested','borrowed','verification','approval'].some(k=>x.includes(k)))c='warn';if(['rejected','disapproved','overdue','inactive'].some(k=>x.includes(k)))c='bad';return `<span class="badge ${c}">${safe(s)}</span>`}
 function byCreated(a,b){return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)}
 
-const SAMS_VERSION='5.0.4-responsive-100-percent';
+const SAMS_VERSION='5.0.5-scrollable-sidebar';
 function tsDate(v){
   if(!v)return null;
   try{
