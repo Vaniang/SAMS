@@ -328,7 +328,7 @@ input,select,textarea{
   table{font-size:12px}
   th,td{padding:7px 8px}
   .sidebar{width:210px}
-  .main{margin-left:210px}
+  .app main{margin-left:210px;width:calc(100% - 210px)}
 }
 
 @media (max-width:1180px){
@@ -351,7 +351,7 @@ input,select,textarea{
 
 @media (max-width:900px){
   .sidebar{width:220px}
-  .main{margin-left:0!important;width:100%!important}
+  .app main{margin-left:0!important;width:100%!important}
   body:not(.sidebar-open) .sidebar{
     transform:translateX(-100%);
   }
@@ -442,6 +442,71 @@ input,select,textarea{
 body{
   overflow-x:hidden;
 }
+
+
+/* ============================================================
+   SAMS v18.6 — SIDEBAR / CONTENT GAP FIX
+   Main content starts exactly where the sidebar ends.
+   ============================================================ */
+
+.app > main{
+  margin-left:var(--side) !important;
+  width:calc(100% - var(--side)) !important;
+  max-width:calc(100% - var(--side)) !important;
+}
+
+.app > main > .content{
+  width:100%;
+  margin:0;
+}
+
+@media (max-width:1366px) and (min-width:901px){
+  :root{--side:210px}
+  .sidebar{
+    width:var(--side) !important;
+  }
+  .app > main{
+    margin-left:var(--side) !important;
+    width:calc(100% - var(--side)) !important;
+    max-width:calc(100% - var(--side)) !important;
+  }
+  .content{
+    padding:16px !important;
+  }
+}
+
+@media (max-width:900px){
+  :root{--side:220px}
+  .sidebar{
+    width:var(--side) !important;
+  }
+  .app > main{
+    margin-left:0 !important;
+    width:100% !important;
+    max-width:100% !important;
+  }
+}
+
+
+/* ============================================================
+   SAMS v18.7 — RESTORED DTR INPUT TABLE
+   ============================================================ */
+.dtr-input-wrap{overflow-x:auto!important;overflow-y:visible;width:100%;max-width:100%;-webkit-overflow-scrolling:touch}
+.dtr-input-table{min-width:1850px;width:max-content;border-collapse:collapse}
+.dtr-input-table th{text-align:center;vertical-align:middle;white-space:nowrap;font-size:11px;line-height:1.15}
+.dtr-input-table td{vertical-align:middle;white-space:nowrap}
+.dtr-input-table .dtr-name{min-width:190px;max-width:230px;white-space:normal;font-weight:700}
+.dtr-input-table input,.dtr-input-table select{height:34px;min-height:34px;padding:5px 7px;font-size:12px;border:1px solid var(--bd);border-radius:7px;background:#fff}
+.dtr-input-table .dtr-text{width:155px}
+.dtr-input-table .dtr-num{width:76px;text-align:center}
+.dtr-input-table .dtr-conv{width:82px;text-align:center;background:#f8fafc}
+.dtr-input-table .dtr-status{width:125px}
+.dtr-input-table .dtr-pay{min-width:120px;max-width:150px;white-space:normal}
+.dtr-input-table .dtr-remarks{width:180px}
+.dtr-input-table .dtr-actions{min-width:205px}
+.dtr-input-table .row-saving{opacity:.62}
+.dtr-input-table .row-saved input,.dtr-input-table .row-saved select{border-color:#86efac}
+@media(max-width:1366px){.dtr-input-table{min-width:1700px}.dtr-input-table input,.dtr-input-table select{font-size:11px;padding:4px 6px}}
 
 </style>
 </head>
@@ -684,27 +749,64 @@ body{
       </section>
 
       <section id="dtr" class="section">
-        <div class="two-col">
-          <article id="dtrAdminCard" class="card">
-            <h3>DTR / Attendance Monitoring</h3>
-            <p class="muted" style="margin:-4px 0 12px">Monthly DTR monitoring is linked to the Employee Masterlist. HR can load all active employees for a month, then encode attendance details per employee.</p>
-            <form id="dtrForm" class="form-grid">
-              <div class="f span6"><label>Employee</label><select id="dtEmployee"></select></div>
-              <div class="f span3"><label>Month</label><input id="dtMonth" type="month" required></div>
-              <div class="f span3"><label>Status</label><select id="dtStatus"><option>Pending</option><option>Submitted</option><option>Verified</option><option>Forwarded to SDO</option></select></div>
-              <div class="f span12"><label>Remarks</label><input id="dtRemarks"></div>
-              <div class="span12"><button class="btn primary">Save DTR Record</button> <button id="loadDtrEmployeesBtn" class="btn light" type="button">Load All Active Employees for Month</button></div>
-            </form>
-          </article>
-          <article class="card">
-            <h3>Attendance Policy Settings</h3>
-            <p class="muted">Teaching fixed-schedule calculations and monthly credit treatment are configurable under Settings. DTR computations are monitoring aids and should be validated by authorized HR personnel before payroll/report use.</p>
-            <div class="hr-note">The system can calculate late/undertime equivalents from encoded daily attendance entries. Non-teaching VL deductions and teaching payroll treatment remain reviewable by HR.</div>
-          </article>
-        </div>
+        <article id="dtrAdminCard" class="card">
+          <div class="toolbar">
+            <div>
+              <h3>DTR / Attendance Monthly Input</h3>
+              <p class="muted" style="margin:3px 0 0">Select the month, load active employees, then encode the monthly DTR details directly in the table.</p>
+            </div>
+            <div class="actions">
+              <div class="f" style="min-width:170px"><label>Month</label><input id="dtMonth" type="month" required></div>
+              <button id="loadDtrEmployeesBtn" class="btn primary" type="button">👥 Load Active Employees</button>
+            </div>
+          </div>
+          <div class="hr-note mt">
+            <b>DTR Input:</b> Travel, leave/absence, tardiness, undertime, conversions, status, pay/leave treatment, and remarks can be encoded directly below.
+            Use <b>Attendance Details</b> for the expanded monthly record.
+          </div>
+        </article>
+
         <article class="card mt">
-          <div class="toolbar"><div><h3>DTR Records</h3><p class="muted" style="margin:3px 0 0">Open <b>Attendance</b> to encode detailed monthly data.</p></div></div>
-          <div class="table-wrap" title="Scroll horizontally if more columns are available"><table><thead><tr><th>Employee</th><th>Month</th><th>Status</th><th>Attendance Eq.</th><th>Pay / Charge</th><th>Remarks</th><th>Updated</th><th>Actions</th></tr></thead><tbody id="dtrBody"></tbody></table></div>
+          <div class="toolbar">
+            <div>
+              <h3>DTR Report Input Table</h3>
+              <p class="muted" style="margin:3px 0 0">Scroll horizontally to reach all input columns at 100% browser zoom.</p>
+            </div>
+            <div class="actions">
+              <button id="saveAllDtrRowsBtn" class="btn primary" type="button">💾 Save All Visible Rows</button>
+            </div>
+          </div>
+
+          <div class="table-wrap dtr-input-wrap" title="Scroll horizontally to view all DTR input columns">
+            <table class="dtr-input-table">
+              <thead>
+                <tr>
+                  <th rowspan="2">Employee</th>
+                  <th rowspan="2">Travel Dates</th>
+                  <th rowspan="2">Leave / Absence Dates</th>
+                  <th colspan="3">Tardiness</th>
+                  <th colspan="4">Undertime</th>
+                  <th colspan="2">Grand Total</th>
+                  <th rowspan="2">Status</th>
+                  <th rowspan="2">Pay / Charge</th>
+                  <th rowspan="2">Remarks</th>
+                  <th rowspan="2">Actions</th>
+                </tr>
+                <tr>
+                  <th>Times / Days</th>
+                  <th>Minutes</th>
+                  <th>Conversion</th>
+                  <th>Days</th>
+                  <th>Hours</th>
+                  <th>Minutes</th>
+                  <th>Conversion</th>
+                  <th>Days</th>
+                  <th>Conversion</th>
+                </tr>
+              </thead>
+              <tbody id="dtrBody"></tbody>
+            </table>
+          </div>
         </article>
       </section>
 
@@ -1124,7 +1226,7 @@ function clearSubs(){state.unsubs.forEach(fn=>{try{fn()}catch{}});state.unsubs=[
 function badge(s){const x=String(s||'').toLowerCase();let c='info';if(['approved','issued','returned','verified','forwarded','active'].some(k=>x.includes(k)))c='ok';if(['pending','requested','borrowed','verification','approval'].some(k=>x.includes(k)))c='warn';if(['rejected','disapproved','overdue','inactive'].some(k=>x.includes(k)))c='bad';return `<span class="badge ${c}">${safe(s)}</span>`}
 function byCreated(a,b){return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)}
 
-const SAMS_VERSION='5.0.5-scrollable-sidebar';
+const SAMS_VERSION='5.0.7-restored-dtr-input-table';
 function tsDate(v){
   if(!v)return null;
   try{
@@ -2683,8 +2785,8 @@ $('saveDtrDetailBtn').onclick=async()=>{
   }
   const payload={
     absenceDates:$('dtrAbsenceDates').value.trim(),absenceCount:Number($('dtrAbsenceCount').value)||0,underDates:$('dtrUnderDates').value.trim(),underCount:Number($('dtrUnderCount').value)||0,vacationLeaveDays:Number($('dtrVacationDays').value)||0,sickLeaveDays:Number($('dtrSickDays').value)||0,cause:$('dtrCause').value.trim(),
-    tardyMinutes:Number($('dtrTardyMinutes').value)||0,underDays:Number($('dtrUnderDays').value)||0,underHours:Number($('dtrUnderHours').value)||0,underMinutes:Number($('dtrUnderMinutes').value)||0,
-    tardinessEquivalent:eq.late,undertimeEquivalent:eq.under,totalAttendanceEquivalent:eq.total,payStatus,leaveChargeType:charge,travelDates:$('dtrTravelDates').value.trim(),divisionAction:$('dtrDivisionAction').value.trim(),deduction:$('dtrDeduction').value.trim(),remarks:$('dtrDetailRemarks').value.trim(),updatedAt:serverTimestamp(),updatedByUid:state.user.uid
+    tardyDays:Number(r.tardyDays)||0,tardyMinutes:Number($('dtrTardyMinutes').value)||0,underDays:Number($('dtrUnderDays').value)||0,underHours:Number($('dtrUnderHours').value)||0,underMinutes:Number($('dtrUnderMinutes').value)||0,
+    tardinessEquivalent:eq.late,undertimeEquivalent:eq.under,totalDays:round3((Number(r.tardyDays)||0)+(Number($('dtrUnderDays').value)||0)),totalAttendanceEquivalent:eq.total,payStatus,leaveChargeType:charge,travelDates:$('dtrTravelDates').value.trim(),divisionAction:$('dtrDivisionAction').value.trim(),deduction:$('dtrDeduction').value.trim(),remarks:$('dtrDetailRemarks').value.trim(),updatedAt:serverTimestamp(),updatedByUid:state.user.uid
   };
   try{await updateDoc(doc(db,'dtrRecords',id),payload);await audit('DTR','Updated detailed attendance',`${r.employeeName||''} ${r.month||''}`);toast('DTR attendance details saved.');closeDtrDetails()}catch(err){console.error(err);toast('Could not save DTR details.')}
 };
@@ -3014,63 +3116,149 @@ function downloadCsv(name,rows){if(!rows.length)return toast('No data to export.
 $('exportDtrSummaryBtn').onclick=()=>{const month=$('hrReportMonth').value||today().slice(0,7),rows=state.dtr.filter(isVisibleRecord).filter(r=>r.month===month).map(r=>({Employee:r.employeeName,Month:r.month,Status:r.status,'Tardy Eq':r.tardinessEquivalent||0,'Undertime Eq':r.undertimeEquivalent||0,'Total Eq':r.totalAttendanceEquivalent||0,'Pay Status':r.payStatus||'','Leave Charge':r.leaveChargeType||'',Remarks:r.remarks||''}));downloadCsv(`DTR-Summary-${month}.csv`,rows)};
 $('exportLeaveRegisterBtn').onclick=()=>{const month=$('hrReportMonth').value||today().slice(0,7),rows=state.leaves.filter(isVisibleRecord).filter(r=>String(r.from||r.filingDate||'').slice(0,7)===month).map(r=>({Employee:r.employeeName,'Leave Type':r.leaveType||r.type,From:r.from,To:r.to,'Working Days':r.workingDays||'',Status:r.status,Source:r.source||'',Remarks:r.remarks||''}));downloadCsv(`Leave-Register-${month}.csv`,rows)};
 
-$('dtrForm').onsubmit=async e=>{
-  e.preventDefault();
-  if(!hasRole('HR/Admin','Administrator'))return;
 
-  const emp=selectedDirectoryEmployee('dtEmployee');
-  if(!emp)return toast('Select an employee.');
-
-  const month=$('dtMonth').value;
-  if(!month)return toast('Select a month.');
-
-  try{
-    const identity=emp.masterEmployeeId||emp.linkedUserUid||String(emp.email||emp.displayName).replace(/[^a-zA-Z0-9_-]/g,'_');
-    const id=`${identity}_${month}`;
-
-    await setDoc(doc(db,'dtrRecords',id),{
-      employeeUid:emp.linkedUserUid||'',
-      masterEmployeeId:emp.masterEmployeeId||'',
-      employeeName:emp.displayName,
-      employeeOffice:emp.office||'',
-      employeePosition:emp.position||'',
-      employeeEmail:emp.email||'',
-      month,
-      status:$('dtStatus').value,
-      remarks:$('dtRemarks').value.trim(),
-      source:'HR Monitoring',
-      updatedByUid:state.user.uid,
-      updatedAt:serverTimestamp(),
-      createdAt:serverTimestamp()
-    },{merge:true});
-
-    await audit('DTR','Saved DTR monitoring status',`${emp.displayName} ${month}`);await notifyUser(emp.linkedUserUid,'DTR','DTR status updated',`Your DTR for ${month} is now ${$('dtStatus').value}.`,month,id);
-    e.target.reset();
-    $('dtMonth').value=today().slice(0,7);
-    fillHrEmployeeSelectors();
-    toast('DTR status saved.');
-  }catch(err){
-    console.error(err);
-    toast('Could not save DTR record.');
-  }
-};
+function dtrMonthRows(){
+  const month=$('dtMonth')?.value||today().slice(0,7);
+  return state.dtr.filter(isVisibleRecord).filter(r=>r.month===month)
+    .sort((a,b)=>String(a.employeeName||'').localeCompare(String(b.employeeName||'')));
+}
+function dtrInputEq(r){
+  const lateMinutes=Number(r.tardyMinutes)||0;
+  const underMinutes=(Number(r.underDays)||0)*480+(Number(r.underHours)||0)*60+(Number(r.underMinutes)||0);
+  const late=cscFractionFromMinutes(lateMinutes),under=cscFractionFromMinutes(underMinutes);
+  return {late:round3(late),under:round3(under),total:round3(late+under)};
+}
+function dtrRowPayText(r){
+  const pay=String(r.payStatus||'').trim(),charge=String(r.leaveChargeType||'').trim();
+  if(pay&&charge)return `${pay} / ${charge}`;
+  return pay||charge||'—';
+}
 function renderDtr(){
-  const rows=state.dtr.filter(isVisibleRecord);
+  const rows=dtrMonthRows();
   $('dtrBody').innerHTML=rows.map(r=>{
-    const edit=canEditDtr(r),del=canDeleteDtr(r),eq=Number(r.totalAttendanceEquivalent||0);
-    return `<tr>
-      <td>${safe(r.employeeName)}</td><td>${safe(r.month)}</td><td>${badge(r.status)}</td>
-      <td>${eq?eq.toFixed(3):'0.000'}</td><td>${safe(r.payStatus||'')}${r.leaveChargeType?`<br><span class="muted">${safe(r.leaveChargeType)}</span>`:''}</td>
-      <td>${safe(r.remarks||'')}</td><td>${fmtTs(r.updatedAt)}</td>
-      <td><div class="actions">
-        ${hasRole('HR/Admin','Administrator')?`<button class="btn light xs" onclick="openDtrDetails('${r.id}')">🕐 Attendance</button>`:''}
-        ${edit?`<button class="btn light xs" onclick="openRecordEditor('dtr','${r.id}')">✏️ Edit</button>`:''}
-        ${del?`<button class="btn danger xs" onclick="softDeleteRecord('dtr','${r.id}')">🗑 Delete</button>`:''}
+    const edit=canEditDtr(r),del=canDeleteDtr(r),eq=dtrInputEq(r);
+    return `<tr id="dtr-row-${r.id}">
+      <td class="dtr-name">${safe(r.employeeName)}</td>
+      <td><input class="dtr-text dtr-row-field" data-id="${r.id}" data-field="travelDates" value="${safe(r.travelDates||'')}" ${edit?'':'disabled'}></td>
+      <td><input class="dtr-text dtr-row-field" data-id="${r.id}" data-field="absenceDates" value="${safe(r.absenceDates||'')}" ${edit?'':'disabled'}></td>
+      <td><input class="dtr-num dtr-row-field" data-id="${r.id}" data-field="tardyDays" type="number" step="0.5" min="0" value="${safe(r.tardyDays||'')}" ${edit?'':'disabled'}></td>
+      <td><input class="dtr-num dtr-row-field dtr-calc-field" data-id="${r.id}" data-field="tardyMinutes" type="number" min="0" value="${safe(r.tardyMinutes||'')}" ${edit?'':'disabled'}></td>
+      <td><input class="dtr-conv" id="dtr-late-conv-${r.id}" value="${eq.late.toFixed(3)}" readonly></td>
+      <td><input class="dtr-num dtr-row-field dtr-calc-field" data-id="${r.id}" data-field="underDays" type="number" step="0.5" min="0" value="${safe(r.underDays||'')}" ${edit?'':'disabled'}></td>
+      <td><input class="dtr-num dtr-row-field dtr-calc-field" data-id="${r.id}" data-field="underHours" type="number" min="0" value="${safe(r.underHours||'')}" ${edit?'':'disabled'}></td>
+      <td><input class="dtr-num dtr-row-field dtr-calc-field" data-id="${r.id}" data-field="underMinutes" type="number" min="0" value="${safe(r.underMinutes||'')}" ${edit?'':'disabled'}></td>
+      <td><input class="dtr-conv" id="dtr-under-conv-${r.id}" value="${eq.under.toFixed(3)}" readonly></td>
+      <td><input class="dtr-conv" id="dtr-total-days-${r.id}" value="${(Number(r.tardyDays)||0)+(Number(r.underDays)||0) || ''}" readonly></td>
+      <td><input class="dtr-conv" id="dtr-total-conv-${r.id}" value="${eq.total.toFixed(3)}" readonly></td>
+      <td><select class="dtr-status dtr-row-field" data-id="${r.id}" data-field="status" ${edit?'':'disabled'}>
+        ${['Pending','Submitted','Verified','Forwarded to SDO'].map(v=>`<option ${r.status===v?'selected':''}>${v}</option>`).join('')}
+      </select></td>
+      <td class="dtr-pay" id="dtr-pay-${r.id}">${safe(dtrRowPayText(r))}</td>
+      <td><input class="dtr-remarks dtr-row-field" data-id="${r.id}" data-field="remarks" value="${safe(r.remarks||'')}" ${edit?'':'disabled'}></td>
+      <td class="dtr-actions"><div class="actions">
+        ${edit?`<button class="btn primary xs" onclick="saveDtrInputRow('${r.id}')">💾 Save</button>`:''}
+        ${hasRole('HR/Admin','Administrator')?`<button class="btn light xs" onclick="openDtrDetails('${r.id}')">🕐 Attendance Details</button>`:''}
+        ${del?`<button class="btn danger xs" onclick="softDeleteRecord('dtr','${r.id}')">🗑</button>`:''}
       </div></td>
     </tr>`;
-  }).join('')||'<tr><td colspan="8" class="muted">No DTR records found.</td></tr>';
+  }).join('')||'<tr><td colspan="16" class="muted">No DTR rows for this month. Click Load Active Employees.</td></tr>';
+
+  document.querySelectorAll('.dtr-calc-field').forEach(el=>el.addEventListener('input',()=>recalcDtrInputRow(el.dataset.id)));
   renderMonthlyHrSummary();
 }
+
+function dtrRowFieldValue(id,field){
+  const el=document.querySelector(`.dtr-row-field[data-id="${id}"][data-field="${field}"]`);
+  return el?el.value:'';
+}
+function recalcDtrInputRow(id){
+  const lateMins=Number(dtrRowFieldValue(id,'tardyMinutes'))||0;
+  const underDays=Number(dtrRowFieldValue(id,'underDays'))||0;
+  const underHours=Number(dtrRowFieldValue(id,'underHours'))||0;
+  const underMins=Number(dtrRowFieldValue(id,'underMinutes'))||0;
+  const tardyDays=Number(dtrRowFieldValue(id,'tardyDays'))||0;
+  const late=cscFractionFromMinutes(lateMins);
+  const under=cscFractionFromMinutes((underDays*480)+(underHours*60)+underMins);
+  const total=round3(late+under);
+  const lateEl=document.getElementById(`dtr-late-conv-${id}`);
+  const underEl=document.getElementById(`dtr-under-conv-${id}`);
+  const daysEl=document.getElementById(`dtr-total-days-${id}`);
+  const totalEl=document.getElementById(`dtr-total-conv-${id}`);
+  if(lateEl)lateEl.value=round3(late).toFixed(3);
+  if(underEl)underEl.value=round3(under).toFixed(3);
+  if(daysEl)daysEl.value=(tardyDays+underDays)||'';
+  if(totalEl)totalEl.value=total.toFixed(3);
+}
+function inferDtrTreatment(record,totalEq){
+  const emp=masterEmployeeForRecord(record),basis=suggestedLeaveBasis(emp);
+  let payStatus=record.payStatus||'',leaveChargeType=record.leaveChargeType||'';
+  if(totalEq>0){
+    if(basis==='VL_SL'){
+      if(!payStatus)payStatus='WITH PAY';
+      if(!leaveChargeType)leaveChargeType='VL';
+    }else if(!payStatus){
+      payStatus=state.settings.teachingPayrollTreatment||'FOR HR VALIDATION';
+    }
+  }
+  return {payStatus,leaveChargeType};
+}
+async function saveDtrInputRowInternal(id,showToast=true){
+  const r=state.dtr.find(x=>x.id===id);if(!r)return false;
+  if(!canEditDtr(r)){if(showToast)toast('You do not have permission to edit this DTR record.');return false}
+  const row=document.getElementById(`dtr-row-${id}`);if(row)row.classList.add('row-saving');
+  try{
+    const tardyDays=Number(dtrRowFieldValue(id,'tardyDays'))||0;
+    const tardyMinutes=Number(dtrRowFieldValue(id,'tardyMinutes'))||0;
+    const underDays=Number(dtrRowFieldValue(id,'underDays'))||0;
+    const underHours=Number(dtrRowFieldValue(id,'underHours'))||0;
+    const underMinutes=Number(dtrRowFieldValue(id,'underMinutes'))||0;
+    const tardinessEquivalent=round3(cscFractionFromMinutes(tardyMinutes));
+    const undertimeEquivalent=round3(cscFractionFromMinutes((underDays*480)+(underHours*60)+underMinutes));
+    const totalAttendanceEquivalent=round3(tardinessEquivalent+undertimeEquivalent);
+    const treatment=inferDtrTreatment(r,totalAttendanceEquivalent);
+
+    const payload={
+      travelDates:dtrRowFieldValue(id,'travelDates').trim(),
+      absenceDates:dtrRowFieldValue(id,'absenceDates').trim(),
+      tardyDays,tardyMinutes,tardinessEquivalent,
+      underDays,underHours,underMinutes,undertimeEquivalent,
+      totalDays:round3(tardyDays+underDays),
+      totalAttendanceEquivalent,
+      status:dtrRowFieldValue(id,'status')||r.status||'Pending',
+      payStatus:treatment.payStatus,
+      leaveChargeType:treatment.leaveChargeType,
+      remarks:dtrRowFieldValue(id,'remarks').trim(),
+      updatedAt:serverTimestamp(),
+      updatedByUid:state.user.uid
+    };
+
+    await updateDoc(doc(db,'dtrRecords',id),payload);
+    await audit('DTR','Updated monthly DTR input row',`${r.employeeName||''} ${r.month||''}`);
+    if(row){row.classList.remove('row-saving');row.classList.add('row-saved');setTimeout(()=>row.classList.remove('row-saved'),1000)}
+    const pay=document.getElementById(`dtr-pay-${id}`);if(pay)pay.textContent=[payload.payStatus,payload.leaveChargeType].filter(Boolean).join(' / ')||'—';
+    if(showToast)toast(`DTR saved: ${r.employeeName||''}`);
+    return true;
+  }catch(err){
+    console.error(err);if(row)row.classList.remove('row-saving');if(showToast)toast('Could not save DTR row.');return false;
+  }
+}
+window.saveDtrInputRow=id=>saveDtrInputRowInternal(id,true);
+
+$('saveAllDtrRowsBtn').onclick=async()=>{
+  const rows=dtrMonthRows().filter(canEditDtr);
+  if(!rows.length)return toast('No editable DTR rows for this month.');
+  const btn=$('saveAllDtrRowsBtn'),old=btn.textContent;btn.disabled=true;btn.textContent='Saving...';
+  let ok=0,failed=0;
+  for(const r of rows){
+    const saved=await saveDtrInputRowInternal(r.id,false);
+    saved?ok++:failed++;
+  }
+  btn.disabled=false;btn.textContent=old;
+  toast(failed?`${ok} row(s) saved; ${failed} failed.`:`${ok} DTR row(s) saved.`);
+};
+
+$('dtMonth').addEventListener('change',renderDtr);
+
 /* ============================================================
    ONLINE CS FORM NO. 6 LEAVE WORKFLOW
    Restored in v18.1 after v18 merge removed these declarations.
