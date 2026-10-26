@@ -687,11 +687,11 @@ body{
               <div class="card-head"><h3>System & Data Health</h3><span id="healthOverallBadge" class="badge ok">Healthy</span></div>
               <div id="adminHealthGrid" class="health-grid"></div>
               <div class="system-actions">
-                <button id="backupJsonBtn" class="btn primary" type="button">⬇ Export Backup JSON</button>
+                <button id="backupJsonBtn" class="btn primary" type="button">⬇ Export Loaded Data JSON</button>
                 <button class="btn light" type="button" onclick="dashboardGo('reports')">Open Reports</button>
                 <button class="btn light" type="button" onclick="dashboardGo('archives')">Open Archives</button>
               </div>
-              <div id="backupStatus" class="system-note">Backup export creates a local JSON copy of core SAMS records visible to the Administrator.</div>
+              <div id="backupStatus" class="system-note">This is a local export of loaded data, not a complete or restorable Firestore database backup.</div>
             </article>
           </div>
 
@@ -1418,7 +1418,7 @@ const firebaseConfig = {
 };
 
 const $=id=>document.getElementById(id);
-const state={user:null,profile:null,settings:{},users:[],masterlist:[],supplies:[],borrows:[],dtr:[],leaves:[],files201:[],trainings:[],performances:[],leaveCredits:[],savedDtrReports:[],audit:[],notifications:[],unsubs:[],lastRefreshAt:null,syncErrors:0};
+const state={user:null,profile:null,settings:{},users:[],masterlist:[],supplies:[],borrows:[],dtr:[],leaves:[],files201:[],trainings:[],performances:[],leaveCredits:[],savedDtrReports:[],audit:[],notifications:[],unsubs:[],profileUnsub:null,lastRefreshAt:null,syncErrors:0};
 let auth,db;
 const localISODate=(d=new Date())=>{const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`};
 const today=()=>localISODate();
@@ -1466,11 +1466,43 @@ function startupFail(message,error=null){
   loginMsg(message||'Unable to start SAMS.');
 }
 
-function clearSubs(){state.unsubs.forEach(fn=>{try{fn()}catch{}});state.unsubs=[]}
+function clearSubs(){
+  state.unsubs.forEach(fn=>{try{fn()}catch{}});
+  state.unsubs=[];
+  state.profileUnsub=null;
+}
+
+// Always erase the previous user's/role's cached school records before switching scope.
+function resetSessionData(){
+  for(const key of ['users','masterlist','supplies','borrows','dtr','leaves','files201','trainings','performances','leaveCredits','savedDtrReports','audit','notifications']){
+    state[key]=[];
+  }
+  state.settings={};
+  state.lastRefreshAt=null;
+  state.syncErrors=0;
+  // Clear rendered information as well as JS arrays: users may share one school computer.
+  document.querySelectorAll('.section tbody').forEach(el=>el.replaceChildren());
+  for(const id of ['adminAttention','adminMonthBars','adminHealthGrid','recentActivity','userAttention','userTimeline',
+                   'userNotificationPreview','adminQuickActions','userQuickActions','ledgerPreview','ledgerSummary',
+                   'trainingSummary','performanceSummary','reportTiles','modalBody','recordEditFields',
+                   'dashName','dashEmail','dashPosition','dashContact','dashOffice','dashRole','dashPreferred']){
+    if($(id))$(id).replaceChildren();
+  }
+  document.querySelectorAll('.modal').forEach(el=>el.classList.add('hidden'));
+  if($('hrmo6PreviewFrame'))$('hrmo6PreviewFrame').srcdoc='';
+  document.querySelectorAll('#app form').forEach(form=>{try{form.reset()}catch{}});
+  for(const [id,value] of [['brDate',today()],['walkDate',today()],['walkEquipDate',today()],
+                            ['dtMonth',today().slice(0,7)],['hrReportMonth',today().slice(0,7)],
+                            ['ledgerThroughMonth',today().slice(0,7)],['lvDateFiling',today()]]){
+    if($(id))$(id).value=value;
+  }
+  if($('dashboardRefresh'))$('dashboardRefresh').textContent='Waiting for cloud data…';
+  if($('syncStatus'))$('syncStatus').textContent='● Connecting…';
+}
 function badge(s){const x=String(s||'').toLowerCase();let c='info';if(['approved','issued','returned','verified','forwarded','active'].some(k=>x.includes(k)))c='ok';if(['pending','requested','borrowed','verification','approval'].some(k=>x.includes(k)))c='warn';if(['rejected','disapproved','overdue','inactive'].some(k=>x.includes(k)))c='bad';return `<span class="badge ${c}">${safe(s)}</span>`}
 function byCreated(a,b){return (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)}
 
-const SAMS_VERSION='5.0.11-startup-loading-fix';
+const SAMS_VERSION='5.0.12-school-hardening';
 function tsDate(v){
   if(!v)return null;
   try{
@@ -1484,7 +1516,7 @@ function dayDiff(dateString){if(!dateString)return null;const d=new Date(`${date
 function daysOld(r){const d=recordDate(r);if(!d)return null;return Math.max(0,Math.floor((new Date()-d)/86400000))}
 function friendlyDate(d){const x=tsDate(d);return x?x.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}):'—'}
 function friendlyNow(){return new Date().toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})}
-function touchRefresh(){state.lastRefreshAt=new Date();if($('dashboardRefresh'))$('dashboardRefresh').textContent=`Data refreshed ${friendlyNow()}`}
+function touchRefresh(){state.lastRefreshAt=new Date();if($('dashboardRefresh'))$('dashboardRefresh').textContent=`Cloud update received ${friendlyNow()}`;updateConnectivityStatus()}
 function ownRecord(r,uidField,emailField=''){const uid=state.user?.uid||'',email=String(state.user?.email||'').toLowerCase();return r?.[uidField]===uid||(emailField&&String(r?.[emailField]||'').toLowerCase()===email)}
 function ownSupplies(){return state.supplies.filter(isVisibleRecord).filter(r=>ownRecord(r,'requesterUid','requesterEmail'))}
 function ownBorrows(){return state.borrows.filter(isVisibleRecord).filter(r=>ownRecord(r,'borrowerUid'))}
@@ -1503,12 +1535,13 @@ function cleanExport(value){
 }
 async function exportSamsBackup(){
   if(!hasRole('Administrator'))return toast('Administrator access is required for backup export.');
+  if(!confirm('This unencrypted JSON export includes personnel, salary, HR and audit data. Download it only to an approved, access-controlled device and move it to secured storage. Continue?'))return;
   const payload={
     metadata:{system:'SAMS',version:SAMS_VERSION,exportedAt:new Date().toISOString(),exportedBy:state.user?.email||'',school:state.settings.schoolName||''},
     settings:cleanExport(state.settings),users:cleanExport(state.users),employeeMasterlist:cleanExport(state.masterlist),supplyRequests:cleanExport(state.supplies),borrowTransactions:cleanExport(state.borrows),dtrRecords:cleanExport(state.dtr),leaveApplications:cleanExport(state.leaves),hr201Files:cleanExport(state.files201),trainingRecords:cleanExport(state.trainings),performanceRecords:cleanExport(state.performances),leaveCreditProfiles:cleanExport(state.leaveCredits),savedDtrReports:cleanExport(state.savedDtrReports),auditLogs:cleanExport(state.audit)
   };
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`SAMS-Backup-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`SAMS-Data-Export-${today()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
   const stamp=new Date().toISOString();localStorage.setItem('samsLastBackupAt',stamp);
   try{await audit('System','Exported SAMS JSON backup',today())}catch{}
   renderAdminDashboard();toast('SAMS backup JSON exported.');
@@ -1559,11 +1592,11 @@ function renderAdminHealth(){
     ['Masterlist without linked login',String(h.unlinked),h.unlinked?'caution':'good'],
     ['Disabled user accounts',String(h.disabled),h.disabled?'caution':'good'],
     ['Archived records',String(h.archived),'good'],
-    ['Last local backup',lastBackup?friendlyDate(lastBackup):'Not recorded',lastBackup?'good':'caution']
+    ['Last local export',lastBackup?friendlyDate(lastBackup):'Not recorded','good']
   ];
   $('adminHealthGrid').innerHTML=items.map(([label,value,cls])=>`<div class="health-item"><small>${safe(label)}</small><b class="${cls}">${safe(value)}</b></div>`).join('');
-  const issues=h.duplicateEmails+h.settingsMissing;const caution=h.unlinked+h.disabled+(lastBackup?0:1);const badge=$('healthOverallBadge');badge.textContent=issues?'Needs Review':caution?'Review Suggested':'Healthy';badge.className=`badge ${issues?'bad':caution?'warn':'ok'}`;
-  $('backupStatus').textContent=lastBackup?`Last backup exported ${new Date(lastBackup).toLocaleString()}. Backup files are downloaded to this device.`:'No local backup export has been recorded on this browser yet.';
+  const issues=h.duplicateEmails+h.settingsMissing;const caution=h.unlinked+h.disabled;const badge=$('healthOverallBadge');badge.textContent=issues?'Needs Review':caution?'Review Suggested':'Healthy';badge.className=`badge ${issues?'bad':caution?'warn':'ok'}`;
+  $('backupStatus').textContent=lastBackup?`Last JSON export downloaded ${new Date(lastBackup).toLocaleString()}. This is not a database backup.`:'No local JSON export recorded. Configure Firestore scheduled backups separately.';
 }
 
 function profileCompletion(){const p=state.profile||{};const vals=[p.displayName,p.office,p.position,p.preferredName,p.contactNumber];return Math.round(vals.filter(v=>String(v||'').trim()).length/vals.length*100)}
@@ -1613,7 +1646,7 @@ function renderUserDashboard(){
 }
 
 
-function setSection(id){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));$(id)?.classList.add('active');const b=document.querySelector(`.nav[data-section="${id}"]`);if(b&&!b.classList.contains('hidden')){b.classList.add('active');$('pageTitle').textContent=b.querySelector('span')?.textContent||'SAMS'}if(id==='dashboard')renderDashboard();if(id==='consolidatedHr'){renderMonthlyHrSummary();fillHrSuiteEmployeeSelects();refreshLedgerProfileFields()}if(id==='files201')render201Files();if(id==='training')renderTraining();if(id==='performance')renderPerformance()}
+function setSection(id){if(id!=='dashboard'&&!sectionAvailable(id)){toast('This page is not available to your role.');return}document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));$(id)?.classList.add('active');const b=document.querySelector(`.nav[data-section="${id}"]`);if(b&&!b.classList.contains('hidden')){b.classList.add('active');$('pageTitle').textContent=b.querySelector('span')?.textContent||'SAMS'}if(id==='dashboard')renderDashboard();if(id==='consolidatedHr'){renderMonthlyHrSummary();fillHrSuiteEmployeeSelects();refreshLedgerProfileFields()}if(id==='files201')render201Files();if(id==='training')renderTraining();if(id==='performance')renderPerformance()}
 document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>!b.classList.contains('hidden')&&setSection(b.dataset.section));
 
 function applyRoleUI(){
@@ -1729,7 +1762,13 @@ function exportSummaryCSV(){
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`SAMS-Summary-${today()}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 
-function updateConnectivityStatus(){const online=navigator.onLine;$('syncStatus').textContent=online?'● Online':'● Offline';$('syncStatus').style.color=online?'#027a48':'#b54708';if($('dashboardRefresh')&&!state.lastRefreshAt)$('dashboardRefresh').textContent=online?'Waiting for data…':'Offline — cached data may be shown'}
+function updateConnectivityStatus(){
+  const online=navigator.onLine;
+  const status=!online?'● Offline':state.syncErrors?'● Sync / access issue':state.lastRefreshAt?'● Data received':'● Connecting…';
+  $('syncStatus').textContent=status;
+  $('syncStatus').style.color=!online?'#b54708':state.syncErrors?'#b42318':state.lastRefreshAt?'#027a48':'#667085';
+  if($('dashboardRefresh')&&!state.lastRefreshAt)$('dashboardRefresh').textContent=online?'Waiting for cloud data…':'Offline — any shown data may be outdated';
+}
 window.addEventListener('online',updateConnectivityStatus);window.addEventListener('offline',updateConnectivityStatus);
 
 async function refreshOwnProfile(){
@@ -1833,9 +1872,17 @@ async function loadUsers(){
 
 function listenToOwnProfile(){
   const uid=state.user?.uid;
-  if(!uid) return;
+  if(!uid)return;
+  // Do not rely on the listener being the last entry in the subscription array.
   const unsub=onSnapshot(doc(db,'users',uid),async snap=>{
-    if(!snap.exists()) return;
+    if(state.user?.uid!==uid)return; // Ignore callbacks from an older session.
+    if(!snap.exists()||snap.data().active===false){
+      loginMsg('Your SAMS account was disabled or removed. Contact the Administrator.');
+      clearSubs();
+      resetSessionData();
+      try{await signOut(auth)}catch(e){console.error('Session revocation:',e)}
+      return;
+    }
     const incoming={id:snap.id,...snap.data()};
     const roleChanged=state.profile?.role!==incoming.role;
     state.profile=incoming;
@@ -1844,21 +1891,28 @@ function listenToOwnProfile(){
 
     if(roleChanged){
       toast('Your SAMS role was updated to '+(incoming.role||'Employee')+'.');
+      const activeProfileListener=state.profileUnsub;
+      // Unsubscribe every data listener while keeping this account listener.
+      state.unsubs.filter(fn=>fn!==activeProfileListener).forEach(fn=>{try{fn()}catch{}});
+      state.unsubs=activeProfileListener?[activeProfileListener]:[];
+      resetSessionData();
+      updateProfileUI(incoming);
+      applyRoleUI();
+      // Immediately leave any previously authorized management page.
+      setSection('dashboard');
       await loadSettings();
       await loadUsers();
-      // Rebuild role-scoped data listeners while keeping this profile listener.
-      const profileListener=state.unsubs[state.unsubs.length-1];
-      const otherListeners=state.unsubs.slice(0,-1);
-      otherListeners.forEach(fn=>{try{fn()}catch{}});
-      state.unsubs=profileListener?[profileListener]:[];
+      if(state.user?.uid!==uid || state.profile?.active===false)return;
       listenData(false);
     }
-  },e=>console.warn('Profile listener:',e));
+  },e=>{console.error('Profile listener:',e);$('syncStatus').textContent='● Account sync issue';});
+  state.profileUnsub=unsub;
   state.unsubs.push(unsub);
 }
 
 async function startSession(user){
   clearSubs();
+  resetSessionData();
   state.user=user;
 
   state.profile=await ensureProfile(user);
@@ -1896,24 +1950,24 @@ async function startSession(user){
 function listenData(clearExisting=true){
   if(clearExisting) clearSubs();const uid=state.user.uid;
   const sq=hasRole('Supply Officer','School Head','Administrator')?collection(db,'supplyRequests'):query(collection(db,'supplyRequests'),where('requesterUid','==',uid));
-  state.unsubs.push(onSnapshot(sq,s=>{state.supplies=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderSupplies();renderDashboard()},syncError));
+  state.unsubs.push(onSnapshot(sq,s=>{state.supplies=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderSupplies();touchRefresh();renderDashboard()},syncError));
 
   if(hasRole('Employee','Property Custodian','School Head','Administrator')){
     const bq=hasRole('Property Custodian','School Head','Administrator')?collection(db,'borrowTransactions'):query(collection(db,'borrowTransactions'),where('borrowerUid','==',uid));
-    state.unsubs.push(onSnapshot(bq,s=>{state.borrows=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderBorrows();renderDashboard()},syncError));
+    state.unsubs.push(onSnapshot(bq,s=>{state.borrows=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderBorrows();touchRefresh();renderDashboard()},syncError));
   }
   if(hasRole('Employee','HR/Admin','School Head','Administrator')){
     const dq=hasRole('HR/Admin','School Head','Administrator')?collection(db,'dtrRecords'):query(collection(db,'dtrRecords'),where('employeeUid','==',uid));
     const lq=hasRole('HR/Admin','School Head','Administrator')?collection(db,'leaveApplications'):query(collection(db,'leaveApplications'),where('employeeUid','==',uid));
-    state.unsubs.push(onSnapshot(dq,s=>{state.dtr=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderDtr();renderDashboard()},syncError));
-    state.unsubs.push(onSnapshot(lq,s=>{state.leaves=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderLeave();renderDashboard()},syncError));
+    state.unsubs.push(onSnapshot(dq,s=>{state.dtr=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderDtr();touchRefresh();renderDashboard()},syncError));
+    state.unsubs.push(onSnapshot(lq,s=>{state.leaves=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderLeave();touchRefresh();renderDashboard()},syncError));
   }
 
   if(hasRole('Employee','HR/Admin','School Head','Administrator')){
     const tq=hasRole('HR/Admin','School Head','Administrator')?collection(db,'trainingRecords'):query(collection(db,'trainingRecords'),where('employeeUid','==',uid));
     const pq=hasRole('HR/Admin','School Head','Administrator')?collection(db,'performanceRecords'):query(collection(db,'performanceRecords'),where('employeeUid','==',uid));
-    state.unsubs.push(onSnapshot(tq,s=>{state.trainings=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderTraining();renderDashboard()},syncError));
-    state.unsubs.push(onSnapshot(pq,s=>{state.performances=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderPerformance();renderDashboard()},syncError));
+    state.unsubs.push(onSnapshot(tq,s=>{state.trainings=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderTraining();touchRefresh();renderDashboard()},syncError));
+    state.unsubs.push(onSnapshot(pq,s=>{state.performances=s.docs.map(d=>({id:d.id,...d.data()})).sort(byCreated);renderPerformance();touchRefresh();renderDashboard()},syncError));
   }
 
   if(hasRole('HR/Admin','School Head','Administrator')){
@@ -2305,6 +2359,7 @@ $('walkInEquipmentForm').onsubmit=async e=>{
   if(!payload.requestedItem||!payload.date||!payload.due||!payload.purpose){
     return toast('Complete the required walk-in equipment fields.');
   }
+  if(payload.due<payload.date)return toast('Expected return cannot be before the date borrowed.');
 
   if(status==='Borrowed'){
     payload.releasedByUid=state.user.uid;
@@ -2494,6 +2549,7 @@ $('recordEditForm').onsubmit=async e=>{
         payload.accessories=$('edBorrowAccessories')?.value.trim()||'';
       }
       if(!payload.requestedItem||!payload.date||!payload.due||!payload.purpose)throw new Error('Complete the required equipment fields.');
+      if(payload.due<payload.date)throw new Error('Expected return cannot be before the borrowing date.');
     }
 
     if(module==='dtr'){
@@ -2915,6 +2971,7 @@ window.showRIS=id=>{
 
 $('borrowForm').onsubmit=async e=>{
   e.preventDefault();
+  if(!$('brDate').value||!$('brDue').value||$('brDue').value<$('brDate').value)return toast('Enter a valid borrowing date and expected return date.');
 
   // Manual staff encoding/release is handled exclusively by Walk-In Equipment.
   if(hasRole('Property Custodian','Administrator')){
@@ -3560,8 +3617,8 @@ async function computeLedger(emp,profile,through){
   let vl=Number(profile?.openingVL)||0,sl=Number(profile?.openingSL)||0,vsc=Number(profile?.openingVSC)||0;const rows=[];
   const vlAcc=Number(state.settings.monthlyVLAccrual??1.25),slAcc=Number(state.settings.monthlySLAccrual??1.25);
   for(const month of months){
-    const approved=state.leaves.filter(l=>l.masterEmployeeId===emp.id&&String(l.status).toUpperCase()==='APPROVED'&&leaveMonth(l)===month);
-    const dtr=state.dtr.find(r=>r.masterEmployeeId===emp.id&&r.month===month);
+    const approved=state.leaves.filter(isVisibleRecord).filter(l=>l.masterEmployeeId===emp.id&&String(l.status).toUpperCase()==='APPROVED'&&leaveMonth(l)===month);
+    const dtr=state.dtr.find(r=>isVisibleRecord(r)&&r.masterEmployeeId===emp.id&&r.month===month);
     let vlUsed=0,slUsed=0,vscUsed=0;const particulars=[];
     approved.forEach(l=>{const days=Number(l.workingDays||l.days)||0,charge=resolveApprovedLeaveCharge(l,basis);if(charge==='VL')vlUsed+=days;else if(charge==='SL')slUsed+=days;else if(charge==='VSC')vscUsed+=days;particulars.push(`${l.leaveType||l.type}: ${days} day(s)`)});
     const attendanceEq=Number(dtr?.totalAttendanceEquivalent)||0;
@@ -4068,7 +4125,12 @@ function renderMonthlyHrSummary(){renderSavedRequiredReports();
 }
 $('hrReportMonth').onchange=renderMonthlyHrSummary;
 $('saveMonthlyHrBtn').onclick=async()=>{const month=$('hrReportMonth').value||today().slice(0,7),rows=state.dtr.filter(isVisibleRecord).filter(r=>r.month===month),nt=withoutPayRows(month,'nonteaching').length,t=withoutPayRows(month,'teaching').length;await setDoc(doc(db,'savedDtrReports',month),{month,count:rows.length,withoutPayNonTeachingHead:nt,withoutPayTeaching:t,savedAt:serverTimestamp(),savedByUid:state.user.uid},{merge:true});await audit('Consolidated HR','Saved monthly DTR report snapshot',month);toast('Monthly DTR report snapshot saved.')};
-function csvEscape(v){const s=String(v??'');return /[",\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s}
+function csvEscape(v){
+  let s=String(v??'');
+  // Prevent spreadsheet applications from evaluating exported user text as a formula.
+  if(/^[\s\uFEFF]*[=+@\-]/.test(s))s="'"+s;
+  return /[",\n\r]/.test(s)?`"${s.replace(/"/g,'""')}"`:s;
+}
 function downloadCsv(name,rows){if(!rows.length)return toast('No data to export.');const headers=Object.keys(rows[0]),csv=[headers.join(','),...rows.map(r=>headers.map(h=>csvEscape(r[h])).join(','))].join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 $('exportDtrSummaryBtn').onclick=()=>{const month=$('hrReportMonth').value||today().slice(0,7),rows=state.dtr.filter(isVisibleRecord).filter(r=>r.month===month).map(r=>({Employee:r.employeeName,Month:r.month,Status:r.status,'Tardy Eq':r.tardinessEquivalent||0,'Undertime Eq':r.undertimeEquivalent||0,'Total Eq':r.totalAttendanceEquivalent||0,'Pay Status':r.payStatus||'','Leave Charge':r.leaveChargeType||'',Remarks:r.remarks||''}));downloadCsv(`DTR-Summary-${month}.csv`,rows)};
 $('exportLeaveRegisterBtn').onclick=()=>{const month=$('hrReportMonth').value||today().slice(0,7),rows=state.leaves.filter(isVisibleRecord).filter(r=>String(r.from||r.filingDate||'').slice(0,7)===month).map(r=>({Employee:r.employeeName,'Leave Type':r.leaveType||r.type,From:r.from,To:r.to,'Working Days':r.workingDays||'',Status:r.status,Source:r.source||'',Remarks:r.remarks||''}));downloadCsv(`Leave-Register-${month}.csv`,rows)};
@@ -4179,7 +4241,7 @@ $('leaveForm').onsubmit=async e=>{
   const no=existing?.leaveNo||await nextRefNo('LV');
   const payload={
     leaveNo:no,
-    employeeUid:existing?.employeeUid||emp.linkedUserUid||state.user.uid,
+    employeeUid:existing?.employeeUid||(manager?(emp.linkedUserUid||''):state.user.uid),
     masterEmployeeId:existing?.masterEmployeeId||emp.masterEmployeeId||'',
     employeeName:`${$('lvFirstName').value.trim()} ${$('lvMiddleName').value.trim()} ${$('lvLastName').value.trim()}`.replace(/\s+/g,' ').trim()||emp.displayName,
     employeeOffice:$('lvOffice').value.trim(),employeePosition:$('lvPosition').value.trim(),employeeEmail:existing?.employeeEmail||emp.email||'',
@@ -4313,7 +4375,7 @@ $('globalSearch').addEventListener('keydown',e=>{if(e.key!=='Enter')return;const
 
 function renderAudit(){$('auditBody').innerHTML=state.audit.map(r=>`<tr><td>${fmtTs(r.createdAt)}</td><td>${safe(r.actorName||r.actorEmail)}</td><td>${safe(r.actorRole)}</td><td>${safe(r.module)}</td><td>${safe(r.action)}</td><td>${safe(r.reference||'')}</td></tr>`).join('')||'<tr><td colspan="6" class="muted">No audit records.</td></tr>'}
 function renderRecent(){if(!hasRole('School Head','Administrator'))return $('recentActivity').textContent='Your records are synchronized with Firestore. Detailed audit viewing is restricted to management roles.';$('recentActivity').innerHTML=state.audit.slice(0,6).map(r=>`<div style="padding:7px 0;border-bottom:1px solid #edf1f5"><b>${safe(r.module)}</b> — ${safe(r.action)} <span class="muted">(${safe(r.actorName||r.actorEmail)} · ${fmtTs(r.createdAt)})</span></div>`).join('')||'No recent activity.'}
-function renderDashboard(){touchRefresh();if(hasRole('Administrator'))renderAdminDashboard();else renderUserDashboard();renderPhase3Panels()}
+function renderDashboard(){if(hasRole('Administrator'))renderAdminDashboard();else renderUserDashboard();renderPhase3Panels()}
 
 $('editProfileBtn').onclick=openProfileEditor;
 $('profileModalX').onclick=closeProfileEditor;
@@ -4599,6 +4661,7 @@ function init(){
 
       if(!user){
         clearSubs();
+        resetSessionData();
         state.user=null;
         state.profile=null;
         $('app').classList.add('hidden');
